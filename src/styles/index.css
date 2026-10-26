@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+main {
+  padding: 24px;
+}
+
+img {
+  max-width: 100%;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
