@@ -1,0 +1,83 @@
+.card {
+    width: 280px;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+.card-img-box {
+    position: relative;
+}
+
+.card-img-box img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.btn-heart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.card-info {
+    padding: 14px;
+}
+
+.card-info h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+}
+
+.card-meta {
+    margin: 0 0 10px;
+    font-size: 13px;
+    color: #666;
+}
+
+.card-price {
+    margin: 0 0 14px;
+}
+
+.card-price strong {
+    font-size: 18px;
+    color: #111;
+}
+
+.card-price span {
+    font-size: 13px;
+    color: #777;
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.card-actions button {
+    flex: 1;
+    padding: 9px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-cart {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.btn-buy {
+    background: #3e503c;
+    color: white;
+}
