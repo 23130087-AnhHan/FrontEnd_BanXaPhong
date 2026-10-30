@@ -1,12 +1,9 @@
-import ProductCard from '../components/ProductCard'
+import ProductList from '../components/ProductList'
 import '../styles/HomePage.css'
 export default function HomePage() {
     return (
         <div class='product-list'>
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            <ProductList />
         </div>
     )
 }
