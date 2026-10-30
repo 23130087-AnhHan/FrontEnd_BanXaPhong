@@ -1,6 +1,5 @@
-// Render trực tiếp định nghĩa icon Font Awesome, không cần font hoặc thư viện render.
 export default function Icon({ icon, className }) {
-  const [width, height, , , pathData] = icon.icon
+  const [width, height, , , path] = icon.icon
 
   return (
     <svg
@@ -10,7 +9,7 @@ export default function Icon({ icon, className }) {
       aria-hidden="true"
       focusable="false"
     >
-      {[].concat(pathData).map((path, index) => <path key={index} d={path} />)}
+      <path d={path} />
     </svg>
   )
 }
