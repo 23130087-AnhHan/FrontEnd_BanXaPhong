@@ -1,8 +1,14 @@
-import HomePage from "./pages/HomePage"
+import Header from './components/Header'
+import HomePage from './pages/HomePage'
+
 export default function App() {
   return (
-    <main >
-      <HomePage />
-    </main>
+    <>
+      {/* Số lượng mẫu theo thiết kế Figma, thay bằng dữ liệu giỏ hàng khi tích hợp. */}
+      <Header cartCount={2} />
+      <main>
+        <HomePage />
+      </main>
+    </>
   )
 }
