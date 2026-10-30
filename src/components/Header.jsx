@@ -3,9 +3,9 @@ import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons/faBagShopping'
 import { faHeart } from '@fortawesome/free-regular-svg-icons/faHeart'
-import { faUser } from '@fortawesome/free-regular-svg-icons/faUser'
 import logo from '../assets/saponi-logo.png'
 import Icon from './Icon'
+import AccountDropdown from './AccountDropdown'
 import './Header.css'
 
 const navigation = [
@@ -87,9 +87,7 @@ export default function Header({ activePage = 'home', cartCount = 0 }) {
               </span>
             )}
           </a>
-          <a className="header-account" href="/tai-khoan" aria-label="Tài khoản">
-            <Icon icon={faUser} />
-          </a>
+          <AccountDropdown />
         </div>
       </div>
     </header>
