@@ -13,7 +13,9 @@
   text-decoration: none;
 }
 
-.header button {
+.header-search button,
+.header-menu,
+.header-account {
   border: 0;
   padding: 0;
   background: transparent;
@@ -112,7 +114,8 @@
 }
 
 .header-search button,
-.header-actions a {
+.header-actions > a,
+.header-account {
   display: grid;
   place-items: center;
 }
@@ -135,13 +138,15 @@
   gap: 22px;
 }
 
-.header-actions a {
+.header-actions > a,
+.header-account {
   position: relative;
   width: 32px;
   height: 36px;
 }
 
-.header-actions a:hover {
+.header-actions > a:hover,
+.header-account:hover {
   opacity: 0.75;
 }
 
