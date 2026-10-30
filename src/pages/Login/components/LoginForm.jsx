@@ -1,9 +1,19 @@
+import { useState } from 'react'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
+import { faEye } from '@fortawesome/free-solid-svg-icons/faEye'
+import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash'
+import Icon from '../../../components/Icon'
 import './LoginForm.css'
 
 export default function LoginForm() {
+    const [showPassword, setShowPassword] = useState(false)
+
     return (
         <div className="login-box">
-            <a href="/" className="back-link"> Về trang chủ</a>
+            <a href="/" className="back-link">
+                <Icon icon={faArrowLeft} />
+                <span>Về trang chủ</span>
+            </a>
 
             <h2 className="login-title">Chào mừng bạn trở lại</h2>
             <p className="login-desc">
@@ -22,10 +32,18 @@ export default function LoginForm() {
                 </div>
 
                 <div className="form-item">
-                    <label>Mật khẩu</label>
+                    <label htmlFor="login-password">Mật khẩu</label>
                     <div className="password-box">
-                        <input type="password" placeholder="Nhập mật khẩu" />
-                        <button type="button" className="btn-eye"></button>
+                        <input id="login-password" type={showPassword ? 'text' : 'password'} placeholder="Nhập mật khẩu" />
+                        <button
+                            type="button"
+                            className="btn-eye"
+                            aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
+                            aria-controls="login-password"
+                            onClick={() => setShowPassword((visible) => !visible)}
+                        >
+                            <Icon icon={showPassword ? faEyeSlash : faEye} />
+                        </button>
                     </div>
                 </div>
 

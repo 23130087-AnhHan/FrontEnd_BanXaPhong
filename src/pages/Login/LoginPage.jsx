@@ -1,6 +1,6 @@
-import AuthLeftPanel from '../components/AuthLeftPanel'
-import LoginForm from '../components/LoginForm'
-import '../styles/LoginPage.css'
+import AuthLeftPanel from '../../components/AuthLeftPanel'
+import LoginForm from './components/LoginForm'
+import './LoginPage.css'
 
 export default function LoginPage() {
     return (
