@@ -1,4 +1,5 @@
 import AuthLeftPanel from '../components/AuthLeftPanel'
+import LoginForm from '../components/LoginForm'
 import '../styles/LoginPage.css'
 
 export default function LoginPage() {
@@ -6,8 +7,8 @@ export default function LoginPage() {
         <div className="auth-layout">
             <AuthLeftPanel />
             <div className="auth-form-side">
+                <LoginForm />
             </div>
         </div>
     )
 }
-

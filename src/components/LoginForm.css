@@ -1,0 +1,172 @@
+.login-box {
+    width: 100%;
+    font-family: sans-serif;
+    color: #333;
+}
+
+.back-link {
+    display: inline-block;
+    font-size: 13px;
+    color: #666;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.back-link:hover {
+    color: #2b3b2c;
+}
+
+.login-title {
+    margin: 0 0 10px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #111;
+}
+
+.login-desc {
+    margin: 0 0 24px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.login-tabs {
+    display: flex;
+    background: #eae6df;
+    padding: 4px;
+    border-radius: 10px;
+    margin-bottom: 24px;
+    gap: 4px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+}
+
+.tab-btn.active {
+    background: #fff;
+    color: #111;
+    font-weight: bold;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.form-item {
+    margin-bottom: 18px;
+}
+
+.form-item label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-item input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #dcd7ce;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+    outline: none;
+}
+
+.form-item input:focus {
+    border-color: #2b3b2c;
+}
+
+.password-box {
+    position: relative;
+}
+
+.password-box input {
+    padding-right: 44px;
+}
+
+.btn-eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    color: #888;
+    padding: 4px;
+}
+
+.form-actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    font-size: 13px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #333;
+    cursor: pointer;
+}
+
+.remember-me input {
+    accent-color: #2b3b2c;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.forgot-link {
+    color: #666;
+    text-decoration: none;
+}
+
+.forgot-link:hover {
+    color: #2b3b2c;
+    text-decoration: underline;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 13px;
+    background: #2b3b2c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1f2c20;
+}
+
+.register-prompt {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 13px;
+    color: #666;
+}
+
+.register-prompt a {
+    color: #111;
+    font-weight: bold;
+    text-decoration: underline;
+}
