@@ -1,6 +1,5 @@
 .register-box {
     width: 100%;
-    padding-top: 16px;
     font-family: sans-serif;
     color: #333;
 }
@@ -155,11 +154,4 @@
 .register-login-prompt a {
     color: #111;
     font-weight: bold;
-}
-
-@media (max-width: 540px) {
-    .register-box {
-        padding-top: 0;
-    }
-
 }

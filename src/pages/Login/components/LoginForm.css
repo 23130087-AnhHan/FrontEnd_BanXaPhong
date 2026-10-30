@@ -4,26 +4,6 @@
     color: #333;
 }
 
-.back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: #666;
-    text-decoration: none;
-    margin-bottom: 20px;
-}
-
-.back-link svg {
-    width: 1em;
-    height: 1em;
-    flex-shrink: 0;
-}
-
-.back-link:hover {
-    color: #2b3b2c;
-}
-
 .login-desc {
     margin: 0 0 24px;
     font-size: 13px;

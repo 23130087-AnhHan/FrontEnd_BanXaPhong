@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
+import { Link } from 'react-router-dom'
 import { faEye } from '@fortawesome/free-solid-svg-icons/faEye'
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash'
 import Icon from '../../../components/Icon'
@@ -10,11 +10,6 @@ export default function LoginForm() {
 
     return (
         <div className="login-box">
-            <a href="/" className="back-link">
-                <Icon icon={faArrowLeft} />
-                <span>Về trang chủ</span>
-            </a>
-
             <h2 className="auth-title">Chào mừng bạn trở lại</h2>
             <p className="login-desc">
                 Đăng nhập để theo dõi đơn hàng và lưu lại những sản phẩm dịu lành bạn yêu thích.
@@ -22,7 +17,7 @@ export default function LoginForm() {
 
             <nav className="auth-tabs" aria-label="Tài khoản">
                 <button type="button" className="auth-tab active" aria-current="page">Đăng nhập</button>
-                <a href="/register" className="auth-tab">Đăng ký</a>
+                <Link to="/register" className="auth-tab">Đăng ký</Link>
             </nav>
 
             <form className="login-form">
@@ -61,7 +56,7 @@ export default function LoginForm() {
             </form>
 
             <p className="register-prompt">
-                Bạn chưa có tài khoản? <a href="/register">Đăng ký ngay</a>
+                Bạn chưa có tài khoản? <Link to="/register">Đăng ký ngay</Link>
             </p>
         </div>
     )

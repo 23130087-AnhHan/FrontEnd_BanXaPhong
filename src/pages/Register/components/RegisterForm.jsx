@@ -1,9 +1,15 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight'
+import { faEye } from '@fortawesome/free-solid-svg-icons/faEye'
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash'
 import Icon from '../../../components/Icon'
 import './RegisterForm.css'
 
 export default function RegisterForm() {
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
     return (
         <section className="register-box" aria-labelledby="register-title">
             <h1 id="register-title" className="auth-title">Tạo tài khoản mới</h1>
@@ -12,7 +18,7 @@ export default function RegisterForm() {
             </p>
 
             <nav className="auth-tabs" aria-label="Tài khoản">
-                <a href="/login" className="auth-tab">Đăng nhập</a>
+                <Link to="/login" className="auth-tab">Đăng nhập</Link>
                 <button type="button" className="auth-tab active" aria-current="page">Đăng ký</button>
             </nav>
 
@@ -42,7 +48,7 @@ export default function RegisterForm() {
                     <div className="register-password">
                         <input
                             id="register-password"
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             autoComplete="new-password"
                             placeholder="Tạo mật khẩu"
                             aria-describedby="register-password-hint"
@@ -50,10 +56,11 @@ export default function RegisterForm() {
                         <button
                             type="button"
                             className="register-eye"
-                            aria-label="Hiện mật khẩu"
+                            aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
                             aria-controls="register-password"
+                            onClick={() => setShowPassword((visible) => !visible)}
                         >
-                            <Icon icon={faEyeSlash} />
+                            <Icon icon={showPassword ? faEyeSlash : faEye} />
                         </button>
                     </div>
                     <p id="register-password-hint" className="register-hint">
@@ -66,17 +73,18 @@ export default function RegisterForm() {
                     <div className="register-password">
                         <input
                             id="register-confirm-password"
-                            type="password"
+                            type={showConfirmPassword ? 'text' : 'password'}
                             autoComplete="new-password"
                             placeholder="Nhập lại mật khẩu"
                         />
                         <button
                             type="button"
                             className="register-eye"
-                            aria-label="Hiện mật khẩu xác nhận"
+                            aria-label={showConfirmPassword ? 'Ẩn mật khẩu xác nhận' : 'Hiện mật khẩu xác nhận'}
                             aria-controls="register-confirm-password"
+                            onClick={() => setShowConfirmPassword((visible) => !visible)}
                         >
-                            <Icon icon={faEyeSlash} />
+                            <Icon icon={showConfirmPassword ? faEyeSlash : faEye} />
                         </button>
                     </div>
                 </div>
@@ -96,7 +104,7 @@ export default function RegisterForm() {
             </form>
 
             <p className="register-login-prompt">
-                Bạn đã có tài khoản? <a href="/login">Đăng nhập</a>
+                Bạn đã có tài khoản? <Link to="/login">Đăng nhập</Link>
             </p>
         </section>
     )
