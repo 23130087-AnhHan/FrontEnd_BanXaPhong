@@ -15,15 +15,15 @@ export default function LoginForm() {
                 <span>Về trang chủ</span>
             </a>
 
-            <h2 className="login-title">Chào mừng bạn trở lại</h2>
+            <h2 className="auth-title">Chào mừng bạn trở lại</h2>
             <p className="login-desc">
                 Đăng nhập để theo dõi đơn hàng và lưu lại những sản phẩm dịu lành bạn yêu thích.
             </p>
 
-            <div className="login-tabs">
-                <button type="button" className="tab-btn active">Đăng nhập</button>
-                <a href="/register" className="tab-btn">Đăng ký</a>
-            </div>
+            <nav className="auth-tabs" aria-label="Tài khoản">
+                <button type="button" className="auth-tab active" aria-current="page">Đăng nhập</button>
+                <a href="/register" className="auth-tab">Đăng ký</a>
+            </nav>
 
             <form className="login-form">
                 <div className="form-item">

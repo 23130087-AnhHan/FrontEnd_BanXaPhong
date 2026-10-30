@@ -24,49 +24,11 @@
     color: #2b3b2c;
 }
 
-.login-title {
-    margin: 0 0 10px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #111;
-}
-
 .login-desc {
     margin: 0 0 24px;
     font-size: 13px;
     line-height: 1.5;
     color: #666;
-}
-
-.login-tabs {
-    display: flex;
-    background: #eae6df;
-    padding: 4px;
-    border-radius: 10px;
-    margin-bottom: 24px;
-    gap: 4px;
-}
-
-.tab-btn {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    background: transparent;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #666;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-}
-
-.tab-btn.active {
-    background: #fff;
-    color: #111;
-    font-weight: bold;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .form-item {
