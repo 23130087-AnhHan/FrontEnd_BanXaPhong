@@ -87,6 +87,45 @@ const newProducts = [
     }
 ];
 
+const mostView = [
+    {
+        id: 1,
+        name: 'Xà phòng Oải hương hữu cơ',
+        price: 185000,
+        unit: 'bánh 100g',
+        rating: 4.9,
+        soldCount: '1.2k',
+        image: 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg',
+    },
+    {
+        id: 2,
+        name: 'Xà phòng Đất sét hoa hồng',
+        price: 195000,
+        unit: 'bánh 100g',
+        rating: 5.0,
+        soldCount: '2.4k',
+        image: 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg',
+    },
+    {
+        id: 3,
+        name: 'Xà phòng Bạc hà than tre',
+        price: 175000,
+        unit: 'bánh 100g',
+        rating: 4.8,
+        soldCount: '890',
+        image: 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg',
+    },
+    {
+        id: 4,
+        name: 'Xà phòng Mật Ong Rừng & Yến',
+        price: 165000,
+        unit: 'bánh 100g',
+        rating: 4.9,
+        soldCount: '1.1k',
+        image: 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg',
+    }
+];
+
 export default function HomePage() {
     return (
         <div className="product-list">
@@ -97,6 +136,10 @@ export default function HomePage() {
             <ProductList
                 content={{ badge: 'MỚI RA MẮT', title: 'Top sản phẩm mới nhất' }}
                 products={newProducts}
+            />
+            <ProductList
+                content={{ badge: 'ĐƯỢC XEM NHIỀU', title: 'Top sản phẩm được được xem nhiều nhất' }}
+                products={mostView}
             />
         </div>
     )
