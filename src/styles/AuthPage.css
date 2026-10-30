@@ -1,0 +1,64 @@
+.auth-layout {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 80px;
+    padding: 60px 40px 100px;
+    background-color: #faf8f5;
+    min-height: calc(100vh - 220px);
+}
+
+.auth-form-side {
+    width: 440px;
+    max-width: 100%;
+    flex-shrink: 0;
+}
+
+.auth-title {
+    margin: 0 0 10px;
+    color: #111;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+.auth-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    margin-bottom: 24px;
+    border-radius: 10px;
+    background: #eae6df;
+}
+
+.auth-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #666;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.auth-tab.active {
+    background: #fff;
+    color: #111;
+    font-weight: bold;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.auth-tab:focus-visible {
+    outline: 2px solid #2b3b2c;
+    outline-offset: 2px;
+}

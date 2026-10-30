@@ -1,0 +1,157 @@
+.register-box {
+    width: 100%;
+    font-family: sans-serif;
+    color: #333;
+}
+
+.register-description {
+    margin: 0 0 24px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.register-field {
+    margin-bottom: 18px;
+}
+
+.register-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.register-field input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid #dcd7ce;
+    border-radius: 8px;
+    background: #fff;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.5;
+    outline: none;
+}
+
+.register-field input:focus {
+    border-color: #2b3b2c;
+}
+
+.register-password {
+    position: relative;
+}
+
+.register-password input {
+    padding-right: 48px;
+}
+
+.register-eye {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 7px;
+    transform: translateY(-50%);
+    border: none;
+    border-radius: 4px;
+    background: none;
+    color: #888;
+    cursor: pointer;
+}
+
+.register-eye svg {
+    width: 18px;
+    height: 18px;
+}
+
+.register-eye:hover {
+    color: #2b3b2c;
+}
+
+.register-hint {
+    margin: 8px 0 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #888;
+}
+
+.register-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 22px 0;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #777;
+}
+
+.register-consent input {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin: 1px 0 0;
+    accent-color: #2b3b2c;
+    cursor: pointer;
+}
+
+.register-consent label {
+    cursor: pointer;
+}
+
+.register-consent a,
+.register-login-prompt a {
+    color: #2b3b2c;
+    font-weight: 600;
+    text-underline-offset: 2px;
+}
+
+.register-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 13px 16px;
+    border: none;
+    border-radius: 7px;
+    background: #2b3b2c;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.register-submit svg {
+    width: 14px;
+    height: 14px;
+}
+
+.register-submit:hover {
+    background: #1f2c20;
+}
+
+.register-eye:focus-visible,
+.register-submit:focus-visible,
+.register-box a:focus-visible {
+    outline: 2px solid #2b3b2c;
+    outline-offset: 3px;
+}
+
+.register-login-prompt {
+    margin: 24px 0 0;
+    color: #666;
+    font-size: 13px;
+    text-align: center;
+}
+
+.register-login-prompt a {
+    color: #111;
+    font-weight: bold;
+}
