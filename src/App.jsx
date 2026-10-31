@@ -6,6 +6,7 @@ import LoginPage from './pages/Login/LoginPage'
 import RegisterPage from './pages/Register/RegisterPage'
 import AccountProfilePage from './pages/AccountProfile/AccountProfilePage'
 import ChangePasswordPage from './pages/ChangePassword/ChangePasswordPage'
+import ProFilter from './pages/ProductFilter/ProFilter'
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/san-pham" element={<ProFilter />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/tai-khoan" element={<AccountProfilePage />} />
           <Route path="/tai-khoan/doi-mat-khau" element={<ChangePasswordPage />} />
