@@ -1,6 +1,52 @@
 import ProListFilter from "./components/ProListFilter";
+import CheckboxFilter from "./components/CheckboxFilter";
+import Title from "./components/Title";
+import "./ProFilter.css";
 
 export default function ProFilter() {
+
+    const title1 = {
+        id: 1, name: 'Danh mục'
+    };
+    const title2 = {
+        id: 2, name: 'Loại da'
+    };
+    const title3 = {
+        id: 3, name: 'Khoảng giá'
+    };
+    const title4 = {
+        id: 4, name: 'Đánh giá'
+    };
+
+    const categoryItems = [
+        { id: 1, content: 'Xà phòng tắm thảo mộc' },
+        { id: 2, content: 'Xà phòng rửa mặt dưỡng ẩm' },
+        { id: 3, content: 'Xà phòng tẩy tế bào chết' },
+        { id: 4, content: 'Bánh gội đầu thảo dược' },
+        { id: 5, content: 'Xà phòng cho da nhạy cảm' },
+    ];
+
+    const skinTypeItems = [
+        { id: 6, content: 'Da thường' },
+        { id: 7, content: 'Da khô' },
+        { id: 8, content: 'Da dầu & Mụn' },
+        { id: 9, content: 'Da nhạy cảm' },
+    ];
+
+    const priceItems = [
+        { id: 10, content: 'Dưới 150.000 đ' },
+        { id: 11, content: '150.000 đ - 180.000 đ' },
+        { id: 12, content: '180.000 đ - 200.000 đ' },
+        { id: 13, content: 'Trên 200.000 đ' },
+    ];
+
+    const ratingItems = [
+        { id: 14, content: '5 sao' },
+        { id: 15, content: 'Từ 4 sao' },
+        { id: 16, content: 'Từ 3 sao' },
+        { id: 17, content: 'Từ 2 sao' },
+        { id: 18, content: 'Từ 1 sao' },
+    ];
 
     const products = [
         {
@@ -120,9 +166,48 @@ export default function ProFilter() {
             image: 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg',
         }
     ];
+
     return (
-        <div>
-            <ProListFilter products={products} />
+        <div className="pro-filter-container">
+            <div className="filter-sidebar">
+                <div className="filter-main-title">
+                    <span>Bộ lọc tìm kiếm</span>
+                </div>
+
+                <div className="filter-section">
+                    <Title title={title1} />
+                    <CheckboxFilter items={categoryItems} />
+                </div>
+
+                <div className="filter-section">
+                    <Title title={title2} />
+                    <CheckboxFilter items={skinTypeItems} />
+                </div>
+
+                <div className="filter-section">
+                    <Title title={title3} />
+                    <div className="price-inputs">
+                        <input type="number" placeholder="120000" defaultValue="120000" />
+                        <span>-</span>
+                        <input type="number" placeholder="250000" defaultValue="250000" />
+                    </div>
+                    <CheckboxFilter items={priceItems} />
+                </div>
+
+                <div className="filter-section">
+                    <Title title={title4} />
+                    <CheckboxFilter items={ratingItems} />
+                </div>
+
+                <div className="filter-actions">
+                    <button type="button" className="btn-filter-reset">Đặt lại</button>
+                    <button type="button" className="btn-filter-apply">Áp dụng</button>
+                </div>
+            </div>
+
+            <div className="product-content-area">
+                <ProListFilter products={products} />
+            </div>
         </div>
-    )
+    );
 }
