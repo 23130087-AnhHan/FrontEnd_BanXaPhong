@@ -1,5 +1,34 @@
-import ProductList from '../components/ProductList'
-import '../styles/HomePage.css'
+import ProductList from '../../components/ProductList'
+import Banner from './components/Banner'
+import bannerImg from '../../assets/img/banner.png'
+import { faLeaf, faShieldHalved, faHandSparkles } from '@fortawesome/free-solid-svg-icons'
+import '../../styles/HomePage.css'
+import Feature from './components/Feature'
+
+const banner = [
+    {
+        id: 1,
+        image: bannerImg
+    }
+]
+
+const feature = [
+    {
+        id: 1,
+        icon: faLeaf,
+        content: '100% Tự nhiên'
+    },
+    {
+        id: 2,
+        icon: faShieldHalved,
+        content: 'Không chất bảo quản'
+    },
+    {
+        id: 3,
+        icon: faHandSparkles,
+        content: 'Chế tác thủ công'
+    }
+]
 
 const bestSellers = [
     {
@@ -129,6 +158,14 @@ const mostView = [
 export default function HomePage() {
     return (
         <div className="product-list">
+            <Banner
+                banner={banner[0]}
+            />
+
+            <Feature
+                feature={feature}
+            />
+
             <ProductList
                 content={{ badge: 'BÁN CHẠY', title: 'Top sản phẩm bán chạy nhất' }}
                 products={bestSellers}
