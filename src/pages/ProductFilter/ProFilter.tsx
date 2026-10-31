@@ -2,6 +2,7 @@ import ProListFilter from "./components/ProListFilter";
 import CheckboxFilter from "./components/CheckboxFilter";
 import Title from "./components/Title";
 import "./ProFilter.css";
+import SelectSort from "./components/Select";
 
 export default function ProFilter() {
 
@@ -166,7 +167,20 @@ export default function ProFilter() {
             image: 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg',
         }
     ];
-
+    const selectSort = [
+        {
+            id: 1,
+            content: 'Phổ biến nhất'
+        },
+        {
+            id: 2,
+            content: 'Bán chạy nhất'
+        },
+        {
+            id: 3,
+            content: 'Sản phẩm mới'
+        },
+    ]
     return (
         <div className="pro-filter-container">
             <div className="filter-sidebar">
@@ -206,6 +220,12 @@ export default function ProFilter() {
             </div>
 
             <div className="product-content-area">
+                <div className="product-content-header">
+                    <div className="select-feature">
+                        <span className="select-label">Sắp xếp:</span>
+                        <SelectSort content={selectSort} />
+                    </div>
+                </div>
                 <ProListFilter products={products} />
             </div>
         </div>
