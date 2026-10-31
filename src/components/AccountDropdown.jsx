@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { faUser } from '@fortawesome/free-regular-svg-icons/faUser'
 import { faHeart } from '@fortawesome/free-regular-svg-icons/faHeart'
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons/faBagShopping'
@@ -8,7 +9,6 @@ import Icon from './Icon'
 import './AccountDropdown.css'
 
 const items = [
-  { label: 'Hồ sơ cá nhân', icon: faUser },
   { label: 'Đơn hàng của tôi', icon: faBagShopping },
   { label: 'Sổ địa chỉ', icon: faLocationDot },
   { label: 'Sản phẩm đã thích', icon: faHeart },
@@ -61,6 +61,10 @@ export default function AccountDropdown() {
           </div>
 
           <div className="account-links">
+            <Link to="/tai-khoan" onClick={() => setIsOpen(false)}>
+              <Icon icon={faUser} />
+              Hồ sơ cá nhân
+            </Link>
             {items.map((item) => (
               <button key={item.label} type="button" onClick={() => setIsOpen(false)}>
                 <Icon icon={item.icon} />
