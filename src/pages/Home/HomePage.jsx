@@ -1,5 +1,14 @@
-import ProductList from '../components/ProductList'
-import '../styles/HomePage.css'
+import ProductList from '../../components/ProductList'
+import Banner from './components/Banner'
+import bannerImg from '../../assets/img/banner.png'
+import '../../styles/HomePage.css'
+
+const banner = [
+    {
+        id: 1,
+        image: bannerImg
+    }
+]
 
 const bestSellers = [
     {
@@ -129,6 +138,10 @@ const mostView = [
 export default function HomePage() {
     return (
         <div className="product-list">
+            <Banner
+                banner={banner[0]}
+            />
+
             <ProductList
                 content={{ badge: 'BÁN CHẠY', title: 'Top sản phẩm bán chạy nhất' }}
                 products={bestSellers}
