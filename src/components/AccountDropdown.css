@@ -17,7 +17,8 @@
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 10%), 0 8px 10px -6px rgb(0 0 0 / 10%);
 }
 
-.account-dropdown button {
+.account-dropdown button,
+.account-dropdown a {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -30,10 +31,12 @@
   font-weight: 600;
   line-height: 16px;
   text-align: left;
+  text-decoration: none;
   cursor: pointer;
 }
 
-.account-dropdown button:hover {
+.account-dropdown button:hover,
+.account-dropdown a:hover {
   background: #f5f3ef;
 }
 
