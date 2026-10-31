@@ -1,0 +1,86 @@
+.account-sidebar {
+  width: 240px;
+  max-width: 100%;
+  flex-shrink: 0;
+  align-self: start;
+  padding: 23px;
+  border: 1px solid #e4e2de;
+  border-radius: 12px;
+  background: #fbf9f5;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+}
+
+.account-sidebar h2 {
+  margin: 0 0 6px;
+  color: #1b1c1a;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 36px;
+}
+
+.account-sidebar p {
+  margin: 0 0 24px;
+  color: #71746c;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.account-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.account-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 11px;
+  border: 1px solid #e4e2de;
+  border-radius: 10px;
+  background: #fff;
+  color: #434843;
+  font-size: 15px;
+  line-height: 18px;
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.account-sidebar-item:hover,
+.account-sidebar-item[aria-current='page'] {
+  background: #f5f3ef;
+}
+
+.account-sidebar-item[aria-current='page'] {
+  border-color: transparent;
+  color: #334537;
+  font-weight: 600;
+}
+
+.account-sidebar-item:focus-visible {
+  outline: 2px solid #334537;
+  outline-offset: 2px;
+}
+
+.account-sidebar-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f5f3ef;
+}
+
+.account-sidebar-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.account-sidebar-item[aria-current='page'] .account-sidebar-icon {
+  background: #d3e8d5;
+}
