@@ -1,5 +1,5 @@
 .account-profile-page {
-  min-height: 818px;
+  min-height: 873px;
   margin: -24px;
   padding: 40px 48px 48px;
   background: #fbf9f5;
@@ -34,26 +34,6 @@
   align-items: flex-start;
   gap: 32px;
   margin-top: 32px;
-}
-
-.account-profile-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.account-profile-content h1 {
-  margin: 0 0 12px;
-  color: #1b1c1a;
-  font-size: 36px;
-  font-weight: 400;
-  line-height: 46px;
-}
-
-.account-profile-description {
-  margin: 0 0 24px;
-  color: #71746c;
-  font-size: 14px;
-  line-height: 23px;
 }
 
 @media (max-width: 767px) {

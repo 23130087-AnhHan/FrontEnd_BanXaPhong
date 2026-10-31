@@ -16,13 +16,7 @@ export default function AccountProfilePage() {
 
       <div className="account-profile-layout">
         <AccountSidebar activePage="profile" />
-        <section className="account-profile-content" aria-labelledby="profile-title">
-          <h1 id="profile-title">Thông tin cá nhân</h1>
-          <p className="account-profile-description">
-            Cập nhật thông tin liên hệ, số điện thoại và địa chỉ email để nhận thông báo đơn hàng và ưu đãi từ Saponi.
-          </p>
-          <ProfileForm />
-        </section>
+        <ProfileForm />
       </div>
     </div>
   )
