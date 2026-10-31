@@ -17,14 +17,14 @@ export default function ChangePasswordForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   return (
-    <form className="change-password-form" aria-labelledby="change-password-title">
-      <div className="change-password-heading">
+    <form className="account-form" aria-labelledby="change-password-title">
+      <div className="account-form-heading">
         <h1 id="change-password-title">Đổi mật khẩu</h1>
         <p>Cập nhật mật khẩu mới để tăng cường bảo mật cho tài khoản của bạn.</p>
       </div>
 
-      <div className="change-password-fields">
-        <div className="change-password-field">
+      <div className="account-form-fields">
+        <div className="account-field">
           <label htmlFor="current-password">Mật khẩu hiện tại</label>
           <div className="change-password-input">
             <input
@@ -45,7 +45,7 @@ export default function ChangePasswordForm() {
           </div>
         </div>
 
-        <div className="change-password-field">
+        <div className="account-field">
           <label htmlFor="new-password">Mật khẩu mới</label>
           <div className="change-password-input">
             <input
@@ -66,7 +66,7 @@ export default function ChangePasswordForm() {
           </div>
         </div>
 
-        <div className="change-password-field">
+        <div className="account-field">
           <label htmlFor="confirm-password">Xác nhận mật khẩu</label>
           <div className="change-password-input">
             <input
@@ -97,11 +97,11 @@ export default function ChangePasswordForm() {
         </ul>
       </div>
 
-      <div className="change-password-actions">
+      <div className="account-form-actions">
         <p>Mật khẩu mới sẽ được áp dụng ngay sau khi cập nhật.</p>
-        <div className="change-password-buttons">
+        <div className="account-form-buttons">
           <button type="reset">Huỷ</button>
-          <button type="button" className="change-password-submit">Cập nhật mật khẩu</button>
+          <button type="button" className="account-button-primary">Cập nhật mật khẩu</button>
         </div>
       </div>
     </form>
