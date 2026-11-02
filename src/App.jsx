@@ -7,6 +7,7 @@ import RegisterPage from './pages/Register/RegisterPage'
 import AccountProfilePage from './pages/AccountProfile/AccountProfilePage'
 import ChangePasswordPage from './pages/ChangePassword/ChangePasswordPage'
 import ProFilter from './pages/ProductFilter/ProFilter'
+import OfferProducts from './pages/OfferPro/OfferProducts'
 
 export default function App() {
   return (
@@ -16,7 +17,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/san-pham" element={<ProFilter />} />
+          <Route path="/products" element={<ProFilter />} />
+          <Route path="/offer" element={<OfferProducts />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/tai-khoan" element={<AccountProfilePage />} />
           <Route path="/tai-khoan/doi-mat-khau" element={<ChangePasswordPage />} />
