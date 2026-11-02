@@ -1,4 +1,5 @@
 import ProductList from '../../components/ProductList'
+import HomeTitle from '../../components/HomeTitle'
 import Banner from './components/Banner'
 import bannerImg from '../../assets/img/banner.png'
 import { faLeaf, faShieldHalved, faHandSparkles } from '@fortawesome/free-solid-svg-icons'
@@ -77,7 +78,7 @@ const bestSellers = [
     }
 ];
 
-const newProducts = [
+export const newProducts = [
     {
         id: 5,
         name: 'Xà phòng Than tre & Bạc hà',
@@ -166,16 +167,18 @@ export default function HomePage() {
                 feature={feature}
             />
 
+            <HomeTitle content={{ badge: 'BÁN CHẠY', title: 'Top sản phẩm bán chạy nhất' }} />
             <ProductList
-                content={{ badge: 'BÁN CHẠY', title: 'Top sản phẩm bán chạy nhất' }}
                 products={bestSellers}
             />
+
+            <HomeTitle content={{ badge: 'MỚI RA MẮT', title: 'Top sản phẩm mới nhất' }} />
             <ProductList
-                content={{ badge: 'MỚI RA MẮT', title: 'Top sản phẩm mới nhất' }}
                 products={newProducts}
             />
+
+            <HomeTitle content={{ badge: 'ĐƯỢC XEM NHIỀU', title: 'Top sản phẩm được được xem nhiều nhất' }} />
             <ProductList
-                content={{ badge: 'ĐƯỢC XEM NHIỀU', title: 'Top sản phẩm được được xem nhiều nhất' }}
                 products={mostView}
             />
         </div>

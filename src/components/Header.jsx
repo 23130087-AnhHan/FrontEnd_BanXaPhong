@@ -10,8 +10,8 @@ import './Header.css'
 
 const navigation = [
   { id: 'home', label: 'Trang chủ', href: '/' },
-  { id: 'products', label: 'Sản phẩm', href: '/san-pham' },
-  { id: 'offers', label: 'Ưu đãi', href: '/uu-dai' },
+  { id: 'products', label: 'Sản phẩm', href: '/products' },
+  { id: 'offers', label: 'Ưu đãi', href: '/offer' },
   { id: 'contact', label: 'Liên hệ', href: '/lien-he' },
 ]
 
