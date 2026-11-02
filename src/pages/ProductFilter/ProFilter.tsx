@@ -219,8 +219,8 @@ export default function ProFilter() {
                 </div>
             </div>
 
-            <div className="product-content-area">
-                <div className="product-content-header">
+            <div className="content-area">
+                <div className="content-header">
                     <div className="select-feature">
                         <span className="select-label">Sắp xếp:</span>
                         <SelectSort content={selectSort} />
