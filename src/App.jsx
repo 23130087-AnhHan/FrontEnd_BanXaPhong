@@ -4,6 +4,8 @@ import Footer from './components/Footer'
 import HomePage from './pages/Home/HomePage'
 import LoginPage from './pages/Login/LoginPage'
 import RegisterPage from './pages/Register/RegisterPage'
+import ForgotPasswordPage from './pages/ForgotPassword/ForgotPasswordPage'
+import ResetPasswordPage from './pages/ResetPassword/ResetPasswordPage'
 import AccountProfilePage from './pages/AccountProfile/AccountProfilePage'
 import ChangePasswordPage from './pages/ChangePassword/ChangePasswordPage'
 import ProFilter from './pages/ProductFilter/ProFilter'
@@ -20,6 +22,8 @@ export default function App() {
           <Route path="/products" element={<ProFilter />} />
           <Route path="/offer" element={<OfferProducts />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/tai-khoan" element={<AccountProfilePage />} />
           <Route path="/tai-khoan/doi-mat-khau" element={<ChangePasswordPage />} />
         </Routes>
