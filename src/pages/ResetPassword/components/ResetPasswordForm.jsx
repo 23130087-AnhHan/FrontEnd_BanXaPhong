@@ -12,6 +12,8 @@ export default function ResetPasswordForm() {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [isSuccess, setIsSuccess] = useState(false)
     const [error, setError] = useState('')
 
     function handleSubmit(e) {
@@ -27,6 +29,32 @@ export default function ResetPasswordForm() {
             setError('Mật khẩu xác nhận không khớp.')
             return
         }
+
+        setIsLoading(true)
+        setTimeout(() => {
+            setIsLoading(false)
+            setIsSuccess(true)
+        }, 500)
+    }
+
+    if (isSuccess) {
+        return (
+            <div className="reset-box">
+                <h2 className="auth-title">Đặt lại mật khẩu thành công</h2>
+                <p className="reset-desc">
+                    Mật khẩu của bạn đã được cập nhật. Bạn có thể đăng nhập bằng mật khẩu mới để tiếp tục hành trình dịu lành cùng Saponi.
+                </p>
+
+                <div className="reset-ready-card">
+                    <p className="ready-title">Tài khoản của bạn đã sẵn sàng</p>
+                    <p className="ready-desc">Hãy giữ mật khẩu mới an toàn và không chia sẻ với bất kỳ ai.</p>
+                </div>
+
+                <Link to="/login" className="btn-submit btn-login-link">
+                    Quay lại đăng nhập <Icon icon={faArrowRight} />
+                </Link>
+            </div>
+        )
     }
 
     return (
@@ -89,8 +117,8 @@ export default function ResetPasswordForm() {
 
                 {error && <p className="form-error">{error}</p>}
 
-                <button type="submit" className="btn-submit">
-                    Đặt lại mật khẩu <Icon icon={faArrowRight} />
+                <button type="submit" className="btn-submit" disabled={isLoading}>
+                    {isLoading ? 'Đang cập nhật...' : 'Đặt lại mật khẩu'} <Icon icon={faArrowRight} />
                 </button>
             </form>
         </div>
