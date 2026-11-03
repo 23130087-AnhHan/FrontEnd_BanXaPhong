@@ -47,7 +47,7 @@ export default function LoginForm() {
                         <input type="checkbox" defaultChecked />
                         <span>Ghi nhớ đăng nhập</span>
                     </label>
-                    <a href="/forgot-password" className="forgot-link">Quên mật khẩu?</a>
+                    <Link to="/forgot-password" className="forgot-link">Quên mật khẩu?</Link>
                 </div>
 
                 <button type="submit" className="btn-submit">
