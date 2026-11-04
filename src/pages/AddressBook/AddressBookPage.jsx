@@ -48,10 +48,10 @@ export default function AddressBookPage() {
               <p>Bạn đã lưu 3 địa chỉ giao hàng. Địa chỉ mặc định sẽ được sử dụng cho đơn hàng tiếp theo.</p>
             </div>
             <div className="address-add">
-              <button type="button" className="address-add-button">
+              <Link to="/tai-khoan/dia-chi/them-moi" className="address-add-button">
                 <Icon icon={faPlus} />
                 Thêm địa chỉ mới
-              </button>
+              </Link>
             </div>
           </div>
 
