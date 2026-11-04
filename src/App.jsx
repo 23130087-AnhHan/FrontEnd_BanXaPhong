@@ -12,6 +12,7 @@ import AddressBookPage from './pages/AddressBook/AddressBookPage'
 import AddAddressPage from './pages/AddAddress/AddAddressPage'
 import ProFilter from './pages/ProductFilter/ProFilter'
 import OfferProducts from './pages/OfferPro/OfferProducts'
+import ProductDetailPage from './pages/ProductDetail/ProductDetailPage'
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/products" element={<ProFilter />} />
+          <Route path="/products/:productId" element={<ProductDetailPage />} />
           <Route path="/offer" element={<OfferProducts />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
