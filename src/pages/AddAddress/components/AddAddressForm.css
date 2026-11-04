@@ -1,0 +1,52 @@
+.add-address-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.add-address-default {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 22px;
+  cursor: pointer;
+}
+
+.add-address-default input {
+  position: relative;
+  flex-shrink: 0;
+  appearance: none;
+  width: 44px;
+  height: 24px;
+  margin: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #334537;
+  cursor: pointer;
+}
+
+.add-address-default input::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.add-address-default input:checked::after {
+  transform: translateX(20px);
+}
+
+.add-address-actions {
+  justify-content: flex-end;
+}
+
+@media (max-width: 767px) {
+  .add-address-row {
+    grid-template-columns: 1fr;
+  }
+}

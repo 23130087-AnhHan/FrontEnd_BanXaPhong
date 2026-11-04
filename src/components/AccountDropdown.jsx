@@ -8,12 +8,6 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons/faArr
 import Icon from './Icon'
 import './AccountDropdown.css'
 
-const items = [
-  { label: 'Đơn hàng của tôi', icon: faBagShopping },
-  { label: 'Sổ địa chỉ', icon: faLocationDot },
-  { label: 'Sản phẩm đã thích', icon: faHeart },
-]
-
 export default function AccountDropdown() {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef(null)
@@ -65,12 +59,18 @@ export default function AccountDropdown() {
               <Icon icon={faUser} />
               Hồ sơ cá nhân
             </Link>
-            {items.map((item) => (
-              <button key={item.label} type="button" onClick={() => setIsOpen(false)}>
-                <Icon icon={item.icon} />
-                {item.label}
-              </button>
-            ))}
+            <button type="button" onClick={() => setIsOpen(false)}>
+              <Icon icon={faBagShopping} />
+              Đơn hàng của tôi
+            </button>
+            <Link to="/tai-khoan/dia-chi" onClick={() => setIsOpen(false)}>
+              <Icon icon={faLocationDot} />
+              Sổ địa chỉ
+            </Link>
+            <button type="button" onClick={() => setIsOpen(false)}>
+              <Icon icon={faHeart} />
+              Sản phẩm đã thích
+            </button>
           </div>
 
           <div className="account-footer">
