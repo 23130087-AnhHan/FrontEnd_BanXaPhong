@@ -41,9 +41,9 @@ export default function AddressBookPage() {
 
       <div className="account-layout">
         <AccountSidebar activePage="addresses" />
-        <section className="address-book-content" aria-labelledby="address-book-title">
+        <section className="account-form" aria-labelledby="address-book-title">
           <div className="address-book-header">
-            <div>
+            <div className="account-form-heading">
               <h1 id="address-book-title">Sổ địa chỉ</h1>
               <p>Bạn đã lưu 3 địa chỉ giao hàng. Địa chỉ mặc định sẽ được sử dụng cho đơn hàng tiếp theo.</p>
             </div>
