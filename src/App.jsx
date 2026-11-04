@@ -8,6 +8,7 @@ import ForgotPasswordPage from './pages/ForgotPassword/ForgotPasswordPage'
 import ResetPasswordPage from './pages/ResetPassword/ResetPasswordPage'
 import AccountProfilePage from './pages/AccountProfile/AccountProfilePage'
 import ChangePasswordPage from './pages/ChangePassword/ChangePasswordPage'
+import AddressBookPage from './pages/AddressBook/AddressBookPage'
 import ProFilter from './pages/ProductFilter/ProFilter'
 import OfferProducts from './pages/OfferPro/OfferProducts'
 
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/tai-khoan" element={<AccountProfilePage />} />
           <Route path="/tai-khoan/doi-mat-khau" element={<ChangePasswordPage />} />
+          <Route path="/tai-khoan/dia-chi" element={<AddressBookPage />} />
         </Routes>
       </main>
       <Footer />

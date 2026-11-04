@@ -1,0 +1,70 @@
+.address-book-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.address-book-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.address-book-header h1 {
+  margin: 0 0 4px;
+  color: #1b1c1a;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 36px;
+}
+
+.address-book-header p {
+  margin: 0;
+  color: #71746c;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.address-add {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #f5f3ef;
+}
+
+.address-add-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 8px;
+  background: #334537;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.address-add-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.address-book-list {
+  display: grid;
+  gap: 16px;
+}
+
+.address-book-content button:hover {
+  opacity: 0.85;
+}
+
+.address-book-content button:focus-visible {
+  outline: 2px solid #334537;
+  outline-offset: 2px;
+}
