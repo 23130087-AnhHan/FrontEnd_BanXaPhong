@@ -3,6 +3,7 @@ import ProductGallery from './components/ProductGallery'
 import ProductInfo from './components/ProductInfo'
 import ProductDescription from './components/ProductDescription'
 import ProductReviews from './components/ProductReviews'
+import ProductSuggestions from './components/ProductSuggestions'
 import './ProductDetailPage.css'
 
 export default function ProductDetailPage() {
@@ -25,6 +26,7 @@ export default function ProductDetailPage() {
         </div>
         <ProductDescription />
         <ProductReviews />
+        <ProductSuggestions />
       </div>
     </div>
   )
