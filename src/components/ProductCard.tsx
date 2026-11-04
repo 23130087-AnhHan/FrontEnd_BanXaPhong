@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faBagShopping } from '@fortawesome/free-solid-svg-icons'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
+import { Link } from 'react-router-dom'
 import './ProductCard.css'
 
 interface Product {
@@ -19,13 +20,15 @@ export default function ProductCard({ product }: { product: Product }) {
     return (
         <div className="card">
             <div className="card-img">
-                <img src={product.image} alt={product.name} />
+                <Link to={'/products/' + product.id} className="card-image-link">
+                    <img src={product.image} alt={product.name} />
+                </Link>
                 <button className="btn-heart" type="button">
                     <FontAwesomeIcon icon={faHeart} />
                 </button>
             </div>
             <div className="card-info">
-                <h3 className="card-title">{product.name}</h3>
+                <h3 className="card-title"><Link to={'/products/' + product.id}>{product.name}</Link></h3>
 
                 <div className="card-meta">
                     <FontAwesomeIcon icon={faStar} className="meta-star" />
@@ -35,7 +38,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 </div>
 
                 <div className="card-price">
-                    <strong>{product.price} đ</strong>
+                    <strong>{product.price.toLocaleString('vi-VN')} đ</strong>
                     <span>/ {product.unit}</span>
                 </div>
 
