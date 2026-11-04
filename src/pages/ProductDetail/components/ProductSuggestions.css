@@ -1,0 +1,49 @@
+.product-suggestions {
+  margin-top: 48px;
+}
+
+.product-suggestions-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.product-suggestions-heading h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.product-suggestions-heading a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #63715e;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.product-suggestions-heading a:hover {
+  text-decoration: underline;
+}
+
+.product-suggestions-heading svg {
+  width: 12px;
+  height: 12px;
+}
+
+.product-suggestions .product-section {
+  margin: 0;
+}
+
+.product-suggestions .card-img {
+  height: auto;
+  aspect-ratio: 1.1;
+}
+
+.product-suggestions .card-title,
+.product-suggestions .card-price strong {
+  font-weight: 600;
+}
