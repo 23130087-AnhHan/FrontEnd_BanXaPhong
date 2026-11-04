@@ -1,0 +1,146 @@
+.product-reviews {
+  scroll-margin-top: 24px;
+}
+
+.product-reviews h2 {
+  margin-bottom: 8px;
+}
+
+.product-reviews-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  color: #71746c;
+  font-size: 14px;
+}
+
+.product-reviews-summary strong {
+  color: #30332e;
+}
+
+.product-review-stars {
+  display: inline-flex;
+  gap: 3px;
+  color: #e7a523;
+}
+
+.product-review-stars svg {
+  width: 14px;
+  height: 14px;
+}
+
+.product-reviews-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 32px 0 24px;
+  font-size: 12px;
+}
+
+.product-reviews-filters > span {
+  margin-right: 4px;
+  font-weight: 600;
+}
+
+.product-reviews-filters button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid #e4e2de;
+  border-radius: 999px;
+  background: #fff;
+  color: #71746c;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.product-reviews-filters button[aria-pressed='true'] {
+  border-color: #50644f;
+  background: #50644f;
+  color: #fff;
+}
+
+.product-reviews-filters button:hover {
+  opacity: 0.8;
+}
+
+.product-reviews-filters svg {
+  width: 12px;
+  height: 12px;
+}
+
+.product-reviews-list {
+  display: grid;
+  gap: 16px;
+}
+
+.product-reviews-empty {
+  margin: 0;
+  color: #71746c;
+  font-size: 14px;
+}
+
+.product-review-card {
+  padding: 20px;
+  border: 1px solid #eeede9;
+  border-radius: 10px;
+  background: #f8f7f4;
+}
+
+.product-review-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.product-review-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-review-avatar {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #e8eadf;
+  color: #63715e;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.product-review-card:nth-child(2) .product-review-avatar {
+  background: #f2e4d7;
+  color: #a07552;
+}
+
+.product-review-author h3 {
+  margin: 0 0 2px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.product-review-author .product-review-stars svg {
+  width: 10px;
+  height: 10px;
+}
+
+.product-review-date {
+  color: #92958c;
+  font-size: 12px;
+}
+
+.product-review-card p {
+  margin: 10px 0 0;
+  color: #71746c;
+  font-size: 13px;
+  line-height: 1.8;
+}

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import ProductGallery from './components/ProductGallery'
 import ProductInfo from './components/ProductInfo'
 import ProductDescription from './components/ProductDescription'
+import ProductReviews from './components/ProductReviews'
 import './ProductDetailPage.css'
 
 export default function ProductDetailPage() {
@@ -23,6 +24,7 @@ export default function ProductDetailPage() {
           <ProductInfo />
         </div>
         <ProductDescription />
+        <ProductReviews />
       </div>
     </div>
   )
