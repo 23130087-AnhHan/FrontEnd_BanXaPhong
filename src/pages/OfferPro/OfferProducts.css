@@ -5,6 +5,33 @@
     box-sizing: border-box;
 }
 
+.offer-wrap .feature-container {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin: 20px 0 32px;
+    padding: 0;
+}
+
+.offer-wrap .feature {
+    flex: unset;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    gap: 10px;
+}
+
+.offer-wrap .feature-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
+}
+
+.offer-wrap .feature-content {
+    font-size: 14px;
+    color: #374151;
+}
+
 .offer-bar {
     display: flex;
     align-items: center;
