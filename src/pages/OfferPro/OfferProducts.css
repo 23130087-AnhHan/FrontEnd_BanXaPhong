@@ -20,3 +20,40 @@
     gap: 10px;
     flex-wrap: wrap;
 }
+
+.offer-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid #d1d5db;
+    background: #ffffff;
+    color: #374151;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.offer-pill:hover {
+    color: #3b5042;
+}
+
+.offer-pill.active {
+    background: #3b5042;
+    border-color: #3b5042;
+    color: #ffffff;
+}
+
+.offer-sort {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sort-label {
+    font-size: 14px;
+    color: #6b7280;
+    white-space: nowrap;
+}
