@@ -118,7 +118,8 @@
   line-height: 16px;
 }
 
-.account-form-buttons button {
+.account-form-buttons button,
+.account-form-buttons a {
   height: 50px;
   padding: 0 23px;
   border: 1px solid #e4e2de;
@@ -130,6 +131,13 @@
   cursor: pointer;
 }
 
+.account-form-buttons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
 .account-form-buttons .account-button-primary {
   border-color: #334537;
   background: #334537;
@@ -137,11 +145,11 @@
   font-weight: 600;
 }
 
-.account-form button:hover {
+.account-form :is(button, a):hover {
   opacity: 0.85;
 }
 
-.account-form :is(input, button):focus-visible {
+.account-form :is(input, button, a):focus-visible {
   outline: 2px solid #334537;
   outline-offset: 2px;
 }

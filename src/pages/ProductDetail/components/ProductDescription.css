@@ -1,0 +1,35 @@
+.product-description-content {
+  color: #71746c;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.product-description-content p {
+  margin: 0 0 12px;
+}
+
+.product-description-content strong {
+  color: #50574a;
+  font-weight: 600;
+}
+
+.product-description-benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 28px;
+  margin-top: 20px;
+  color: #63715e;
+  font-size: 13px;
+}
+
+.product-description-benefits span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.product-description-benefits svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
