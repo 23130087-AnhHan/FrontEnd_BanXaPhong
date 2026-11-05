@@ -1,7 +1,9 @@
 import HomeTitle from "../../components/HomeTitle"
 import ProductList from "../../components/ProductList"
 import { products } from "../ProductFilter/ProFilter"
-import OptionButton from "./components/OptionButton"
+import OptionOffering from "./components/OptionOffering"
+import SelectSort from "../ProductFilter/components/Select"
+import "./OfferProducts.css"
 
 const offersProducts = products
 const ListOption = [
@@ -18,15 +20,33 @@ const ListOption = [
         content: 'Dưới 150000 đ'
     }
 ]
+const selectSort = [
+    {
+        id: 1,
+        content: 'Phổ biến nhất'
+    },
+    {
+        id: 2,
+        content: 'Bán chạy nhất'
+    },
+    {
+        id: 3,
+        content: 'Sản phẩm mới'
+    },
+]
 
 export default function OfferProducts() {
     return (
-        <div>
-            <div>
-
-                <OptionButton items={ListOption} />
-            </div>
+        <div className="offer-wrap">
             <HomeTitle content={{ badge: 'Diệu lành hơn, tiết kiệm hơn', title: 'Sản phẩm đang ưu đãi' }} />
+
+            <div className="offer-bar">
+                <OptionOffering items={ListOption} />
+                <div className="offer-sort">
+                    <span className="sort-label">Sắp xếp:</span>
+                    <SelectSort content={selectSort} />
+                </div>
+            </div>
             <ProductList
                 products={offersProducts}
             />
