@@ -10,6 +10,7 @@ import AccountProfilePage from './pages/AccountProfile/AccountProfilePage'
 import ChangePasswordPage from './pages/ChangePassword/ChangePasswordPage'
 import AddressBookPage from './pages/AddressBook/AddressBookPage'
 import AddAddressPage from './pages/AddAddress/AddAddressPage'
+import MyOrdersPage from './pages/MyOrders/MyOrdersPage'
 import ProFilter from './pages/ProductFilter/ProFilter'
 import OfferProducts from './pages/OfferPro/OfferProducts'
 import ProductDetailPage from './pages/ProductDetail/ProductDetailPage'
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/tai-khoan" element={<AccountProfilePage />} />
+          <Route path="/tai-khoan/don-hang" element={<MyOrdersPage />} />
           <Route path="/tai-khoan/doi-mat-khau" element={<ChangePasswordPage />} />
           <Route path="/tai-khoan/dia-chi" element={<AddressBookPage />} />
           <Route path="/tai-khoan/dia-chi/them-moi" element={<AddAddressPage />} />
