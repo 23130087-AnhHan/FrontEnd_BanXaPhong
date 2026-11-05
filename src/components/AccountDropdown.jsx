@@ -59,10 +59,10 @@ export default function AccountDropdown() {
               <Icon icon={faUser} />
               Hồ sơ cá nhân
             </Link>
-            <button type="button" onClick={() => setIsOpen(false)}>
+            <Link to="/tai-khoan/don-hang" onClick={() => setIsOpen(false)}>
               <Icon icon={faBagShopping} />
               Đơn hàng của tôi
-            </button>
+            </Link>
             <Link to="/tai-khoan/dia-chi" onClick={() => setIsOpen(false)}>
               <Icon icon={faLocationDot} />
               Sổ địa chỉ
