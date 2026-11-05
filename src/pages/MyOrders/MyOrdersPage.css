@@ -1,0 +1,44 @@
+.order-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.order-filters button {
+  height: 40px;
+  padding: 0 15px;
+  border: 1px solid #e4e2de;
+  border-radius: 8px;
+  background: #fff;
+  color: #434843;
+  font-size: 12px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.order-filters button[aria-pressed='true'] {
+  border-color: #334537;
+  background: #334537;
+  color: #fff;
+  font-weight: 600;
+}
+
+.order-list-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  color: #434843;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.order-list-info span:last-child {
+  color: #71746c;
+  font-size: 12px;
+}
+
+.order-list {
+  display: grid;
+  gap: 20px;
+}
