@@ -1,0 +1,132 @@
+.cart-summary {
+  padding: 23px;
+  border: 1px solid #e4e2de;
+  border-radius: 12px;
+  background: #fff;
+  color: #434843;
+}
+
+.cart-summary h2 {
+  margin: 0 0 24px;
+  color: #1b1c1a;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+.cart-costs {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e4e2de;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.cart-costs div,
+.cart-grand-total > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cart-costs dd {
+  margin: 0;
+}
+
+.cart-coupon {
+  padding: 24px 0;
+  border-bottom: 1px solid #e4e2de;
+}
+
+.cart-coupon label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.cart-coupon label svg {
+  width: 16px;
+  height: 16px;
+}
+
+.cart-coupon-input {
+  display: flex;
+  gap: 8px;
+}
+
+.cart-coupon-input input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid #e4e2de;
+  border-radius: 8px;
+  color: inherit;
+  font-size: 13px;
+}
+
+.cart-coupon-input input::placeholder {
+  color: #71746c;
+}
+
+.cart-coupon-input button {
+  border: 0;
+  border-radius: 8px;
+  padding: 0 15px;
+  background: #f5f3ef;
+  color: #334537;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cart-grand-total {
+  padding: 24px 0;
+}
+
+.cart-grand-total span {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 23px;
+}
+
+.cart-grand-total strong {
+  color: #334537;
+  font-size: 26px;
+  line-height: 32px;
+}
+
+.cart-grand-total p {
+  margin: 8px 0 0;
+  color: #71746c;
+  font-size: 13px;
+  line-height: 19px;
+}
+
+.cart-checkout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 50px;
+  border: 0;
+  border-radius: 8px;
+  background: #334537;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cart-checkout svg {
+  width: 17px;
+  height: 17px;
+}

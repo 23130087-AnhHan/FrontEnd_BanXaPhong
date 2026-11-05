@@ -1,0 +1,97 @@
+.cart-page {
+  min-height: 773px;
+  margin: -24px;
+  padding: 32px 48px 64px;
+  background: #fbf9f5;
+  color: #1b1c1a;
+}
+
+.cart-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #71746c;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.cart-breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cart-breadcrumb [aria-current='page'] {
+  color: #334537;
+  font-weight: 600;
+}
+
+.cart-page h1 {
+  margin: 32px 0;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 46px;
+}
+
+.cart-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 368px;
+  align-items: start;
+  gap: 32px;
+}
+
+.cart-main {
+  min-width: 0;
+}
+
+.cart-benefit {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #f5f3ef;
+  color: #334537;
+}
+
+.cart-benefit svg {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.cart-benefit h2 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.cart-benefit p {
+  margin: 0;
+  color: #71746c;
+  font-size: 13px;
+  line-height: 19px;
+}
+
+.cart-page :is(button, a):hover {
+  opacity: 0.85;
+}
+
+.cart-page :is(a, button, input):focus-visible {
+  outline: 2px solid #334537;
+  outline-offset: 2px;
+}
+
+@media (max-width: 1199px) {
+  .cart-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .cart-page {
+    padding: 24px 16px 48px;
+  }
+}

@@ -11,6 +11,7 @@ import ChangePasswordPage from './pages/ChangePassword/ChangePasswordPage'
 import AddressBookPage from './pages/AddressBook/AddressBookPage'
 import AddAddressPage from './pages/AddAddress/AddAddressPage'
 import MyOrdersPage from './pages/MyOrders/MyOrdersPage'
+import CartPage from './pages/Cart/CartPage'
 import ProFilter from './pages/ProductFilter/ProFilter'
 import OfferProducts from './pages/OfferPro/OfferProducts'
 import ProductDetailPage from './pages/ProductDetail/ProductDetailPage'
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/products" element={<ProFilter />} />
           <Route path="/products/:productId" element={<ProductDetailPage />} />
           <Route path="/offer" element={<OfferProducts />} />
+          <Route path="/gio-hang" element={<CartPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
