@@ -6,9 +6,9 @@ import SelectSort from "../ProductFilter/components/Select"
 import "./OfferProducts.css"
 import Feature from "../Home/components/Feature"
 import { faLeaf, faShieldHalved, faHandSparkles } from '@fortawesome/free-solid-svg-icons'
-import Banner from "../Home/components/Banner"
+import Banner from "./components/Banner"
 import bannerImg from '../../assets/img/offering.png'
-
+import ProductCard from "../../components/ProductCard"
 
 const offersProducts = products
 const ListOption = [
