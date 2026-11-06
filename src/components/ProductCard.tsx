@@ -3,6 +3,9 @@ import { faStar, faBagShopping } from '@fortawesome/free-solid-svg-icons'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { Link } from 'react-router-dom'
 import './ProductCard.css'
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons'
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons'
+import { useState } from 'react'
 
 interface Product {
     id: number;
@@ -16,7 +19,9 @@ interface Product {
     inStock: Boolean;
 }
 
+
 export default function ProductCard({ product }: { product: Product }) {
+    const [isHobby, setIsHobby] = useState(false);
     return (
         <div className="card">
             <div className="card-img">
@@ -25,8 +30,8 @@ export default function ProductCard({ product }: { product: Product }) {
                 </Link>
 
                 <span className="card-discount-badge">-10%</span>
-                <button className="btn-heart" type="button">
-                    <FontAwesomeIcon icon={faHeart} />
+                <button className="btn-heart" type="button" onClick={() => setIsHobby(!isHobby)}>
+                    <FontAwesomeIcon icon={isHobby ? faHeartRegular : faHeartSolid} />
                 </button>
             </div>
             <div className="card-info">
