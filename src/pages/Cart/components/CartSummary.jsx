@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { faTicket } from '@fortawesome/free-solid-svg-icons/faTicket'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight'
 import Icon from '../../../components/Icon'
@@ -26,10 +27,10 @@ export default function CartSummary() {
         <p>Chưa bao gồm phí vận chuyển.</p>
       </div>
 
-      <button type="button" className="cart-checkout">
+      <Link to="/thanh-toan" className="cart-checkout">
         Tiến hành thanh toán
         <Icon icon={faArrowRight} />
-      </button>
+      </Link>
     </aside>
   )
 }

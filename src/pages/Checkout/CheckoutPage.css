@@ -1,0 +1,150 @@
+.checkout-page {
+  margin: -24px;
+  padding: 32px 48px 64px;
+  background: #fbf9f5;
+  color: #1b1c1a;
+}
+
+.checkout-breadcrumb,
+.checkout-back {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.checkout-breadcrumb {
+  color: #71746c;
+}
+
+.checkout-page a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.checkout-breadcrumb [aria-current='page'] {
+  color: #334537;
+  font-weight: 600;
+}
+
+.checkout-page h1 {
+  margin: 32px 0;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 46px;
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  align-items: start;
+  gap: 32px;
+}
+
+.checkout-main {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+
+.checkout-section,
+.checkout-summary {
+  min-width: 0;
+  padding: 23px;
+  border: 1px solid #e4e2de;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.checkout-section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.checkout-step {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f5f3ef;
+  color: #334537;
+  font-size: 13px;
+}
+
+.checkout-section-heading h2 {
+  flex: 1;
+  margin: 0;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+.checkout-section-heading a {
+  color: #334537;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.checkout-page .checkout-back {
+  justify-self: start;
+  color: #334537;
+  font-weight: 500;
+}
+
+.checkout-back svg {
+  width: 16px;
+  height: 16px;
+}
+
+.checkout-page button {
+  cursor: pointer;
+}
+
+.checkout-page :is(button, a):hover {
+  opacity: 0.85;
+}
+
+.checkout-page :is(input, select, textarea, button, a):focus-visible {
+  outline: 2px solid #334537;
+  outline-offset: 2px;
+}
+
+.checkout-page :is(input, textarea)::placeholder {
+  color: #71746c;
+  opacity: 1;
+}
+
+@media (max-width: 1199px) {
+  .checkout-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .checkout-page {
+    padding: 24px 16px 48px;
+  }
+
+  .checkout-section,
+  .checkout-summary {
+    padding: 20px;
+  }
+
+  .checkout-section-heading h2 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .checkout-section-heading a {
+    width: 100%;
+    padding-left: 40px;
+  }
+}
