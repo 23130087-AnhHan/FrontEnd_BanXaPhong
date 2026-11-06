@@ -1,0 +1,102 @@
+.contact-map {
+  overflow: hidden;
+  border: 1px solid #eeece6;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.contact-map-preview {
+  position: relative;
+  height: 200px;
+  background: #e5e9dc;
+}
+
+.contact-map-preview iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.contact-map-label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #fff;
+  color: #334537;
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 12%);
+  pointer-events: none;
+}
+
+.contact-map-label svg {
+  width: 10px;
+  height: 10px;
+  color: #b47151;
+}
+
+.contact-map-details {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+.contact-map-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #eeeee7;
+  color: #63715e;
+}
+
+.contact-map-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.contact-map-details h2 {
+  margin: 0 0 2px;
+  color: #50574a;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.contact-map-details p {
+  margin: 0;
+  color: #92958c;
+  font-size: 11px;
+}
+
+.contact-map-details a {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  border-radius: 6px;
+  padding: 10px 14px;
+  background: #f5f3ef;
+  color: #b47151;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.contact-map-details a svg {
+  width: 11px;
+  height: 11px;
+}
+
+.contact-map-details a:hover {
+  background: #eeece6;
+}

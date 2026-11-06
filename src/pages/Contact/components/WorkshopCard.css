@@ -1,0 +1,55 @@
+.contact-workshop {
+  overflow: hidden;
+  border-radius: 12px;
+  background: #f0eee8;
+}
+
+.contact-workshop-image {
+  position: relative;
+  height: 236px;
+}
+
+.contact-workshop-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contact-workshop-heading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  background: linear-gradient(transparent 35%, rgb(37 40 31 / 75%));
+  color: #fff;
+}
+
+.contact-workshop-heading span {
+  margin-bottom: 6px;
+  color: #e6d2ab;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.contact-workshop-heading h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.contact-workshop > p {
+  margin: 0;
+  padding: 20px 24px 24px;
+  color: #71746c;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.contact-workshop strong {
+  color: #63715e;
+  font-weight: 600;
+}
