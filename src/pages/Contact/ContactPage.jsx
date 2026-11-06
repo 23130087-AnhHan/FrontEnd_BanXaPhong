@@ -3,6 +3,7 @@ import Icon from '../../components/Icon'
 import WorkshopCard from './components/WorkshopCard'
 import ContactInfo from './components/ContactInfo'
 import ContactForm from './components/ContactForm'
+import ContactMap from './components/ContactMap'
 import './ContactPage.css'
 
 export default function ContactPage() {
@@ -29,6 +30,7 @@ export default function ContactPage() {
           <div className="contact-sidebar">
             <WorkshopCard />
             <ContactInfo />
+            <ContactMap />
           </div>
           <ContactForm />
         </div>
