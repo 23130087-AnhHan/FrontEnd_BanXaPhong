@@ -5,6 +5,7 @@ import ProductList from "../../components/ProductList"
 import { selectSort } from "../OfferPro/OfferProducts"
 import { products } from "../ProductFilter/ProFilter"
 import './HobbyProduct.css'
+import HobbyTitle from "./components/HobbyTitle"
 
 const Sort = selectSort
 const hobbyPro = products;
@@ -12,7 +13,7 @@ const hobbyPro = products;
 export default function HobbyProduct() {
     return (
         <div className="hobby-container">
-            <HomeTitle content={{ badge: 'Lưu giữ những sản phẩm dịu lành bạn yêu thích và mua sắm bất cứ khi nào bạn muốn', title: 'Sản phẩm ưu thích' }} />
+            <HobbyTitle content={{ badge: 'Lưu giữ những sản phẩm dịu lành bạn yêu thích và mua sắm bất cứ khi nào bạn muốn', title: 'Sản phẩm ưu thích' }} />
 
             <div className="offer-bar">
                 <div>{hobbyPro.length} sản phẩm đã lưu</div>
