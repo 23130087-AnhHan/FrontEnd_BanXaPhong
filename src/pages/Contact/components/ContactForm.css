@@ -1,6 +1,8 @@
 .contact-form-box {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
-  padding: 40px;
+  padding: 24px 40px 32px;
   border: 1px solid #eeece6;
   border-radius: 12px;
   background: #fff;
@@ -23,6 +25,8 @@
 
 .contact-form {
   display: grid;
+  flex: 1;
+  grid-template-rows: auto auto auto 1fr auto;
   gap: 24px;
 }
 
@@ -82,6 +86,7 @@
 }
 
 .contact-field textarea {
+  flex: 1;
   min-height: 160px;
   resize: vertical;
   line-height: 1.8;
@@ -92,22 +97,22 @@
   justify-self: start;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  min-height: 54px;
-  padding: 14px 28px;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 20px;
   border: 0;
   border-radius: 8px;
   background: #334537;
   color: #fff;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   box-shadow: 0 2px 3px rgb(0 0 0 / 15%);
   cursor: pointer;
 }
 
 .contact-submit svg {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
 }
 
 .contact-submit:hover {

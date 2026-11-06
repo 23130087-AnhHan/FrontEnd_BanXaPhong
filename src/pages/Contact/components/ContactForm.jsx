@@ -11,7 +11,7 @@ export default function ContactForm() {
     <section className="contact-form-box" aria-labelledby="contact-form-title">
       <h2 id="contact-form-title">Đồng hành cùng sự an lành của bạn</h2>
       <p className="contact-form-description">
-        Dù bạn cần gợi ý xà phòng hợp với làn da nhạy cảm hay muốn đặt bộ quà tặng doanh nghiệp tinh tế,
+        Dù bạn cần gợi ý xà phòng hợp với làn da nhạy cảm hay muốn đặt bộ quà tặng tinh tế cho doanh nghiệp, người thân hoặc bạn bè,
         Saponi sẽ chăm chút từng chi tiết nhỏ nhất.
       </p>
 
@@ -42,7 +42,10 @@ export default function ContactForm() {
             <option value="order-support">Hỗ trợ đơn hàng và giao nhận</option>
             <option value="wholesale">Hợp tác bán sỉ và đối tác</option>
             <option value="corporate-gifts">Quà tặng doanh nghiệp</option>
+            <option value="family-gifts">Quà tặng người thân</option>
+            <option value="friend-gifts">Quà tặng bạn bè</option>
             <option value="feedback">Góp ý và nội dung khác</option>
+            <option value="other">Khác</option>
           </select>
         </div>
 

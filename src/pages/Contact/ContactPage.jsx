@@ -31,9 +31,9 @@ export default function ContactPage() {
           <div className="contact-sidebar">
             <WorkshopCard />
             <ContactInfo />
-            <ContactMap />
           </div>
           <ContactForm />
+          <ContactMap />
         </div>
         <ContactCommitment />
       </div>
