@@ -25,7 +25,7 @@ const ListOption = [
         content: 'Dưới 150000 đ'
     }
 ]
-const selectSort = [
+export const selectSort = [
     {
         id: 1,
         content: 'Phổ biến nhất'

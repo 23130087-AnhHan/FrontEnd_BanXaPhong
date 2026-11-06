@@ -76,7 +76,7 @@ export default function Header({ activePage = 'home', cartCount = 0 }) {
         </form>
 
         <div className="header-actions">
-          <a href="/yeu-thich" aria-label="Sản phẩm yêu thích">
+          <a href="/hobby" aria-label="Sản phẩm yêu thích">
             <Icon icon={faHeart} />
           </a>
           <a href="/gio-hang" aria-label={'Giỏ hàng, ' + cartCount + ' sản phẩm'}>
