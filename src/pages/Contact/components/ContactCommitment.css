@@ -1,0 +1,66 @@
+.contact-commitment {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 40px;
+  padding: 40px;
+  border-radius: 12px;
+  background: #334537;
+  color: #fff;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 15%);
+}
+
+.contact-commitment-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #50644f;
+  color: #d6e2d0;
+}
+
+.contact-commitment-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.contact-commitment h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.contact-commitment p {
+  margin: 0;
+  color: #b2c0ab;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.contact-commitment a {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-left: auto;
+  border: 1px solid #e4e2de;
+  border-radius: 8px;
+  padding: 12px 20px;
+  background: #fbf9f5;
+  color: #334537;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.contact-commitment a svg {
+  width: 14px;
+  height: 14px;
+}
+
+.contact-commitment a:hover {
+  background: #e8eee4;
+}

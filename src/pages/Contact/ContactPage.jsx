@@ -4,6 +4,7 @@ import WorkshopCard from './components/WorkshopCard'
 import ContactInfo from './components/ContactInfo'
 import ContactForm from './components/ContactForm'
 import ContactMap from './components/ContactMap'
+import ContactCommitment from './components/ContactCommitment'
 import './ContactPage.css'
 
 export default function ContactPage() {
@@ -34,6 +35,7 @@ export default function ContactPage() {
           </div>
           <ContactForm />
         </div>
+        <ContactCommitment />
       </div>
     </div>
   )
