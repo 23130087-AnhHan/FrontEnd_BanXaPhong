@@ -31,7 +31,7 @@ export default function Footer() {
                     <ul className="footer-links">
                         <li><a href="#">Giỏ hàng & Thanh toán</a></li>
                         <li><a href="#">Hướng dẫn mua hàng</a></li>
-                        <li><a href="#">Liên hệ</a></li>
+                        <li><a href="/contact">Liên hệ</a></li>
                     </ul>
                 </div>
 

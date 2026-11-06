@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons/faBagShopping'
@@ -12,10 +13,12 @@ const navigation = [
   { id: 'home', label: 'Trang chủ', href: '/' },
   { id: 'products', label: 'Sản phẩm', href: '/products' },
   { id: 'offers', label: 'Ưu đãi', href: '/offer' },
-  { id: 'contact', label: 'Liên hệ', href: '/lien-he' },
+  { id: 'contact', label: 'Liên hệ', href: '/contact' },
 ]
 
-export default function Header({ activePage = 'home', cartCount = 0 }) {
+export default function Header({ activePage, cartCount = 0 }) {
+  const location = useLocation()
+  const currentPage = activePage || navigation.find((item) => item.href === location.pathname)?.id
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuButtonRef = useRef(null)
 
@@ -54,7 +57,7 @@ export default function Header({ activePage = 'home', cartCount = 0 }) {
               <a
                 key={item.id}
                 href={item.href}
-                aria-current={activePage === item.id ? 'page' : undefined}
+                aria-current={currentPage === item.id ? 'page' : undefined}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.label}
