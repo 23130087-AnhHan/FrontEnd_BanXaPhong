@@ -15,6 +15,7 @@ import CartPage from './pages/Cart/CartPage'
 import ProFilter from './pages/ProductFilter/ProFilter'
 import OfferProducts from './pages/OfferPro/OfferProducts'
 import ProductDetailPage from './pages/ProductDetail/ProductDetailPage'
+import HobbyProduct from './pages/HobbyProduct/HobbyProduct'
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/products" element={<ProFilter />} />
           <Route path="/products/:productId" element={<ProductDetailPage />} />
           <Route path="/offer" element={<OfferProducts />} />
+          <Route path="/hobby" element={<HobbyProduct />} />
           <Route path="/gio-hang" element={<CartPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />

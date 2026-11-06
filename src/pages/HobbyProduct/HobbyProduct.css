@@ -1,0 +1,27 @@
+.hobby-container {
+    max-width: 1320px;
+    margin: 24px auto;
+}
+
+.bot-hobby {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.bot-content {
+    font-weight: lighter;
+    font-family: inherit;
+}
+
+.btn-filter-reset {
+    flex: 1;
+    padding: 9px 9px;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+}

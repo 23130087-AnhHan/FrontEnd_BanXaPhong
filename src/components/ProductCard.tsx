@@ -23,6 +23,8 @@ export default function ProductCard({ product }: { product: Product }) {
                 <Link to={'/products/' + product.id} className="card-image-link">
                     <img src={product.image} alt={product.name} />
                 </Link>
+
+                <span className="card-discount-badge">-10%</span>
                 <button className="btn-heart" type="button">
                     <FontAwesomeIcon icon={faHeart} />
                 </button>
