@@ -1,0 +1,65 @@
+.checkout-saved-address {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0;
+  padding: 12px;
+  border-radius: 6px;
+  background: #f5f3ef;
+  color: #334537;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.checkout-saved-address svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.checkout-shipping-fields {
+  display: grid;
+  gap: 20px;
+}
+
+.checkout-field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.checkout-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.checkout-field label {
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.checkout-field :is(input, select) {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1px solid #e4e2de;
+  border-radius: 8px;
+  background: #fff;
+  color: inherit;
+  font-size: 13px;
+}
+
+.checkout-required-note {
+  margin: 20px 0 0;
+  color: #71746c;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+@media (max-width: 767px) {
+  .checkout-field-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
