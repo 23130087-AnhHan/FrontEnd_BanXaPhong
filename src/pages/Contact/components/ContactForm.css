@@ -1,0 +1,115 @@
+.contact-form-box {
+  min-width: 0;
+  padding: 40px;
+  border: 1px solid #eeece6;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 10%);
+}
+
+.contact-form-box h2 {
+  margin: 0 0 10px;
+  color: #50644f;
+  font-size: 24px;
+  line-height: 1.4;
+}
+
+.contact-form-description {
+  margin: 0 0 32px;
+  color: #71746c;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.contact-form {
+  display: grid;
+  gap: 24px;
+}
+
+.contact-form-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+}
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.contact-field-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.contact-field label {
+  color: #50574a;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.contact-field label span {
+  color: #b47151;
+}
+
+.contact-field-heading > span {
+  color: #92958c;
+  font-size: 12px;
+}
+
+.contact-field :is(input, select, textarea) {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 14px 16px;
+  background: #f5f3ef;
+  color: #50574a;
+  font-size: 14px;
+}
+
+.contact-field :is(input, select) {
+  height: 54px;
+}
+
+.contact-field :is(input, textarea)::placeholder {
+  color: #92958c;
+  opacity: 1;
+}
+
+.contact-field textarea {
+  min-height: 160px;
+  resize: vertical;
+  line-height: 1.8;
+}
+
+.contact-submit {
+  display: inline-flex;
+  justify-self: start;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 54px;
+  padding: 14px 28px;
+  border: 0;
+  border-radius: 8px;
+  background: #334537;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 15%);
+  cursor: pointer;
+}
+
+.contact-submit svg {
+  width: 14px;
+  height: 14px;
+}
+
+.contact-submit:hover {
+  background: #2a3b2f;
+}

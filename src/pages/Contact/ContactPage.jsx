@@ -2,6 +2,7 @@ import { faClock } from '@fortawesome/free-regular-svg-icons'
 import Icon from '../../components/Icon'
 import WorkshopCard from './components/WorkshopCard'
 import ContactInfo from './components/ContactInfo'
+import ContactForm from './components/ContactForm'
 import './ContactPage.css'
 
 export default function ContactPage() {
@@ -29,6 +30,7 @@ export default function ContactPage() {
             <WorkshopCard />
             <ContactInfo />
           </div>
+          <ContactForm />
         </div>
       </div>
     </div>
