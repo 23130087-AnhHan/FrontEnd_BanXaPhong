@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import type { KeyboardEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { faUser } from '@fortawesome/free-regular-svg-icons/faUser'
 import { faHeart } from '@fortawesome/free-regular-svg-icons/faHeart'
@@ -10,19 +11,19 @@ import './AccountDropdown.css'
 
 export default function AccountDropdown() {
   const [isOpen, setIsOpen] = useState(false)
-  const dropdownRef = useRef(null)
-  const buttonRef = useRef(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    function closeOnOutsideClick(event) {
-      if (!dropdownRef.current?.contains(event.target)) setIsOpen(false)
+    function closeOnOutsideClick(event: PointerEvent) {
+      if (event.target instanceof Node && !dropdownRef.current?.contains(event.target)) setIsOpen(false)
     }
 
     document.addEventListener('pointerdown', closeOnOutsideClick)
     return () => document.removeEventListener('pointerdown', closeOnOutsideClick)
   }, [])
 
-  function closeOnEscape(event) {
+  function closeOnEscape(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key === 'Escape' && isOpen) {
       event.stopPropagation()
       setIsOpen(false)

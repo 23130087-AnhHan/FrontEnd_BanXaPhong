@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
 import AccountSidebar from '../../components/AccountSidebar'
 import OrderCard from './components/OrderCard'
+import type { Order } from './components/OrderCard'
 import '../../styles/AccountPage.css'
 import './MyOrdersPage.css'
 
 const filters = ['Tất cả (4)', 'Chờ xác nhận (1)', 'Đang giao (1)', 'Đã giao (1)', 'Đã hủy (1)']
 
-const orders = [
+const orders: Order[] = [
   {
     id: 'SP261027-018',
     date: '27/10/2026',
