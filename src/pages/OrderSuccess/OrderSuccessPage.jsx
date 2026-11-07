@@ -3,6 +3,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight'
 import Icon from '../../components/Icon'
 import OrderShippingInfo from './components/OrderShippingInfo'
+import RecommendedProducts from './components/RecommendedProducts'
 import './OrderSuccessPage.css'
 
 export default function OrderSuccessPage() {
@@ -30,6 +31,7 @@ export default function OrderSuccessPage() {
         </div>
       </section>
       <OrderShippingInfo />
+      <RecommendedProducts />
     </div>
   )
 }

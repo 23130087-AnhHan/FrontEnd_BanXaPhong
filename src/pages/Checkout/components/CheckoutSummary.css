@@ -168,7 +168,7 @@
   height: 15px;
 }
 
-.checkout-pay {
+.checkout-summary .checkout-pay {
   display: flex;
   align-items: center;
   justify-content: center;
