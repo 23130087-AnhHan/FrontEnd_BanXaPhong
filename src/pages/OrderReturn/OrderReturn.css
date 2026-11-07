@@ -1,21 +1,58 @@
 .order-return-page {
-  padding: 32px 24px;
+  padding: 32px 32px 64px;
   background-color: #fbf9f5;
   min-height: 80vh;
+  box-sizing: border-box;
 }
 
 .order-return-header {
-  margin-bottom: 24px;
+  max-width: 1160px;
+  margin: 0 auto 28px;
 }
 
 .order-return-header h1 {
   margin: 0 0 6px 0;
-  font-size: 24px;
+  font-size: 26px;
+  font-weight: 700;
   color: #111827;
 }
 
 .order-return-header p {
   margin: 0;
-  font-size: 14px;
+  font-size: 14.5px;
   color: #6b7280;
+}
+
+.order-return-layout {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.order-return-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.order-return-sidebar {
+  width: 380px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (max-width: 992px) {
+  .order-return-layout {
+    flex-direction: column;
+  }
+
+  .order-return-sidebar {
+    width: 100%;
+  }
 }
