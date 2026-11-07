@@ -1,0 +1,21 @@
+.order-return-page {
+  padding: 32px 24px;
+  background-color: #fbf9f5;
+  min-height: 80vh;
+}
+
+.order-return-header {
+  margin-bottom: 24px;
+}
+
+.order-return-header h1 {
+  margin: 0 0 6px 0;
+  font-size: 24px;
+  color: #111827;
+}
+
+.order-return-header p {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}

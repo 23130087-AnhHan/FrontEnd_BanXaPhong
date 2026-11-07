@@ -1,13 +1,15 @@
 import ReturnProducts from './components/ReturnProducts'
+import './OrderReturn.css'
+
 export default function OrderReturn() {
     return (
-        <div>
-            <div>
+        <div className="order-return-page">
+            <div className="order-return-header">
                 <h1>Trả hàng</h1>
-                <h3>Chọn sản phẩm đã nhận và cung cấp thông tin Saponi hỗ trợ yêu cầu của bạn</h3>
+                <p>Chọn sản phẩm đã nhận và cung cấp thông tin Saponi hỗ trợ yêu cầu của bạn</p>
             </div>
+
             <ReturnProducts />
         </div>
-
     )
 }
