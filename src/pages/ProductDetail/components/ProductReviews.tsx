@@ -3,7 +3,18 @@ import { faImage, faStar } from '@fortawesome/free-solid-svg-icons'
 import Icon from '../../../components/Icon'
 import './ProductReviews.css'
 
-const reviews = [
+interface ProductReview {
+  id: number
+  name: string
+  initials: string
+  rating: number
+  date: string
+  weight: string
+  comment: string
+  images?: string[]
+}
+
+const reviews: ProductReview[] = [
   {
     id: 1,
     name: 'Nguyễn Thùy Trang',
@@ -37,7 +48,7 @@ export default function ProductReviews() {
   const [selectedFilter, setSelectedFilter] = useState('all')
   const filteredReviews = reviews.filter((review) => {
     if (selectedFilter === 'five-stars') return review.rating === 5
-    if (selectedFilter === 'with-images') return review.images?.length > 0
+    if (selectedFilter === 'with-images') return (review.images?.length ?? 0) > 0
     return true
   })
 

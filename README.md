@@ -1,6 +1,6 @@
 # Website bán xà phòng
 
-Đồ án cuối kỳ FrontEnd, sử dụng React + Vite + JavaScript.
+Đồ án cuối kỳ FrontEnd, sử dụng React + Vite + TypeScript và JavaScript.
 
 ## Chạy dự án
 
@@ -27,4 +27,4 @@ src/
 
 Thư mục trống có `.gitkeep` để Git lưu lại. Nhóm tự thêm file khi triển khai chức năng.
 
-Trước khi commit, chạy `npm run lint` và `npm run build`.
+Trước khi commit, chạy `npm run typecheck`, `npm run lint` và `npm run build`.

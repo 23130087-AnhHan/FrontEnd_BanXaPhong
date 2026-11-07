@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight'
@@ -11,7 +11,7 @@ export default function ForgotPasswordForm() {
     const [isLoading, setIsLoading] = useState(false)
     const [isResent, setIsResent] = useState(false)
 
-    function handleSubmit(e) {
+    function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
         if (!email.trim()) return
 

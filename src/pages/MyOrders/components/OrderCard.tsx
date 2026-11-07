@@ -6,6 +6,22 @@ import { useNavigate } from 'react-router-dom'
 import Icon from '../../../components/Icon'
 import './OrderCard.css'
 
+export interface Order {
+  id: string
+  date: string
+  status: 'pending' | 'shipping' | 'delivered' | 'cancelled'
+  quantity: number
+  total: string
+  update: string
+  action?: string
+  products: {
+    name: string
+    quantity: number
+    price: string
+    total: string
+  }[]
+}
+
 const productImage = 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg'
 
 const statuses = {

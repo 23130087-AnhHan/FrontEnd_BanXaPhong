@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import type { KeyboardEvent } from 'react'
 import { useLocation } from 'react-router-dom'
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
@@ -9,6 +10,11 @@ import Icon from './Icon'
 import AccountDropdown from './AccountDropdown'
 import './Header.css'
 
+interface HeaderProps {
+  activePage?: 'home' | 'products' | 'offers' | 'contact'
+  cartCount?: number
+}
+
 const navigation = [
   { id: 'home', label: 'Trang chủ', href: '/' },
   { id: 'products', label: 'Sản phẩm', href: '/products' },
@@ -16,13 +22,13 @@ const navigation = [
   { id: 'contact', label: 'Liên hệ', href: '/contact' },
 ]
 
-export default function Header({ activePage, cartCount = 0 }) {
+export default function Header({ activePage, cartCount = 0 }: HeaderProps) {
   const location = useLocation()
   const currentPage = activePage || navigation.find((item) => item.href === location.pathname)?.id
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const menuButtonRef = useRef(null)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
 
-  function closeMenuOnEscape(event) {
+  function closeMenuOnEscape(event: KeyboardEvent<HTMLElement>) {
     if (event.key === 'Escape' && isMenuOpen) {
       setIsMenuOpen(false)
       menuButtonRef.current?.focus()
