@@ -3,10 +3,11 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 import AccountSidebar from '../../components/AccountSidebar'
 import Icon from '../../components/Icon'
 import AddressCard from './components/AddressCard'
+import type { Address } from './components/AddressCard'
 import '../../styles/AccountPage.css'
 import './AddressBookPage.css'
 
-const addresses = [
+const addresses: Address[] = [
   {
     id: 1,
     name: 'Nguyễn Văn Anh Hàn',

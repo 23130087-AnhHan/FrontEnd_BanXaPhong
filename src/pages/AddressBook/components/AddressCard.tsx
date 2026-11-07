@@ -4,7 +4,15 @@ import { faTrashCan } from '@fortawesome/free-regular-svg-icons/faTrashCan'
 import Icon from '../../../components/Icon'
 import './AddressCard.css'
 
-export default function AddressCard({ address }) {
+export interface Address {
+  id: number
+  name: string
+  phone: string
+  address: string
+  isDefault?: boolean
+}
+
+export default function AddressCard({ address }: { address: Address }) {
   return (
     <article className="address-card" aria-label={'Địa chỉ của ' + address.name}>
       <div className="address-card-header">

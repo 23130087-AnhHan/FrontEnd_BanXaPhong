@@ -7,6 +7,10 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons/faArr
 import Icon from './Icon'
 import './AccountSidebar.css'
 
+interface AccountSidebarProps {
+  activePage?: 'profile' | 'orders' | 'password' | 'addresses'
+}
+
 const items = [
   { id: 'profile', label: 'Thông tin cá nhân', href: '/tai-khoan', icon: faUser },
   { id: 'orders', label: 'Đơn hàng của tôi', href: '/tai-khoan/don-hang', icon: faReceipt },
@@ -14,7 +18,7 @@ const items = [
   { id: 'addresses', label: 'Sổ địa chỉ', href: '/tai-khoan/dia-chi', icon: faLocationDot },
 ]
 
-export default function AccountSidebar({ activePage = 'profile' }) {
+export default function AccountSidebar({ activePage = 'profile' }: AccountSidebarProps) {
   return (
     <aside className="account-sidebar">
       <h2>Quản lý tài khoản</h2>
