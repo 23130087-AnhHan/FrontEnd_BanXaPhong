@@ -1,0 +1,127 @@
+.order-success-page {
+  margin: -24px;
+  padding: 32px 48px 56px;
+  background: #fbf9f5;
+  color: #1b1c1a;
+}
+
+.order-success-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: #71746c;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.order-success-breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.order-success-breadcrumb [aria-current='page'] {
+  color: #334537;
+  font-weight: 600;
+}
+
+.order-success-message {
+  padding: 48px 0 40px;
+  text-align: center;
+}
+
+.order-success-check {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  background: #d4e7d7;
+  color: #334537;
+}
+
+.order-success-check svg {
+  width: 32px;
+  height: 32px;
+}
+
+.order-success-message h1 {
+  margin: 0 0 16px;
+  font-size: 36px;
+  line-height: 46px;
+}
+
+.order-success-message p {
+  margin: 0 0 20px;
+  color: #71746c;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.order-success-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 864px;
+  margin: 0 auto;
+}
+
+.order-success-actions a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 12px;
+  border: 1px solid #e4e2de;
+  border-radius: 8px;
+  background: #fff;
+  color: #334537;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.order-success-actions .order-success-primary {
+  border-color: #334537;
+  background: #334537;
+  color: #fff;
+}
+
+.order-success-actions svg {
+  width: 18px;
+  height: 18px;
+}
+
+.order-success-page a:focus-visible {
+  outline: 2px solid #334537;
+  outline-offset: 2px;
+}
+
+.order-success-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.order-success-actions a:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .order-success-page {
+    padding: 24px 16px 40px;
+  }
+
+  .order-success-message {
+    padding: 32px 0;
+  }
+
+  .order-success-message h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .order-success-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

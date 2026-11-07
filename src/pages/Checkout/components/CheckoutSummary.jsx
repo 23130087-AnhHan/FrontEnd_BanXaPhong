@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { faTag } from '@fortawesome/free-solid-svg-icons/faTag'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight'
 import Icon from '../../../components/Icon'
@@ -54,10 +55,10 @@ export default function CheckoutSummary() {
         <p className="checkout-savings"><Icon icon={faTag} />Bạn đã tiết kiệm 35.000 đ trong giá sản phẩm.</p>
       </div>
 
-      <button type="button" className="checkout-pay">
+      <Link to="/dat-hang-thanh-cong" className="checkout-pay">
         Thanh toán 545.000 đ
         <Icon icon={faArrowRight} />
-      </button>
+      </Link>
       <p className="checkout-terms">
         Bằng việc thanh toán, bạn đồng ý với <span>Điều khoản mua hàng</span> và <span>Chính sách bảo mật</span> của Saponi.
       </p>

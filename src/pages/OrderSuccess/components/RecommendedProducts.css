@@ -1,0 +1,54 @@
+.order-recommendations {
+  margin-top: 32px;
+  padding: 48px;
+  background: #f4f2eb;
+}
+
+.order-recommendations-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.order-recommendations-heading h2 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.order-recommendations-heading a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #334537;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.order-recommendations-heading a:hover {
+  text-decoration: underline;
+}
+
+.order-recommendations-heading svg {
+  width: 14px;
+  height: 14px;
+}
+
+.order-recommendations .product-section {
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .order-recommendations {
+    padding: 24px 16px;
+  }
+
+  .order-recommendations-heading h2 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+}
