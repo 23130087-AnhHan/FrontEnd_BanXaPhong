@@ -13,6 +13,7 @@ import AddAddressPage from './pages/AddAddress/AddAddressPage'
 import MyOrdersPage from './pages/MyOrders/MyOrdersPage'
 import CartPage from './pages/Cart/CartPage'
 import CheckoutPage from './pages/Checkout/CheckoutPage'
+import OrderSuccessPage from './pages/OrderSuccess/OrderSuccessPage'
 import ProFilter from './pages/ProductFilter/ProFilter'
 import OfferProducts from './pages/OfferPro/OfferProducts'
 import ProductDetailPage from './pages/ProductDetail/ProductDetailPage'
@@ -34,6 +35,7 @@ export default function App() {
           <Route path="/hobby" element={<HobbyProduct />} />
           <Route path="/gio-hang" element={<CartPage />} />
           <Route path="/thanh-toan" element={<CheckoutPage />} />
+          <Route path="/dat-hang-thanh-cong" element={<OrderSuccessPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
