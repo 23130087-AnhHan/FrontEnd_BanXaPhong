@@ -1,9 +1,10 @@
+import type { FormEvent } from 'react'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import Icon from '../../../components/Icon'
 import './ContactForm.css'
 
 export default function ContactForm() {
-  function handleSubmit(event) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
   }
 

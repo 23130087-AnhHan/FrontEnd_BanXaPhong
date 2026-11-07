@@ -1,4 +1,4 @@
-export default function Icon({ icon, className }) {
+export default function Icon({ icon, className = '' }) {
   const [width, height, , , path] = icon.icon
 
   return (
