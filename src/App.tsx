@@ -19,6 +19,7 @@ import OfferProducts from './pages/OfferPro/OfferProducts'
 import ProductDetailPage from './pages/ProductDetail/ProductDetailPage'
 import HobbyProduct from './pages/HobbyProduct/HobbyProduct'
 import ContactPage from './pages/Contact/ContactPage'
+import OrderReturn from './pages/OrderReturn/OrderReturn'
 
 export default function App() {
   return (
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/tai-khoan" element={<AccountProfilePage />} />
           <Route path="/tai-khoan/don-hang" element={<MyOrdersPage />} />
+          <Route path="/tai-khoan/don-hang/return" element={<OrderReturn />} />
           <Route path="/tai-khoan/doi-mat-khau" element={<ChangePasswordPage />} />
           <Route path="/tai-khoan/dia-chi" element={<AddressBookPage />} />
           <Route path="/tai-khoan/dia-chi/them-moi" element={<AddAddressPage />} />

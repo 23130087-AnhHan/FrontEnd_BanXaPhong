@@ -1,0 +1,64 @@
+.order-info-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+
+.order-info-card h3 {
+  margin: 0 0 14px 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.order-id-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.order-id {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.order-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background-color: #f3f4f6;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.order-date {
+  margin: 0 0 16px 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.order-divider {
+  border: none;
+  border-top: 1px solid #f3f4f6;
+  margin: 16px 0;
+}
+
+.order-customer {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.order-payment {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
