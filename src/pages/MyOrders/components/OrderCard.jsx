@@ -2,6 +2,7 @@ import { faClock } from '@fortawesome/free-regular-svg-icons/faClock'
 import { faTruck } from '@fortawesome/free-solid-svg-icons/faTruck'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons/faCircleCheck'
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons/faCircleXmark'
+import { useNavigate } from 'react-router-dom'
 import Icon from '../../../components/Icon'
 import './OrderCard.css'
 
@@ -15,6 +16,7 @@ const statuses = {
 }
 
 export default function OrderCard({ order }) {
+  const navigate = useNavigate()
   const status = statuses[order.status]
 
   return (
@@ -60,6 +62,14 @@ export default function OrderCard({ order }) {
             <button type="button">Xem chi tiết</button>
             {order.action && (
               <button type="button" className="order-action-primary">{order.action}</button>
+            )}
+
+            {order.status === "delivered" && (
+              <button
+                type="button" className="order-action-primary"
+                onClick={() => navigate('/tai-khoan/don-hang/return', { state: { order } })}>
+                Trả hàng
+              </button>
             )}
           </div>
         </div>
