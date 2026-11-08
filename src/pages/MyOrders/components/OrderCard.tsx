@@ -31,7 +31,11 @@ const statuses = {
   cancelled: { label: 'Đã hủy', icon: faCircleXmark },
 }
 
-export default function OrderCard({ order }) {
+interface OrderCardProps {
+  order: Order
+}
+
+export default function OrderCard({ order }: OrderCardProps) {
   const navigate = useNavigate()
   const status = statuses[order.status]
 
@@ -78,6 +82,15 @@ export default function OrderCard({ order }) {
             <button type="button">Xem chi tiết</button>
             {order.action && (
               <button type="button" className="order-action-primary">{order.action}</button>
+            )}
+
+            {order.status === 'pending' && (
+              <button
+                type="button"
+                onClick={() => navigate('/tai-khoan/don-hang/cancel', { state: { order } })}
+              >
+                Huỷ đơn
+              </button>
             )}
 
             {order.status === "delivered" && (
