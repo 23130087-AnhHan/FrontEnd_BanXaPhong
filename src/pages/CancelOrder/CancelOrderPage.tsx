@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import Icon from '../../components/Icon'
+import CancelReasonForm from './components/CancelReasonForm'
 import './CancelOrderPage.css'
 
 export default function CancelOrderPage() {
@@ -18,6 +19,9 @@ export default function CancelOrderPage() {
         <div className="cancel-order-heading">
           <h1>Huỷ đơn hàng</h1>
           <p>Vui lòng kiểm tra đúng đơn hàng và cho Saponi biết lý do bạn muốn huỷ.</p>
+        </div>
+        <div className="cancel-order-layout">
+          <CancelReasonForm />
         </div>
       </div>
     </div>
