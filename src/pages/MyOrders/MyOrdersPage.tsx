@@ -1,11 +1,20 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import AccountSidebar from '../../components/AccountSidebar'
 import OrderCard from './components/OrderCard'
 import type { Order } from './components/OrderCard'
 import '../../styles/AccountPage.css'
 import './MyOrdersPage.css'
 
-const filters = ['Tất cả (4)', 'Chờ xác nhận (1)', 'Đang giao (1)', 'Đã giao (1)', 'Đã hủy (1)']
+type OrderFilter = 'all' | Order['status']
+
+const filters: { status: OrderFilter; label: string }[] = [
+  { status: 'all', label: 'Tất cả' },
+  { status: 'pending', label: 'Chờ xác nhận' },
+  { status: 'shipping', label: 'Đang giao' },
+  { status: 'delivered', label: 'Đã giao' },
+  { status: 'cancelled', label: 'Đã hủy' },
+]
 
 const orders: Order[] = [
   {
@@ -60,6 +69,19 @@ const orders: Order[] = [
 ]
 
 export default function MyOrdersPage() {
+  const location = useLocation()
+  const [activeFilter, setActiveFilter] = useState<OrderFilter>('all')
+  const cancelledOrderId = (location.state as { cancelledOrderId?: string } | null)?.cancelledOrderId
+  const currentOrders: Order[] = orders.map((order) => order.id === cancelledOrderId
+    ? {
+        ...order,
+        status: 'cancelled',
+        update: 'Đã huỷ theo yêu cầu của bạn - Chưa thanh toán',
+        action: 'Mua lại',
+      }
+    : order)
+  const filteredOrders = currentOrders.filter((order) => activeFilter === 'all' || order.status === activeFilter)
+
   return (
     <div className="account-page">
       <nav className="account-breadcrumb" aria-label="Đường dẫn">
@@ -79,18 +101,25 @@ export default function MyOrdersPage() {
           </div>
 
           <div className="order-filters" role="group" aria-label="Lọc trạng thái đơn hàng">
-            {filters.map((filter, index) => (
-              <button key={filter} type="button" aria-pressed={index === 0}>{filter}</button>
+            {filters.map((filter) => (
+              <button
+                key={filter.status}
+                type="button"
+                aria-pressed={activeFilter === filter.status}
+                onClick={() => setActiveFilter(filter.status)}
+              >
+                {filter.label} ({currentOrders.filter((order) => filter.status === 'all' || order.status === filter.status).length})
+              </button>
             ))}
           </div>
 
           <div className="order-list-info">
-            <span>{orders.length} đơn hàng</span>
+            <span>{filteredOrders.length} đơn hàng</span>
             <span>Sắp xếp: Mới nhất trước</span>
           </div>
 
           <div className="order-list">
-            {orders.map((order) => <OrderCard key={order.id} order={order} />)}
+            {filteredOrders.map((order) => <OrderCard key={order.id} order={order} />)}
           </div>
         </section>
       </div>

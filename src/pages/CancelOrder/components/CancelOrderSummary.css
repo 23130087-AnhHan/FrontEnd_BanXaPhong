@@ -1,0 +1,138 @@
+.cancel-summary-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.cancel-summary-heading strong {
+  color: #50644f;
+  font-size: 18px;
+}
+
+.cancel-summary-heading > span {
+  flex-shrink: 0;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #eef1ec;
+  color: #63715e;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.cancel-summary-date {
+  margin: 10px 0 24px;
+  color: #92958c;
+  font-size: 12px;
+}
+
+.cancel-summary-products {
+  display: grid;
+  gap: 24px;
+  padding: 24px 0;
+  border-top: 1px solid #eeece6;
+  border-bottom: 1px solid #eeece6;
+}
+
+.cancel-summary-product {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cancel-summary-product img {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.cancel-summary-product h3 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.cancel-summary-product p {
+  margin: 0 0 4px;
+  color: #92958c;
+  font-size: 12px;
+}
+
+.cancel-summary-product strong {
+  color: #50644f;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cancel-summary-costs {
+  display: grid;
+  gap: 10px;
+  margin: 24px 0 18px;
+  color: #71746c;
+  font-size: 13px;
+}
+
+.cancel-summary-costs > div,
+.cancel-summary-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cancel-summary-costs dd {
+  flex-shrink: 0;
+  margin: 0;
+  color: #50574a;
+  font-weight: 600;
+}
+
+.cancel-summary-costs .cancel-summary-discount,
+.cancel-summary-discount dd {
+  color: #b47151;
+}
+
+.cancel-summary-total {
+  padding-top: 18px;
+  border-top: 1px solid #eeece6;
+}
+
+.cancel-summary-total span {
+  color: #50574a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cancel-summary-total strong {
+  flex-shrink: 0;
+  color: #50644f;
+  font-size: 26px;
+  line-height: 1.3;
+}
+
+.cancel-summary-note {
+  margin: 10px 0 0;
+  color: #92958c;
+  font-size: 12px;
+}
+
+.cancel-summary-customer {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #eeece6;
+  color: #50574a;
+  font-size: 12px;
+}
+
+.cancel-summary-customer strong {
+  font-weight: 600;
+}
+
+.cancel-summary-customer p {
+  margin: 8px 0 0;
+  color: #71746c;
+}

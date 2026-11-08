@@ -1,0 +1,69 @@
+.cancel-order-actions {
+  display: grid;
+  align-self: start;
+  gap: 24px;
+}
+
+.cancel-order-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  background: #f9f1eb;
+}
+
+.cancel-order-warning > svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  color: #b47151;
+}
+
+.cancel-order-warning strong {
+  color: #a36d50;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cancel-order-warning p {
+  margin: 6px 0 0;
+  color: #71746c;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.cancel-order-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel-order-buttons a,
+.cancel-order-buttons button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 22px;
+  border: 1px solid #a8afa2;
+  border-radius: 7px;
+  background: #fff;
+  color: #50574a;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cancel-order-buttons button {
+  border-color: #50644f;
+  background: #50644f;
+  color: #fff;
+}
+
+.cancel-order-buttons :is(a, button):hover {
+  opacity: 0.85;
+}
