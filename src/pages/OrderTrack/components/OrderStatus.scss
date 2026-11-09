@@ -1,0 +1,260 @@
+.order-status-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-sizing: border-box;
+
+  .status-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+
+    .current-info {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+
+      .truck-icon-circle {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #f1f5f2;
+        color: #2e4334;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+
+      .status-text {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        .badge {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 11.5px;
+          font-weight: 700;
+          color: #b45309;
+          letter-spacing: 0.04em;
+
+          .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #b45309;
+          }
+        }
+
+        h2 {
+          margin: 0;
+          font-size: 24px;
+          font-weight: 700;
+          color: #111827;
+        }
+
+        .desc {
+          margin: 0;
+          font-size: 14px;
+          color: #4b5563;
+        }
+
+        .updated-time {
+          margin: 0;
+          font-size: 12.5px;
+          color: #9ca3af;
+        }
+      }
+    }
+
+    .eta-box {
+      background: #f3f6f3;
+      border-radius: 10px;
+      padding: 16px 20px;
+      min-width: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .eta-header {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11.5px;
+        font-weight: 700;
+        color: #2e4334;
+        letter-spacing: 0.04em;
+        margin-bottom: 4px;
+
+      }
+
+      .eta-date {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .eta-time {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+        color: #1f2937;
+      }
+
+      .eta-note {
+        margin: 4px 0 0 0;
+        font-size: 12px;
+        color: #6b7280;
+      }
+    }
+  }
+
+  .timeline-divider {
+    border: none;
+    border-top: 1px solid #f3f4f6;
+    margin: 32px 0 28px;
+  }
+
+  .status-timeline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1;
+
+      &:last-child {
+        flex: 0 0 auto;
+
+        .step-node .step-line {
+          display: none;
+        }
+      }
+
+      .step-node {
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        .step-circle {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          flex-shrink: 0;
+
+          &.completed {
+            background: #2e4334;
+            color: #ffffff;
+          }
+
+          &.active {
+            border: 1.5px solid #c2410c;
+            background: #fdf6f2;
+            color: #c2410c;
+          }
+
+          &.pending {
+            border: 1.5px solid #d1d5db;
+            background: #ffffff;
+            color: #9ca3af;
+          }
+        }
+
+        .step-line {
+          flex: 1;
+          height: 2px;
+          background: #e5e7eb;
+          margin: 0 6px;
+
+          &.active {
+            background: #2e4334;
+          }
+        }
+      }
+
+      .step-info {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+
+        .step-title {
+          font-size: 13.5px;
+          font-weight: 600;
+          color: #111827;
+
+          &.active {
+            color: #c2410c;
+          }
+
+          &.pending {
+            color: #6b7280;
+          }
+        }
+
+        .step-desc {
+          font-size: 12px;
+          color: #6b7280;
+
+          &.pending {
+            color: #9ca3af;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 860px) {
+  .order-status-card {
+    padding: 20px 16px;
+
+    .status-top {
+      flex-direction: column;
+
+      .eta-box {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    .status-timeline {
+      flex-direction: column;
+      gap: 20px;
+
+      .step-item {
+        flex-direction: row;
+        gap: 14px;
+        align-items: flex-start;
+
+        .step-node {
+          width: auto;
+          flex-direction: column;
+
+          .step-line {
+            width: 2px;
+            height: 24px;
+            margin: 4px 0;
+          }
+        }
+
+        .step-info {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
