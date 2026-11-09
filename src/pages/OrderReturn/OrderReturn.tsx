@@ -2,6 +2,8 @@ import ReturnProducts from './components/ReturnProducts'
 import InforOrder from './components/InforOrder'
 import ExpectedMoney from './components/ExpectedMoney'
 import ReasonReturn from './components/ReasonReturn'
+import MethodReturn from './components/MethodReturn'
+
 import './OrderReturn.css'
 
 export default function OrderReturn() {
@@ -16,6 +18,7 @@ export default function OrderReturn() {
                 <div className="order-return-main">
                     <ReturnProducts />
                     <ReasonReturn />
+                    <MethodReturn />
                 </div>
 
                 <div className="order-return-sidebar">
