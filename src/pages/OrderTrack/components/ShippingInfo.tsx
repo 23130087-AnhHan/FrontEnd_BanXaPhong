@@ -1,4 +1,5 @@
 
+import NeedHelp from '../../OrderReturn/components/NeedHelp';
 import './ShippingInfo.scss';
 
 export default function ShippingInfo() {
@@ -35,6 +36,7 @@ export default function ShippingInfo() {
                     Vui lòng bọc kỹ đồ dễ vỡ."
                 </p>
             </div>
+            <NeedHelp />
         </div>
     );
 }
