@@ -47,6 +47,65 @@
   gap: 20px;
 }
 
+.return-confirm {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #374151;
+  cursor: pointer;
+  user-select: none;
+  margin-top: 4px;
+}
+
+.confirm-checkbox {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid #d1d5db;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-checkbox.checked {
+  background-color: #2e4334;
+  color: #ffffff;
+  font-size: 10px;
+}
+
+.order-return-main .btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+}
+
+.order-return-main .btn-group .btn-back {
+  padding: 10px 22px;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+}
+
+
+.order-return-main .btn-group .btn-submit {
+  width: auto;
+  padding: 10px 22px;
+  background-color: #2e4334;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  cursor: pointer;
+}
+
 @media (max-width: 992px) {
   .order-return-layout {
     flex-direction: column;
