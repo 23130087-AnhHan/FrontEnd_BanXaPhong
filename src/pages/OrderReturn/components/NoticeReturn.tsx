@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import './NoticeReturn.scss'
+import NeedHelp from './NeedHelp'
 
 export default function NoticeReturn() {
   return (
@@ -17,10 +18,7 @@ export default function NoticeReturn() {
         </div>
       </div>
 
-      <div className="notice-help">
-
-        <span>Cần trợ giúp? <Link to="/contact">Liên hệ Saponi</Link></span>
-      </div>
+      <NeedHelp />
     </>
   )
 }

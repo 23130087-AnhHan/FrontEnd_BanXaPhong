@@ -1,0 +1,80 @@
+.shipping-card {
+    padding: 24px 28px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-sizing: border-box;
+    min-width: 0;
+    color: #4b5563;
+
+    h3 {
+        margin: 0 0 18px;
+        font-size: 18px;
+        font-weight: 700;
+        color: #111827;
+    }
+
+    h4 {
+        margin: 5px 0;
+        font-size: 14.5px;
+        font-weight: 700;
+        color: #111827;
+    }
+
+    p {
+        margin: 6px 0;
+        font-size: 13px;
+        line-height: 1.45;
+        color: #4b5563;
+    }
+
+    .section-label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #52685b;
+    }
+
+    .shipping-divider {
+        margin: 18px 0;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .shipping-method {
+        color: #1f2937;
+        font-weight: 600;
+    }
+
+    .total-price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+
+        span {
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        strong {
+            font-size: 16px;
+            font-weight: 700;
+            color: #344b3b;
+        }
+    }
+
+    .shipping-note {
+        margin-top: 18px;
+        padding: 14px 18px;
+        border-radius: 10px;
+        background: #f7f9f7;
+
+        p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.45;
+            color: #4b5563;
+        }
+    }
+}

@@ -81,7 +81,17 @@ export default function OrderCard({ order }: OrderCardProps) {
           <div className="order-actions">
             <button type="button">Xem chi tiết</button>
             {order.action && (
-              <button type="button" className="order-action-primary">{order.action}</button>
+              <button
+                type="button"
+                className="order-action-primary"
+                onClick={() => {
+                  if (order.action === 'Theo dõi đơn') {
+                    navigate('/tai-khoan/don-hang/track', { state: { order } })
+                  }
+                }}
+              >
+                {order.action}
+              </button>
             )}
 
             {order.status === 'pending' && (
