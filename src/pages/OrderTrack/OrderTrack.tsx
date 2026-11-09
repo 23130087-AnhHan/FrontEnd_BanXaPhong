@@ -1,4 +1,5 @@
 import OrderStatus from './components/OrderStatus'
+import HistoryDelivery from './components/HistoryDelivery'
 import './OrderTrack.scss'
 
 export default function OrderTrack() {
@@ -7,6 +8,7 @@ export default function OrderTrack() {
             <div className="order-track-container">
                 <h1 className="page-title">Theo dõi đơn hàng</h1>
                 <OrderStatus />
+                <HistoryDelivery />
             </div>
         </div>
     )
