@@ -11,6 +11,7 @@ import ChangePasswordPage from './pages/ChangePassword/ChangePasswordPage'
 import AddressBookPage from './pages/AddressBook/AddressBookPage'
 import AddAddressPage from './pages/AddAddress/AddAddressPage'
 import MyOrdersPage from './pages/MyOrders/MyOrdersPage'
+import OrderDetailPage from './pages/OrderDetail/OrderDetailPage'
 import CartPage from './pages/Cart/CartPage'
 import CheckoutPage from './pages/Checkout/CheckoutPage'
 import OrderSuccessPage from './pages/OrderSuccess/OrderSuccessPage'
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/tai-khoan" element={<AccountProfilePage />} />
           <Route path="/tai-khoan/don-hang" element={<MyOrdersPage />} />
+          <Route path="/tai-khoan/don-hang/chi-tiet" element={<OrderDetailPage />} />
           <Route path="/tai-khoan/don-hang/return" element={<OrderReturn />} />
           <Route path="/tai-khoan/don-hang/track" element={<OrderTrack />} />
           <Route path="/tai-khoan/don-hang/cancel" element={<CancelOrderPage />} />
