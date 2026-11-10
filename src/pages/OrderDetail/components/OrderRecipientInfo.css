@@ -7,10 +7,6 @@
   gap: 12px;
 }
 
-.order-recipient-transport h3 {
-  margin-bottom: 4px;
-}
-
 .order-recipient-heading {
   justify-content: space-between;
   gap: 16px;
@@ -85,6 +81,10 @@
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.6px;
+}
+
+.order-recipient-transport h3 {
+  margin-bottom: 4px;
 }
 
 .order-recipient-person {

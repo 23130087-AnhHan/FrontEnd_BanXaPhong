@@ -167,7 +167,8 @@
   gap: 10px;
 }
 
-.order-actions button {
+.order-actions button,
+.order-actions a {
   height: 40px;
   padding: 0 17px;
   border: 1px solid #e4e2de;
@@ -178,6 +179,12 @@
   font-weight: 500;
   line-height: 20px;
   cursor: pointer;
+}
+
+.order-actions a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .order-actions .order-action-primary {

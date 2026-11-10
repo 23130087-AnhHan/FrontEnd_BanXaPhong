@@ -1,0 +1,67 @@
+.order-detail-costs {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0 0;
+  padding-top: 4px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.order-detail-costs > div,
+.order-detail-payment-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.order-detail-costs dt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.order-detail-costs dd {
+  flex-shrink: 0;
+  margin: 0;
+  font-weight: 600;
+}
+
+.order-detail-discount {
+  color: #97472e;
+}
+
+.order-detail-discount svg {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+}
+
+.order-detail-payment-total {
+  flex-wrap: wrap;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #c3c8c1;
+}
+
+.order-detail-payment-total > div > strong {
+  display: block;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.order-detail-payment-total p {
+  margin: 0;
+  color: #434843;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.order-detail-payment-total > strong {
+  color: #334537;
+  font-size: 28px;
+  line-height: 24px;
+  letter-spacing: -0.7px;
+}

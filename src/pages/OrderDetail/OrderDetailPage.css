@@ -125,6 +125,32 @@
   opacity: 0.85;
 }
 
+.order-detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 12px 0 8px;
+}
+
+.order-detail-button-primary {
+  border: 0;
+  background: #4a5d4e;
+  color: #fff;
+  font-weight: 500;
+}
+
+.order-detail-actions svg {
+  width: 14px;
+  height: 16px;
+}
+
+.order-detail-cancel svg {
+  width: 10px;
+  height: 10px;
+}
+
 @media (max-width: 767px) {
   .order-detail-page {
     padding: 24px 16px 40px;

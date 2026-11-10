@@ -2,7 +2,7 @@ import { faClock } from '@fortawesome/free-regular-svg-icons/faClock'
 import { faTruck } from '@fortawesome/free-solid-svg-icons/faTruck'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons/faCircleCheck'
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons/faCircleXmark'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Icon from '../../../components/Icon'
 import './OrderCard.css'
 
@@ -79,7 +79,7 @@ export default function OrderCard({ order }: OrderCardProps) {
         <div className="order-bottom">
           <p className="order-update">{order.update}</p>
           <div className="order-actions">
-            <button type="button">Xem chi tiết</button>
+            <Link to="/tai-khoan/don-hang/chi-tiet" reloadDocument>Xem chi tiết</Link>
             {order.action && (
               <button
                 type="button"
