@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import Icon from '../../components/Icon'
 import OrderRecipientInfo from './components/OrderRecipientInfo'
+import OrderDetailProducts from './components/OrderDetailProducts'
 import './OrderDetailPage.css'
 
 export default function OrderDetailPage() {
@@ -22,6 +23,7 @@ export default function OrderDetailPage() {
         </div>
 
         <OrderRecipientInfo />
+        <OrderDetailProducts />
       </div>
     </div>
   )
