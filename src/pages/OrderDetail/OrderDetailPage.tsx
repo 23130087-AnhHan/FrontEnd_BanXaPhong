@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import Icon from '../../components/Icon'
+import OrderRecipientInfo from './components/OrderRecipientInfo'
 import './OrderDetailPage.css'
 
 export default function OrderDetailPage() {
@@ -19,6 +20,8 @@ export default function OrderDetailPage() {
         <div className="order-detail-tracking">
           <Link to="/tai-khoan/don-hang/track" className="order-detail-button">Theo dõi đơn hàng</Link>
         </div>
+
+        <OrderRecipientInfo />
       </div>
     </div>
   )

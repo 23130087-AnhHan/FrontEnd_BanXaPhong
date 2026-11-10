@@ -1,0 +1,167 @@
+.order-recipient-heading,
+.order-recipient-intro,
+.order-recipient-person {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.order-recipient-transport h3 {
+  margin-bottom: 4px;
+}
+
+.order-recipient-heading {
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgb(228 226 222 / 60%);
+}
+
+.order-recipient-intro p {
+  margin: 0;
+  color: #737872;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.6px;
+}
+
+.order-recipient-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgb(51 69 55 / 10%);
+  color: #334537;
+}
+
+.order-recipient-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.order-recipient-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgb(151 71 46 / 10%);
+  color: #97472e;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.6px;
+}
+
+.order-recipient-status > span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.order-recipient-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.order-recipient-box {
+  min-width: 0;
+  min-height: 115px;
+  padding: 16px;
+  border: 1px solid #c3c8c1;
+  border-radius: 8px;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+}
+
+.order-recipient-box h3 {
+  margin: 0 0 8px;
+  color: #334537;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.6px;
+}
+
+.order-recipient-person {
+  gap: 8px 24px;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.order-recipient-person strong {
+  font-size: 16px;
+}
+
+.order-recipient-address {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 22px;
+}
+
+.order-recipient-delivery,
+.order-recipient-payment {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.order-recipient-delivery svg,
+.order-recipient-payment svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 16px;
+  color: #334537;
+}
+
+.order-recipient-payment {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #c3c8c1;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.order-recipient-note {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  gap: 14px;
+  min-height: 82px;
+  border-radius: 12px;
+}
+
+.order-recipient-note .order-recipient-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.order-recipient-note h3 {
+  margin-bottom: 3px;
+}
+
+.order-recipient-note p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 25px;
+}
+
+@media (max-width: 767px) {
+  .order-recipient-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .order-recipient-intro {
+    flex-wrap: nowrap;
+  }
+}
