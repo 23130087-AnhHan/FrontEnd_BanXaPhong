@@ -1,3 +1,6 @@
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { load } from '../../components/ProductSlice'
 import ProductList from '../../components/ProductList'
 import HomeTitle from '../../components/HomeTitle'
 import Banner from './components/Banner'
@@ -157,6 +160,12 @@ const mostView = [
 ];
 
 export default function HomePage() {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(load(bestSellers))
+    }, [])
+
     return (
         <div className="product-list">
             <Banner
@@ -168,7 +177,7 @@ export default function HomePage() {
             />
 
             <HomeTitle content={{ badge: 'BÁN CHẠY', title: 'Top sản phẩm bán chạy nhất' }} />
-            <ProductList
+            {/* <ProductList
                 products={bestSellers}
             />
 
@@ -180,7 +189,8 @@ export default function HomePage() {
             <HomeTitle content={{ badge: 'ĐƯỢC XEM NHIỀU', title: 'Top sản phẩm được được xem nhiều nhất' }} />
             <ProductList
                 products={mostView}
-            />
+            /> */}
+            <ProductList />
         </div>
     )
 }

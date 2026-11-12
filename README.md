@@ -6,6 +6,8 @@
 
 ```sh
 npm ci
+npm install @reduxjs/toolkit react-redux
+npm install react-redux
 npm run dev
 ```
 
