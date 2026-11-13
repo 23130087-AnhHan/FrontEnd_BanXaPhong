@@ -32,7 +32,7 @@ export async function dangNhap(email: string, matKhau: string): Promise<KetQuaDa
         return { thanhCong: false, thongBaoLoi: 'Email hoặc mật khẩu không đúng' }
     }
 
-    const { matKhau: _, ...thongTinNguoiDung } = nguoiDungTimThay
+    const { matKhau: _mat, ...thongTinNguoiDung } = nguoiDungTimThay
 
     return { thanhCong: true, nguoiDung: thongTinNguoiDung }
 }

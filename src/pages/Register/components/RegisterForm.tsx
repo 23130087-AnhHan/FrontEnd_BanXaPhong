@@ -12,7 +12,7 @@ type LoiForm = {
     email?: string
     matKhau?: string
     xacNhanMatKhau?: string
-    chungToi?: string
+    dieuKhoan?: string
 }
 
 function kiemTraHopLe(hoTen: string, email: string, matKhau: string, xacNhanMatKhau: string, daChapNhanDieuKhoan: boolean): LoiForm {
@@ -44,7 +44,7 @@ function kiemTraHopLe(hoTen: string, email: string, matKhau: string, xacNhanMatK
     }
 
     if (!daChapNhanDieuKhoan) {
-        loi.chungToi = 'Bạn cần đồng ý với điều khoản để tiếp tục'
+        loi.dieuKhoan = 'Bạn cần đồng ý với điều khoản để tiếp tục'
     }
 
     return loi
@@ -200,14 +200,14 @@ export default function RegisterForm() {
                         type="checkbox"
                         checked={daChapNhanDieuKhoan}
                         onChange={(e) => setDaChapNhanDieuKhoan(e.target.checked)}
-                        aria-describedby={loiForm.chungToi ? 'loi-dieu-khoan' : undefined}
+                        aria-describedby={loiForm.dieuKhoan ? 'loi-dieu-khoan' : undefined}
                     />
                     <label htmlFor="register-terms">
                         Tôi đồng ý với <a href="/terms">Điều khoản sử dụng</a> và{' '}
                         <a href="/privacy">Chính sách bảo mật</a> của Saponi.
                     </label>
                 </div>
-                {loiForm.chungToi && <p id="loi-dieu-khoan" className="register-error">{loiForm.chungToi}</p>}
+                {loiForm.dieuKhoan && <p id="loi-dieu-khoan" className="register-error">{loiForm.dieuKhoan}</p>}
 
                 {loiMayChu && (
                     <p className="register-error register-error--server" role="alert">{loiMayChu}</p>
