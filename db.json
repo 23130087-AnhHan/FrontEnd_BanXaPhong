@@ -2,9 +2,9 @@
     "users": [
         {
             "id": "1",
-            "hoTen": "Admin Saponi",
-            "email": "admin@saponi.vn",
-            "matKhau": "Admin123"
+            "hoTen": "User",
+            "email": "user@gmail.com",
+            "matKhau": "User123@"
         }
     ]
 }
