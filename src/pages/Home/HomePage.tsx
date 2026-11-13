@@ -160,6 +160,7 @@ const mostView = [
 export default function HomePage() {
     const bestSellers = useSelector((state: any) => state.products.bestSellers)
     const newProducts = useSelector((state: any) => state.products.newProducts)
+    const mostView = useSelector((state: any) => state.products.mostView)
 
     // useEffect(() => {
     //     dispatch(load(bestSellers))
@@ -180,6 +181,9 @@ export default function HomePage() {
 
             <HomeTitle content={{ badge: 'MỚI RA MẮT', title: 'Top sản phẩm mới nhất' }} />
             <ProductList products={newProducts} />
+
+            <HomeTitle content={{ badge: 'ĐƯỢC XEM NHIỀU', title: 'Top sản phẩm được được xem nhiều nhất' }} />
+            <ProductList products={mostView} />
         </div>
     )
 }
