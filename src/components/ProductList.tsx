@@ -2,9 +2,7 @@ import { useSelector } from 'react-redux'
 import ProductCard from './ProductCard'
 import './ProductList.css'
 
-export default function ProductList() {
-    const products = useSelector((state: any) => state.products);
-
+export default function ProductList({ products }: { products: any[] }) {
     return (
         <div className="product-section">
             <div className="product-grid">
