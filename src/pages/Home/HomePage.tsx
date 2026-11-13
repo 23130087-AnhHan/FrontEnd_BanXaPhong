@@ -1,6 +1,4 @@
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { load } from '../../components/ProductSlice'
+import { useSelector } from 'react-redux'
 import ProductList from '../../components/ProductList'
 import HomeTitle from '../../components/HomeTitle'
 import Banner from './components/Banner'
@@ -160,11 +158,13 @@ const mostView = [
 ];
 
 export default function HomePage() {
-    const dispatch = useDispatch()
+    const bestSellers = useSelector((state: any) => state.products.bestSellers)
+    const newProducts = useSelector((state: any) => state.products.newProducts)
+    const mostView = useSelector((state: any) => state.products.mostView)
 
-    useEffect(() => {
-        dispatch(load(bestSellers))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(load(bestSellers))
+    // }, [])
 
     return (
         <div className="product-list">
@@ -177,20 +177,13 @@ export default function HomePage() {
             />
 
             <HomeTitle content={{ badge: 'BÁN CHẠY', title: 'Top sản phẩm bán chạy nhất' }} />
-            {/* <ProductList
-                products={bestSellers}
-            />
+            <ProductList products={bestSellers} />
 
             <HomeTitle content={{ badge: 'MỚI RA MẮT', title: 'Top sản phẩm mới nhất' }} />
-            <ProductList
-                products={newProducts}
-            />
+            <ProductList products={newProducts} />
 
             <HomeTitle content={{ badge: 'ĐƯỢC XEM NHIỀU', title: 'Top sản phẩm được được xem nhiều nhất' }} />
-            <ProductList
-                products={mostView}
-            /> */}
-            <ProductList />
+            <ProductList products={mostView} />
         </div>
     )
 }
