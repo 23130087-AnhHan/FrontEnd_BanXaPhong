@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { addCartItem, getCartItems, updateCartQuantity } from '../api/cartApi'
+import { addCartItem, deleteCartItem, getCartItems, updateCartQuantity } from '../api/cartApi'
 import type { CartItem } from '../api/cartApi'
 import type { Product } from '../data/products'
 import type { RootState } from './store'
@@ -37,6 +37,16 @@ export const changeQuantity = createAsyncThunk(
     },
   },
 )
+
+export const removeFromCart = createAsyncThunk('cart/remove', async (id: string) => {
+  await deleteCartItem(id)
+  return id
+}, {
+  condition: (_, { getState }) => {
+    const cart = (getState() as RootState).cart
+    return cart.status === 'succeeded' && !cart.saving
+  },
+})
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -82,6 +92,18 @@ const cartSlice = createSlice({
       .addCase(changeQuantity.rejected, (state) => {
         state.saving = false
         state.error = 'Không cập nhật được số lượng. Vui lòng thử lại.'
+      })
+      .addCase(removeFromCart.pending, (state) => {
+        state.saving = true
+        state.error = ''
+      })
+      .addCase(removeFromCart.fulfilled, (state, action) => {
+        state.items = state.items.filter((item) => item.id !== action.payload)
+        state.saving = false
+      })
+      .addCase(removeFromCart.rejected, (state) => {
+        state.saving = false
+        state.error = 'Không xóa được sản phẩm. Vui lòng thử lại.'
       })
   },
 })

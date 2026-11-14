@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from '../../store/store'
-import { changeQuantity } from '../../store/cartSlice'
+import { changeQuantity, removeFromCart } from '../../store/cartSlice'
 import { faLeaf } from '@fortawesome/free-solid-svg-icons/faLeaf'
 import Icon from '../../components/Icon'
 import CartTable from './components/CartTable'
@@ -28,6 +28,7 @@ export default function CartPage() {
             products={items}
             busy={saving || status !== 'succeeded'}
             onQuantityChange={(id, quantity) => dispatch(changeQuantity({ id, quantity }))}
+            onRemove={(id) => dispatch(removeFromCart(id))}
           />
           <div className="cart-benefit">
             <Icon icon={faLeaf} />

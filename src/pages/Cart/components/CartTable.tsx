@@ -11,9 +11,10 @@ interface CartTableProps {
   products: CartItem[]
   busy: boolean
   onQuantityChange: (id: string, quantity: number) => void
+  onRemove: (id: string) => void
 }
 
-export default function CartTable({ products, busy, onQuantityChange }: CartTableProps) {
+export default function CartTable({ products, busy, onQuantityChange, onRemove }: CartTableProps) {
   const savings = products.reduce((sum, product) => sum + Math.max(0, (product.oldPrice ?? product.price) - product.price) * product.quantity, 0)
 
   return (
@@ -70,7 +71,7 @@ export default function CartTable({ products, busy, onQuantityChange }: CartTabl
               <td className="cart-total-cell">
                 <span className="cart-mobile-label">Thành tiền</span>
                 <strong>{(product.price * product.quantity).toLocaleString('vi-VN')} đ</strong>
-                <button type="button" className="cart-remove" aria-label={'Xóa ' + product.name}>
+                <button type="button" className="cart-remove" disabled={busy} onClick={() => onRemove(product.id)} aria-label={'Xóa ' + product.name}>
                   <Icon icon={faTrashCan} />
                   Xóa
                 </button>
