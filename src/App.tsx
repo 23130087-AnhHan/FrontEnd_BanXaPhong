@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import type { AppDispatch } from './store/store'
+import { useDispatch, useSelector } from 'react-redux'
+import type { AppDispatch, RootState } from './store/store'
 import { loadCart } from './store/cartSlice'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -30,6 +30,7 @@ import OrderTrack from './pages/OrderTrack/OrderTrack'
 
 export default function App() {
   const dispatch = useDispatch<AppDispatch>()
+  const cartCount = useSelector((state: RootState) => state.cart.items.reduce((sum, item) => sum + item.quantity, 0))
 
   useEffect(() => {
     dispatch(loadCart())
@@ -37,7 +38,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Header cartCount={2} />
+      <Header cartCount={cartCount} />
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />

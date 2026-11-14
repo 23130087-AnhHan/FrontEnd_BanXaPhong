@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons/faBagShopping'
@@ -88,14 +88,14 @@ export default function Header({ activePage, cartCount = 0 }: HeaderProps) {
           <a href="/hobby" aria-label="Sản phẩm yêu thích">
             <Icon icon={faHeart} />
           </a>
-          <a href="/gio-hang" aria-label={'Giỏ hàng, ' + cartCount + ' sản phẩm'}>
+          <Link to="/gio-hang" aria-label={'Giỏ hàng, ' + cartCount + ' sản phẩm'}>
             <Icon icon={faBagShopping} />
             {cartCount > 0 && (
               <span className="header-count" aria-hidden="true">
                 {cartCount > 99 ? '99+' : cartCount}
               </span>
             )}
-          </a>
+          </Link>
           <AccountDropdown />
         </div>
       </div>
