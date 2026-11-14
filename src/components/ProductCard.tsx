@@ -1,4 +1,7 @@
 import type { Product } from '../data/products'
+import { useDispatch, useSelector } from 'react-redux'
+import type { AppDispatch, RootState } from '../store/store'
+import { addToCart } from '../store/cartSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faBagShopping } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
@@ -10,6 +13,9 @@ import { useState } from 'react'
 
 
 export default function ProductCard({ product }: { product: Product }) {
+    const dispatch = useDispatch<AppDispatch>()
+    const { items, status, saving } = useSelector((state: RootState) => state.cart)
+    const quantity = items.find((item) => item.productId === product.id)?.quantity ?? 0
     const [isHobby, setIsHobby] = useState(false);
     return (
         <div className="card">
@@ -39,9 +45,14 @@ export default function ProductCard({ product }: { product: Product }) {
                 </div>
 
                 <div className="card-actions">
-                    <button className="btn-cart" type="button">
+                    <button
+                        className="btn-cart"
+                        type="button"
+                        disabled={status !== 'succeeded' || saving || product.inStock === false || quantity >= 99}
+                        onClick={() => dispatch(addToCart(product))}
+                    >
                         <FontAwesomeIcon icon={faBagShopping} />
-                        Thêm giỏ
+                        {product.inStock === false ? 'Hết hàng' : 'Thêm giỏ'}
                     </button>
                     <button className="btn-buy" type="button">
                         Mua ngay
