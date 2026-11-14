@@ -7,7 +7,13 @@ import { faTrashCan } from '@fortawesome/free-regular-svg-icons/faTrashCan'
 import Icon from '../../../components/Icon'
 import './CartTable.css'
 
-export default function CartTable({ products }: { products: CartItem[] }) {
+interface CartTableProps {
+  products: CartItem[]
+  busy: boolean
+  onQuantityChange: (id: string, quantity: number) => void
+}
+
+export default function CartTable({ products, busy, onQuantityChange }: CartTableProps) {
   const savings = products.reduce((sum, product) => sum + Math.max(0, (product.oldPrice ?? product.price) - product.price) * product.quantity, 0)
 
   return (
@@ -56,9 +62,9 @@ export default function CartTable({ products }: { products: CartItem[] }) {
               <td className="cart-quantity-cell">
                 <span className="cart-mobile-label">Số lượng</span>
                 <div className="cart-quantity">
-                  <button type="button" aria-label={'Giảm số lượng ' + product.name}><Icon icon={faMinus} /></button>
+                  <button type="button" disabled={busy || product.quantity <= 1} onClick={() => onQuantityChange(product.id, product.quantity - 1)} aria-label={'Giảm số lượng ' + product.name}><Icon icon={faMinus} /></button>
                   <span>{product.quantity}</span>
-                  <button type="button" aria-label={'Tăng số lượng ' + product.name}><Icon icon={faPlus} /></button>
+                  <button type="button" disabled={busy || product.quantity >= 99} onClick={() => onQuantityChange(product.id, product.quantity + 1)} aria-label={'Tăng số lượng ' + product.name}><Icon icon={faPlus} /></button>
                 </div>
               </td>
               <td className="cart-total-cell">

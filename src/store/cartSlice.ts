@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { addCartItem, getCartItems } from '../api/cartApi'
+import { addCartItem, getCartItems, updateCartQuantity } from '../api/cartApi'
 import type { CartItem } from '../api/cartApi'
 import type { Product } from '../data/products'
 import type { RootState } from './store'
@@ -26,6 +26,17 @@ export const addToCart = createAsyncThunk('cart/add', (product: Product) => addC
     return cart.status === 'succeeded' && !cart.saving
   },
 })
+
+export const changeQuantity = createAsyncThunk(
+  'cart/changeQuantity',
+  ({ id, quantity }: Pick<CartItem, 'id' | 'quantity'>) => updateCartQuantity(id, quantity),
+  {
+    condition: (_, { getState }) => {
+      const cart = (getState() as RootState).cart
+      return cart.status === 'succeeded' && !cart.saving
+    },
+  },
+)
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -58,6 +69,19 @@ const cartSlice = createSlice({
       .addCase(addToCart.rejected, (state) => {
         state.saving = false
         state.error = 'Không thêm được sản phẩm. Vui lòng thử lại.'
+      })
+      .addCase(changeQuantity.pending, (state) => {
+        state.saving = true
+        state.error = ''
+      })
+      .addCase(changeQuantity.fulfilled, (state, action) => {
+        const index = state.items.findIndex((item) => item.id === action.payload.id)
+        if (index !== -1) state.items[index] = action.payload
+        state.saving = false
+      })
+      .addCase(changeQuantity.rejected, (state) => {
+        state.saving = false
+        state.error = 'Không cập nhật được số lượng. Vui lòng thử lại.'
       })
   },
 })
