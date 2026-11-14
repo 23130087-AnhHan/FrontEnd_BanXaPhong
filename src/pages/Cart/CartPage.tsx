@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../store/store'
 import { faLeaf } from '@fortawesome/free-solid-svg-icons/faLeaf'
 import Icon from '../../components/Icon'
 import CartTable from './components/CartTable'
@@ -6,6 +8,8 @@ import CartSummary from './components/CartSummary'
 import './CartPage.css'
 
 export default function CartPage() {
+  const products = useSelector((state: RootState) => state.cart.items)
+
   return (
     <div className="cart-page">
       <nav className="cart-breadcrumb" aria-label="Đường dẫn">
@@ -18,7 +22,7 @@ export default function CartPage() {
 
       <div className="cart-layout">
         <div className="cart-main">
-          <CartTable />
+          <CartTable products={products} />
           <div className="cart-benefit">
             <Icon icon={faLeaf} />
             <div>

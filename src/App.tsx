@@ -1,4 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import type { AppDispatch } from './store/store'
+import { loadCart } from './store/cartSlice'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import HomePage from './pages/Home/HomePage'
@@ -25,6 +29,12 @@ import CancelOrderPage from './pages/CancelOrder/CancelOrderPage'
 import OrderTrack from './pages/OrderTrack/OrderTrack'
 
 export default function App() {
+  const dispatch = useDispatch<AppDispatch>()
+
+  useEffect(() => {
+    dispatch(loadCart())
+  }, [dispatch])
+
   return (
     <BrowserRouter>
       <Header cartCount={2} />

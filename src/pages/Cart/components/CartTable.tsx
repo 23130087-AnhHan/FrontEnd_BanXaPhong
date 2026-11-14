@@ -1,3 +1,4 @@
+import type { CartItem } from '../../../api/cartApi'
 import { Link } from 'react-router-dom'
 import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus'
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
@@ -6,28 +7,9 @@ import { faTrashCan } from '@fortawesome/free-regular-svg-icons/faTrashCan'
 import Icon from '../../../components/Icon'
 import './CartTable.css'
 
-const productImage = 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg'
+export default function CartTable({ products }: { products: CartItem[] }) {
+  const savings = products.reduce((sum, product) => sum + Math.max(0, (product.oldPrice ?? product.price) - product.price) * product.quantity, 0)
 
-const products = [
-  {
-    id: 1,
-    name: 'Xà phòng Oải hương Pháp',
-    price: '180.000 đ',
-    quantity: 2,
-    total: '360.000 đ',
-  },
-  {
-    id: 2,
-    name: 'Xà phòng Hoa hồng Đất sét',
-    price: '155.000 đ',
-    oldPrice: '190.000 đ',
-    quantity: 1,
-    total: '155.000 đ',
-    discount: 'Tiết kiệm 35.000 đ',
-  },
-]
-
-export default function CartTable() {
   return (
     <section className="cart-table" aria-label="Danh sách sản phẩm trong giỏ">
       <label className="cart-select-all">
@@ -56,18 +38,20 @@ export default function CartTable() {
               <td>
                 <div className="cart-product">
                   <input type="checkbox" defaultChecked aria-label={'Chọn ' + product.name} />
-                  <img src={productImage} alt="" width="104" height="104" />
+                  <img src={product.image} alt="" width="104" height="104" />
                   <div className="cart-product-info">
                     <h2>{product.name}</h2>
-                    <p>Bánh 100g</p>
-                    {product.discount && <span className="cart-discount">{product.discount}</span>}
+                    <p>{product.unit}</p>
+                    {product.oldPrice != null && product.oldPrice > product.price && (
+                      <span className="cart-discount">Tiết kiệm {((product.oldPrice - product.price) * product.quantity).toLocaleString('vi-VN')} đ</span>
+                    )}
                   </div>
                 </div>
               </td>
               <td className="cart-unit-price">
                 <span className="cart-mobile-label">Đơn giá</span>
-                <span>{product.price}</span>
-                {product.oldPrice && <del>{product.oldPrice}</del>}
+                <span>{product.price.toLocaleString('vi-VN')} đ</span>
+                {product.oldPrice && <del>{product.oldPrice.toLocaleString('vi-VN')} đ</del>}
               </td>
               <td className="cart-quantity-cell">
                 <span className="cart-mobile-label">Số lượng</span>
@@ -79,7 +63,7 @@ export default function CartTable() {
               </td>
               <td className="cart-total-cell">
                 <span className="cart-mobile-label">Thành tiền</span>
-                <strong>{product.total}</strong>
+                <strong>{(product.price * product.quantity).toLocaleString('vi-VN')} đ</strong>
                 <button type="button" className="cart-remove" aria-label={'Xóa ' + product.name}>
                   <Icon icon={faTrashCan} />
                   Xóa
@@ -92,7 +76,7 @@ export default function CartTable() {
 
       <div className="cart-table-footer">
         <Link to="/products"><Icon icon={faArrowLeft} />Tiếp tục mua sắm</Link>
-        <span>Bạn đã tiết kiệm 35.000 đ</span>
+        <span>Bạn đã tiết kiệm {savings.toLocaleString('vi-VN')} đ</span>
       </div>
     </section>
   )
