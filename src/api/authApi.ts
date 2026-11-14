@@ -68,3 +68,20 @@ export async function dangKy(hoTen: string, email: string, matKhau: string): Pro
 
     return { thanhCong: true }
 }
+
+export function layNguoiDungHienTai(): Omit<NguoiDung, 'matKhau'> | null {
+    const duLieu = localStorage.getItem('nguoiDungHienTai') || sessionStorage.getItem('nguoiDungHienTai')
+    if (!duLieu) return null
+
+    try {
+        return JSON.parse(duLieu)
+    } catch {
+        return null
+    }
+}
+
+export function dangXuat(): void {
+    localStorage.removeItem('nguoiDungHienTai')
+    sessionStorage.removeItem('nguoiDungHienTai')
+    window.dispatchEvent(new Event('auth-change'))
+}

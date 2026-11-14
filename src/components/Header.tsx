@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
@@ -8,6 +8,7 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons/faHeart'
 import logo from '../assets/saponi-logo.png'
 import Icon from './Icon'
 import AccountDropdown from './AccountDropdown'
+import { layNguoiDungHienTai } from '../api/authApi'
 import './Header.css'
 
 interface HeaderProps {
@@ -26,7 +27,23 @@ export default function Header({ activePage, cartCount = 0 }: HeaderProps) {
   const location = useLocation()
   const currentPage = activePage || navigation.find((item) => item.href === location.pathname)?.id
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [nguoiDung, setNguoiDung] = useState(layNguoiDungHienTai)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    function capNhatNguoiDung() {
+      setNguoiDung(layNguoiDungHienTai())
+    }
+
+    capNhatNguoiDung()
+    window.addEventListener('storage', capNhatNguoiDung)
+    window.addEventListener('auth-change', capNhatNguoiDung)
+
+    return () => {
+      window.removeEventListener('storage', capNhatNguoiDung)
+      window.removeEventListener('auth-change', capNhatNguoiDung)
+    }
+  }, [location.pathname])
 
   function closeMenuOnEscape(event: KeyboardEvent<HTMLElement>) {
     if (event.key === 'Escape' && isMenuOpen) {
@@ -96,7 +113,18 @@ export default function Header({ activePage, cartCount = 0 }: HeaderProps) {
               </span>
             )}
           </Link>
-          <AccountDropdown />
+          {nguoiDung ? (
+            <AccountDropdown
+              nguoiDung={nguoiDung}
+              onDangXuat={() => setNguoiDung(null)}
+            />
+          ) : (
+            <div className="header-auth-pill">
+              <Link to="/login" className="header-auth-link">Đăng nhập</Link>
+              <span className="header-auth-divider" aria-hidden="true">|</span>
+              <Link to="/register" className="header-auth-link">Đăng ký</Link>
+            </div>
+          )}
         </div>
       </div>
     </header>
