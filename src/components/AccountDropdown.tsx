@@ -1,15 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { faUser } from '@fortawesome/free-regular-svg-icons/faUser'
 import { faHeart } from '@fortawesome/free-regular-svg-icons/faHeart'
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons/faBagShopping'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons/faLocationDot'
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons/faArrowRightFromBracket'
 import Icon from './Icon'
+import { dangXuat } from '../api/authApi'
 import './AccountDropdown.css'
 
-export default function AccountDropdown() {
+interface AccountDropdownProps {
+  nguoiDung?: { hoTen: string; email: string } | null
+  onDangXuat?: () => void
+}
+
+export default function AccountDropdown({ nguoiDung, onDangXuat }: AccountDropdownProps) {
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -31,6 +38,13 @@ export default function AccountDropdown() {
     }
   }
 
+  function xuLyDangXuat() {
+    dangXuat()
+    setIsOpen(false)
+    onDangXuat?.()
+    navigate('/login')
+  }
+
   return (
     <div className="account-menu" ref={dropdownRef} onKeyDown={closeOnEscape}>
       <button
@@ -50,8 +64,8 @@ export default function AccountDropdown() {
           <div className="account-user">
             <div className="account-avatar"><Icon icon={faUser} /></div>
             <div className="account-info">
-              <strong>Nguyễn Văn Anh Hàn</strong>
-              <span>nguyenhan.be.dev@gmail.com</span>
+              <strong>{nguoiDung?.hoTen || 'Người dùng'}</strong>
+              <span>{nguoiDung?.email || ''}</span>
             </div>
           </div>
 
@@ -75,7 +89,7 @@ export default function AccountDropdown() {
           </div>
 
           <div className="account-footer">
-            <button type="button" onClick={() => setIsOpen(false)}>
+            <button type="button" onClick={xuLyDangXuat}>
               <Icon icon={faArrowRightFromBracket} />
               Đăng xuất
             </button>
