@@ -10,17 +10,26 @@ import './CartTable.css'
 interface CartTableProps {
   products: CartItem[]
   busy: boolean
+  selectedIds: string[]
+  onToggle: (id: string) => void
+  onToggleAll: () => void
   onQuantityChange: (id: string, quantity: number) => void
   onRemove: (id: string) => void
 }
 
-export default function CartTable({ products, busy, onQuantityChange, onRemove }: CartTableProps) {
-  const savings = products.reduce((sum, product) => sum + Math.max(0, (product.oldPrice ?? product.price) - product.price) * product.quantity, 0)
+export default function CartTable({ products, busy, selectedIds, onToggle, onToggleAll, onQuantityChange, onRemove }: CartTableProps) {
+  const savings = products.filter((product) => selectedIds.includes(product.id)).reduce((sum, product) => sum + Math.max(0, (product.oldPrice ?? product.price) - product.price) * product.quantity, 0)
 
   return (
     <section className="cart-table" aria-label="Danh sách sản phẩm trong giỏ">
       <label className="cart-select-all">
-        <input type="checkbox" defaultChecked />
+        <input
+          type="checkbox"
+          checked={products.length > 0 && selectedIds.length === products.length}
+          disabled={busy || products.length === 0}
+          onChange={onToggleAll}
+          ref={(input) => { if (input) input.indeterminate = selectedIds.length > 0 && selectedIds.length < products.length }}
+        />
         Chọn tất cả
       </label>
 
@@ -44,7 +53,7 @@ export default function CartTable({ products, busy, onQuantityChange, onRemove }
             <tr key={product.id}>
               <td>
                 <div className="cart-product">
-                  <input type="checkbox" defaultChecked aria-label={'Chọn ' + product.name} />
+                  <input type="checkbox" checked={selectedIds.includes(product.id)} disabled={busy} onChange={() => onToggle(product.id)} aria-label={'Chọn ' + product.name} />
                   <img src={product.image} alt="" width="104" height="104" />
                   <div className="cart-product-info">
                     <h2>{product.name}</h2>

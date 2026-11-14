@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from '../../store/store'
-import { changeQuantity, removeFromCart } from '../../store/cartSlice'
+import { changeQuantity, removeFromCart, toggleItem, toggleAll } from '../../store/cartSlice'
 import { faLeaf } from '@fortawesome/free-solid-svg-icons/faLeaf'
 import Icon from '../../components/Icon'
 import CartTable from './components/CartTable'
@@ -10,7 +10,11 @@ import './CartPage.css'
 
 export default function CartPage() {
   const dispatch = useDispatch<AppDispatch>()
-  const { items, status, saving } = useSelector((state: RootState) => state.cart)
+  const { items, status, saving, selectedIds } = useSelector((state: RootState) => state.cart)
+  const selectedItems = items.filter((item) => selectedIds.includes(item.id))
+  const itemCount = selectedItems.reduce((sum, item) => sum + item.quantity, 0)
+  const total = selectedItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  const busy = saving || status !== 'succeeded'
 
   return (
     <div className="cart-page">
@@ -26,7 +30,10 @@ export default function CartPage() {
         <div className="cart-main">
           <CartTable
             products={items}
-            busy={saving || status !== 'succeeded'}
+            busy={busy}
+            selectedIds={selectedIds}
+            onToggle={(id) => dispatch(toggleItem(id))}
+            onToggleAll={() => dispatch(toggleAll())}
             onQuantityChange={(id, quantity) => dispatch(changeQuantity({ id, quantity }))}
             onRemove={(id) => dispatch(removeFromCart(id))}
           />
@@ -38,7 +45,7 @@ export default function CartPage() {
             </div>
           </div>
         </div>
-        <CartSummary />
+        <CartSummary itemCount={itemCount} total={total} busy={busy} />
       </div>
     </div>
   )
