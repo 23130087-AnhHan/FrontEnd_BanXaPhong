@@ -18,7 +18,8 @@ interface CartTableProps {
 }
 
 export default function CartTable({ products, busy, selectedIds, onToggle, onToggleAll, onQuantityChange, onRemove }: CartTableProps) {
-  const savings = products.filter((product) => selectedIds.includes(product.id)).reduce((sum, product) => sum + Math.max(0, (product.oldPrice ?? product.price) - product.price) * product.quantity, 0)
+  const selectedProducts = products.filter((product) => selectedIds.includes(product.id))
+  const savings = selectedProducts.reduce((sum, product) => sum + Math.max(0, (product.oldPrice ?? product.price) - product.price) * product.quantity, 0)
 
   return (
     <section className="cart-table" aria-label="Danh sách sản phẩm trong giỏ">
@@ -67,14 +68,24 @@ export default function CartTable({ products, busy, selectedIds, onToggle, onTog
               <td className="cart-unit-price">
                 <span className="cart-mobile-label">Đơn giá</span>
                 <span>{product.price.toLocaleString('vi-VN')} đ</span>
-                {product.oldPrice && <del>{product.oldPrice.toLocaleString('vi-VN')} đ</del>}
+                {product.oldPrice != null && product.oldPrice > product.price && <del>{product.oldPrice.toLocaleString('vi-VN')} đ</del>}
               </td>
               <td className="cart-quantity-cell">
                 <span className="cart-mobile-label">Số lượng</span>
                 <div className="cart-quantity">
-                  <button type="button" disabled={busy || product.quantity <= 1} onClick={() => onQuantityChange(product.id, product.quantity - 1)} aria-label={'Giảm số lượng ' + product.name}><Icon icon={faMinus} /></button>
+                  <button
+                    type="button"
+                    disabled={busy || product.quantity <= 1}
+                    onClick={() => onQuantityChange(product.id, product.quantity - 1)}
+                    aria-label={'Giảm số lượng ' + product.name}
+                  ><Icon icon={faMinus} /></button>
                   <span>{product.quantity}</span>
-                  <button type="button" disabled={busy || product.quantity >= 99} onClick={() => onQuantityChange(product.id, product.quantity + 1)} aria-label={'Tăng số lượng ' + product.name}><Icon icon={faPlus} /></button>
+                  <button
+                    type="button"
+                    disabled={busy || product.quantity >= 99}
+                    onClick={() => onQuantityChange(product.id, product.quantity + 1)}
+                    aria-label={'Tăng số lượng ' + product.name}
+                  ><Icon icon={faPlus} /></button>
                 </div>
               </td>
               <td className="cart-total-cell">

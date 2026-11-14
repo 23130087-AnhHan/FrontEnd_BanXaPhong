@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from './store/store'
-import { loadCart } from './store/cartSlice'
+import { clearFeedback, loadCart } from './store/cartSlice'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import HomePage from './pages/Home/HomePage'
@@ -30,7 +30,8 @@ import OrderTrack from './pages/OrderTrack/OrderTrack'
 
 export default function App() {
   const dispatch = useDispatch<AppDispatch>()
-  const cartCount = useSelector((state: RootState) => state.cart.items.reduce((sum, item) => sum + item.quantity, 0))
+  const { items, saving, error, message } = useSelector((state: RootState) => state.cart)
+  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0)
 
   useEffect(() => {
     dispatch(loadCart())
@@ -39,6 +40,13 @@ export default function App() {
   return (
     <BrowserRouter>
       <Header cartCount={cartCount} />
+      {(saving || error || message) && (
+        <div className={'cart-feedback' + (error ? ' cart-feedback-error' : '')} role={error ? 'alert' : 'status'}>
+          <span>{error || (saving ? 'Đang cập nhật giỏ hàng...' : message)}</span>
+          {error && <button type="button" onClick={() => dispatch(loadCart())}>Tải lại giỏ</button>}
+          {!saving && <button type="button" aria-label="Đóng thông báo giỏ hàng" onClick={() => dispatch(clearFeedback())}>Đóng</button>}
+        </div>
+      )}
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />

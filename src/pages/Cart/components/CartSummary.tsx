@@ -23,8 +23,8 @@ export default function CartSummary({ itemCount, total, busy }: CartSummaryProps
       <div className="cart-coupon">
         <label htmlFor="cart-coupon"><Icon icon={faTicket} />Mã ưu đãi</label>
         <div className="cart-coupon-input">
-          <input id="cart-coupon" type="text" placeholder="Nhập mã ưu đãi" />
-          <button type="button">Áp dụng</button>
+          <input id="cart-coupon" type="text" placeholder="Chưa có mã ưu đãi" disabled />
+          <button type="button" disabled>Áp dụng</button>
         </div>
       </div>
 

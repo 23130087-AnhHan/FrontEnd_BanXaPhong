@@ -1,8 +1,9 @@
 import ProductCard from '../../../components/ProductCard'
+import type { Product } from '../../../data/products'
 import '../../../components/ProductList.css'
 
 
-export default function ProListFilter({ products = [] }: { products: any[] }) {
+export default function ProListFilter({ products = [] }: { products: Product[] }) {
     return (
         <div className="product-section">
 

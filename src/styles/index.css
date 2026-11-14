@@ -19,3 +19,33 @@ img {
 button, input, select, textarea {
   font: inherit;
 }
+
+.cart-feedback {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: #e7f0e8;
+  color: #334537;
+  font-size: 14px;
+}
+
+.cart-feedback span {
+  flex: 1;
+  min-width: 180px;
+}
+
+.cart-feedback button {
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  padding: 4px 10px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.cart-feedback-error {
+  background: #fff1ed;
+  color: #9c3324;
+}

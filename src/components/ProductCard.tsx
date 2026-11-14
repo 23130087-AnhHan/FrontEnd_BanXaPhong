@@ -24,7 +24,9 @@ export default function ProductCard({ product }: { product: Product }) {
                     <img src={product.image} alt={product.name} />
                 </Link>
 
-                <span className="card-discount-badge">-10%</span>
+                {product.oldPrice != null && product.oldPrice > product.price && (
+                    <span className="card-discount-badge">-{Math.round((1 - product.price / product.oldPrice) * 100)}%</span>
+                )}
                 <button className="btn-heart" type="button" onClick={() => setIsHobby(!isHobby)}>
                     <FontAwesomeIcon icon={isHobby ? faHeartRegular : faHeartSolid} />
                 </button>
@@ -48,6 +50,7 @@ export default function ProductCard({ product }: { product: Product }) {
                     <button
                         className="btn-cart"
                         type="button"
+                        aria-label={'Thêm ' + product.name + ' vào giỏ hàng'}
                         disabled={status !== 'succeeded' || saving || product.inStock === false || quantity >= 99}
                         onClick={() => dispatch(addToCart(product))}
                     >

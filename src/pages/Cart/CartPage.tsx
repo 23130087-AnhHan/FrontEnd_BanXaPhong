@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from '../../store/store'
-import { changeQuantity, removeFromCart, toggleItem, toggleAll } from '../../store/cartSlice'
+import { changeQuantity, loadCart, removeFromCart, toggleItem, toggleAll } from '../../store/cartSlice'
 import { faLeaf } from '@fortawesome/free-solid-svg-icons/faLeaf'
 import Icon from '../../components/Icon'
 import CartTable from './components/CartTable'
@@ -26,9 +26,24 @@ export default function CartPage() {
 
       <h1>Giỏ hàng của bạn</h1>
 
-      <div className="cart-layout">
+      <div className="cart-layout" aria-busy={saving || status === 'loading'}>
         <div className="cart-main">
-          <CartTable
+          {(status === 'idle' || status === 'loading') && (
+            <div className="cart-state" role="status">Đang tải giỏ hàng...</div>
+          )}
+          {status === 'failed' && (
+            <div className="cart-state">
+              <p>Chưa tải được giỏ hàng.</p>
+              <button type="button" onClick={() => dispatch(loadCart())}>Thử lại</button>
+            </div>
+          )}
+          {status === 'succeeded' && items.length === 0 && (
+            <div className="cart-state">
+              <p>Giỏ hàng của bạn đang trống.</p>
+              <Link to="/products">Tiếp tục mua sắm</Link>
+            </div>
+          )}
+          {status === 'succeeded' && items.length > 0 && <CartTable
             products={items}
             busy={busy}
             selectedIds={selectedIds}
@@ -36,7 +51,7 @@ export default function CartPage() {
             onToggleAll={() => dispatch(toggleAll())}
             onQuantityChange={(id, quantity) => dispatch(changeQuantity({ id, quantity }))}
             onRemove={(id) => dispatch(removeFromCart(id))}
-          />
+          />}
           <div className="cart-benefit">
             <Icon icon={faLeaf} />
             <div>

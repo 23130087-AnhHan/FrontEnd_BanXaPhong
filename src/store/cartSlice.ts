@@ -11,9 +11,10 @@ interface CartState {
   error: string
   saving: boolean
   selectedIds: string[]
+  message: string
 }
 
-const initialState: CartState = { items: [], status: 'idle', error: '', saving: false, selectedIds: [] }
+const initialState: CartState = { items: [], status: 'idle', error: '', saving: false, selectedIds: [], message: '' }
 
 export const loadCart = createAsyncThunk('cart/load', getCartItems, {
   condition: (_, { getState }) => {
@@ -54,6 +55,10 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
+    clearFeedback(state) {
+      state.error = ''
+      state.message = ''
+    },
     toggleItem(state, action: PayloadAction<string>) {
       const id = action.payload
       if (state.selectedIds.includes(id)) state.selectedIds = state.selectedIds.filter((selected) => selected !== id)
@@ -68,6 +73,7 @@ const cartSlice = createSlice({
       .addCase(loadCart.pending, (state) => {
         state.status = 'loading'
         state.error = ''
+        state.message = ''
       })
       .addCase(loadCart.fulfilled, (state, action) => {
         state.items = action.payload
@@ -76,11 +82,12 @@ const cartSlice = createSlice({
       })
       .addCase(loadCart.rejected, (state) => {
         state.status = 'failed'
-        state.error = 'Không tải được giỏ hàng. Hãy kiểm tra JSON Server và thử lại.'
+        state.error = 'Không tải được giỏ hàng. Vui lòng thử lại.'
       })
       .addCase(addToCart.pending, (state) => {
         state.saving = true
         state.error = ''
+        state.message = ''
       })
       .addCase(addToCart.fulfilled, (state, action) => {
         const index = state.items.findIndex((item) => item.id === action.payload.id)
@@ -88,6 +95,7 @@ const cartSlice = createSlice({
         else state.items[index] = action.payload
         if (!state.selectedIds.includes(action.payload.id)) state.selectedIds.push(action.payload.id)
         state.saving = false
+        state.message = 'Đã thêm ' + action.payload.name + ' vào giỏ hàng.'
       })
       .addCase(addToCart.rejected, (state) => {
         state.saving = false
@@ -96,11 +104,13 @@ const cartSlice = createSlice({
       .addCase(changeQuantity.pending, (state) => {
         state.saving = true
         state.error = ''
+        state.message = ''
       })
       .addCase(changeQuantity.fulfilled, (state, action) => {
         const index = state.items.findIndex((item) => item.id === action.payload.id)
         if (index !== -1) state.items[index] = action.payload
         state.saving = false
+        state.message = 'Đã cập nhật số lượng.'
       })
       .addCase(changeQuantity.rejected, (state) => {
         state.saving = false
@@ -109,11 +119,13 @@ const cartSlice = createSlice({
       .addCase(removeFromCart.pending, (state) => {
         state.saving = true
         state.error = ''
+        state.message = ''
       })
       .addCase(removeFromCart.fulfilled, (state, action) => {
         state.items = state.items.filter((item) => item.id !== action.payload)
         state.selectedIds = state.selectedIds.filter((id) => id !== action.payload)
         state.saving = false
+        state.message = 'Đã xóa sản phẩm khỏi giỏ hàng.'
       })
       .addCase(removeFromCart.rejected, (state) => {
         state.saving = false
@@ -122,5 +134,5 @@ const cartSlice = createSlice({
   },
 })
 
-export const { toggleItem, toggleAll } = cartSlice.actions
+export const { toggleItem, toggleAll, clearFeedback } = cartSlice.actions
 export default cartSlice.reducer

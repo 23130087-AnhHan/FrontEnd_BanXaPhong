@@ -1,5 +1,4 @@
 import { products } from '../../data/products'
-export { products }
 import ProListFilter from "./components/ProListFilter";
 import CheckboxFilter from "./components/CheckboxFilter";
 import Title from "./components/Title";

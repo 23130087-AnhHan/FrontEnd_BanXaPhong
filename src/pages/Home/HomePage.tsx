@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import type { RootState } from '../../store/store'
 import ProductList from '../../components/ProductList'
 import HomeTitle from '../../components/HomeTitle'
 import Banner from './components/Banner'
@@ -33,9 +34,9 @@ const feature = [
 ]
 
 export default function HomePage() {
-    const bestSellers = useSelector((state: any) => state.products.bestSellers)
-    const newProducts = useSelector((state: any) => state.products.newProducts)
-    const mostView = useSelector((state: any) => state.products.mostView)
+    const bestSellers = useSelector((state: RootState) => state.products.bestSellers)
+    const newProducts = useSelector((state: RootState) => state.products.newProducts)
+    const mostView = useSelector((state: RootState) => state.products.mostView)
 
 
     return (
