@@ -1,23 +1,12 @@
+import type { Product } from '../data/products'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faBagShopping } from '@fortawesome/free-solid-svg-icons'
-import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { Link } from 'react-router-dom'
 import './ProductCard.css'
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons'
 import { useState } from 'react'
 
-interface Product {
-    id: number;
-    name: string;
-    catagory: string;
-    price: number;
-    unit: string;
-    rating: number;
-    soldCount: number;
-    image: string;
-    inStock: Boolean;
-}
 
 
 export default function ProductCard({ product }: { product: Product }) {

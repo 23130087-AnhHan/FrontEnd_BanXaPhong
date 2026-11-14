@@ -6,5 +6,26 @@
             "email": "user@gmail.com",
             "matKhau": "User123@"
         }
+    ],
+    "cartItems": [
+        {
+            "id": "1",
+            "productId": 1,
+            "name": "Xà phòng Oải hương hữu cơ",
+            "price": 180000,
+            "unit": "bánh 100g",
+            "image": "https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg",
+            "quantity": 2
+        },
+        {
+            "id": "2",
+            "productId": 7,
+            "name": "Xà phòng Hoa hồng & Đất sét",
+            "price": 155000,
+            "oldPrice": 190000,
+            "unit": "bánh 100g",
+            "image": "https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg",
+            "quantity": 1
+        }
     ]
 }
