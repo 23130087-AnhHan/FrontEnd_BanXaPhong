@@ -62,6 +62,7 @@ export default function LoginForm() {
                 sessionStorage.setItem('nguoiDungHienTai', JSON.stringify(ketQua.nguoiDung))
             }
 
+            window.dispatchEvent(new Event('auth-change'))
             navigate('/')
         } catch {
             setLoiMayChu('Không thể kết nối đến máy chủ, vui lòng thử lại')

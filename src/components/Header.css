@@ -134,8 +134,40 @@
 
 .header-actions {
   display: flex;
+  align-items: center;
   flex-shrink: 0;
   gap: 22px;
+}
+
+.header-auth-pill {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid #e4e2de;
+  border-radius: 9999px;
+  background: #f5f3ef;
+  font-size: 13px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.header-auth-link {
+  color: #334537;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.header-auth-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.header-auth-divider {
+  margin: 0 8px;
+  color: #c5c2ba;
+  font-size: 12px;
+  user-select: none;
 }
 
 .header-actions > a,
