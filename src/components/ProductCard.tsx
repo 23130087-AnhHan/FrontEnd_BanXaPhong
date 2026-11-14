@@ -1,26 +1,21 @@
+import type { Product } from '../data/products'
+import { useDispatch, useSelector } from 'react-redux'
+import type { AppDispatch, RootState } from '../store/store'
+import { addToCart } from '../store/cartSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faBagShopping } from '@fortawesome/free-solid-svg-icons'
-import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { Link } from 'react-router-dom'
 import './ProductCard.css'
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons'
 import { useState } from 'react'
 
-interface Product {
-    id: number;
-    name: string;
-    catagory: string;
-    price: number;
-    unit: string;
-    rating: number;
-    soldCount: number;
-    image: string;
-    inStock: Boolean;
-}
 
 
 export default function ProductCard({ product }: { product: Product }) {
+    const dispatch = useDispatch<AppDispatch>()
+    const { items, status, saving } = useSelector((state: RootState) => state.cart)
+    const quantity = items.find((item) => item.productId === product.id)?.quantity ?? 0
     const [isHobby, setIsHobby] = useState(false);
     return (
         <div className="card">
@@ -29,7 +24,9 @@ export default function ProductCard({ product }: { product: Product }) {
                     <img src={product.image} alt={product.name} />
                 </Link>
 
-                <span className="card-discount-badge">-10%</span>
+                {product.oldPrice != null && product.oldPrice > product.price && (
+                    <span className="card-discount-badge">-{Math.round((1 - product.price / product.oldPrice) * 100)}%</span>
+                )}
                 <button className="btn-heart" type="button" onClick={() => setIsHobby(!isHobby)}>
                     <FontAwesomeIcon icon={isHobby ? faHeartRegular : faHeartSolid} />
                 </button>
@@ -50,9 +47,15 @@ export default function ProductCard({ product }: { product: Product }) {
                 </div>
 
                 <div className="card-actions">
-                    <button className="btn-cart" type="button">
+                    <button
+                        className="btn-cart"
+                        type="button"
+                        aria-label={'Thêm ' + product.name + ' vào giỏ hàng'}
+                        disabled={status !== 'succeeded' || saving || product.inStock === false || quantity >= 99}
+                        onClick={() => dispatch(addToCart(product))}
+                    >
                         <FontAwesomeIcon icon={faBagShopping} />
-                        Thêm giỏ
+                        {product.inStock === false ? 'Hết hàng' : 'Thêm giỏ'}
                     </button>
                     <button className="btn-buy" type="button">
                         Mua ngay

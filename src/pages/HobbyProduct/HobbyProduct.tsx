@@ -1,9 +1,7 @@
-import HomeTitle from "../../components/HomeTitle"
-import OptionOffering from "../OfferPro/components/OptionOffering"
 import SelectSort from "../ProductFilter/components/Select"
 import ProductList from "../../components/ProductList"
 import { selectSort } from "../OfferPro/OfferProducts"
-import { products } from "../ProductFilter/ProFilter"
+import { products } from '../../data/products'
 import './HobbyProduct.css'
 import HobbyTitle from "./components/HobbyTitle"
 
