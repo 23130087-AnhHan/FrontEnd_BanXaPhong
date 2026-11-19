@@ -15,13 +15,19 @@ import { useState } from 'react'
 export default function ProductCard({ product }: { product: Product }) {
     const dispatch = useDispatch<AppDispatch>()
     const { items, status, saving } = useSelector((state: RootState) => state.cart)
-    const quantity = items.find((item) => item.productId === product.id)?.quantity ?? 0
+    const quantity = items.find((item) => String(item.productId) === String(product.id))?.quantity ?? 0
     const [isHobby, setIsHobby] = useState(false);
     return (
         <div className="card">
             <div className="card-img">
                 <Link to={'/products/' + product.id} className="card-image-link">
-                    <img src={product.image} alt={product.name} />
+                    <img
+                        src={product.image}
+                        alt={product.name}
+                        onError={(e) => {
+                            (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1607006314644-8cbdf6a94f6c?auto=format&fit=crop&w=600&q=80'
+                        }}
+                    />
                 </Link>
 
                 {product.oldPrice != null && product.oldPrice > product.price && (
@@ -36,14 +42,14 @@ export default function ProductCard({ product }: { product: Product }) {
 
                 <div className="card-meta">
                     <FontAwesomeIcon icon={faStar} className="meta-star" />
-                    <span className="meta-rating">{product.rating}</span>
+                    <span className="meta-rating">{product.rating ?? 5}</span>
                     <span></span>
-                    <span className="meta-sold">Đã bán {product.soldCount}</span>
+                    <span className="meta-sold">Đã bán {product.soldCount ?? 0}</span>
                 </div>
 
                 <div className="card-price">
                     <strong>{product.price.toLocaleString('vi-VN')} đ</strong>
-                    <span>/ {product.unit}</span>
+                    <span>/ {product.unit || 'bánh'}</span>
                 </div>
 
                 <div className="card-actions">

@@ -1,11 +1,11 @@
 export interface Product {
-  id: number
+  id: string | number
   name: string
   price: number
-  oldPrice?: number
-  unit: string
-  rating: number
-  soldCount: string | number
+  oldPrice?: number | null
+  unit?: string
+  rating?: number
+  soldCount?: string | number
   image: string
   category?: string
   inStock?: boolean
