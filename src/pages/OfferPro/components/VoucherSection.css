@@ -1,5 +1,10 @@
 .voucher-section {
     margin: 32px 0;
+    background: linear-gradient(135deg, #f4f7f5, #eaf1ec);
+    border: 1px solid #d4e2d8;
+    border-radius: 16px;
+    padding: 28px 32px;
+    box-shadow: 0 2px 8px rgba(59, 80, 66, 0.08), 0 8px 24px rgba(59, 80, 66, 0.06);
 }
 
 .voucher-header {
