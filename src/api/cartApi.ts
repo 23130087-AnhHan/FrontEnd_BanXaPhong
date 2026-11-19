@@ -2,7 +2,7 @@ import type { Product } from '../data/products'
 
 export interface CartItem {
   id: string
-  productId: number
+  productId: string | number
   name: string
   price: number
   oldPrice?: number
@@ -39,7 +39,7 @@ export async function updateCartQuantity(id: string, quantity: number): Promise<
 export async function addCartItem(product: Product): Promise<CartItem> {
   if (product.inStock === false) throw new Error('Sản phẩm đã hết hàng.')
   const items = await getCartItems()
-  const existing = items.find((item) => item.productId === product.id)
+  const existing = items.find((item) => String(item.productId) === String(product.id))
   if (existing) return updateCartQuantity(existing.id, existing.quantity + 1)
 
   const response = await request('', {

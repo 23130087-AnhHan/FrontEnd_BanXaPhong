@@ -1,5 +1,7 @@
-import { useSelector } from 'react-redux'
-import type { RootState } from '../../store/store'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import type { AppDispatch, RootState } from '../../store/store'
+import { loadProducts } from '../../components/ProductSlice'
 import ProductList from '../../components/ProductList'
 import HomeTitle from '../../components/HomeTitle'
 import Banner from './components/Banner'
@@ -34,10 +36,14 @@ const feature = [
 ]
 
 export default function HomePage() {
+    const dispatch = useDispatch<AppDispatch>()
     const bestSellers = useSelector((state: RootState) => state.products.bestSellers)
     const newProducts = useSelector((state: RootState) => state.products.newProducts)
     const mostView = useSelector((state: RootState) => state.products.mostView)
 
+    useEffect(() => {
+        dispatch(loadProducts())
+    }, [dispatch])
 
     return (
         <div className="product-list">
