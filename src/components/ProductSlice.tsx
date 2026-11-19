@@ -47,6 +47,10 @@ const productSlice = createSlice({
           (a, b) => (Number(b.soldCount) || 0) - (Number(a.soldCount) || 0)
         )
         state.bestSellers = sortedBySold.slice(0, 4)
+
+        state.newProducts = action.payload.slice(4, 8)
+
+        state.mostView = action.payload.slice(8, 12)
       })
       .addCase(loadProducts.rejected, (state, action) => {
         state.loading = false
