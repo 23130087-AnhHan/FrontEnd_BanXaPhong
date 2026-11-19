@@ -8,6 +8,7 @@ import Feature from "../Home/components/Feature"
 import { faLeaf, faShieldHalved, faHandSparkles } from '@fortawesome/free-solid-svg-icons'
 import Banner from "./components/Banner"
 import bannerImg from '../../assets/img/offering.png'
+import VoucherSection from "./components/VoucherSection"
 
 const offersProducts = products
 const ListOption = [
@@ -72,6 +73,8 @@ export default function OfferProducts() {
                 <Banner banner={banner[0]} />
 
                 <Feature feature={feature} />
+
+                <VoucherSection />
             </div>
 
             <HomeTitle content={{ badge: 'Diệu lành hơn, tiết kiệm hơn', title: 'Sản phẩm đang ưu đãi' }} />
