@@ -1,79 +1,8 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import type { AppDispatch, RootState } from './store/store'
-import { clearFeedback, loadCart } from './store/cartSlice'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import HomePage from './pages/Home/HomePage'
-import LoginPage from './pages/Login/LoginPage'
-import RegisterPage from './pages/Register/RegisterPage'
-import ForgotPasswordPage from './pages/ForgotPassword/ForgotPasswordPage'
-import ResetPasswordPage from './pages/ResetPassword/ResetPasswordPage'
-import AccountProfilePage from './pages/AccountProfile/AccountProfilePage'
-import ChangePasswordPage from './pages/ChangePassword/ChangePasswordPage'
-import AddressBookPage from './pages/AddressBook/AddressBookPage'
-import AddAddressPage from './pages/AddAddress/AddAddressPage'
-import MyOrdersPage from './pages/MyOrders/MyOrdersPage'
-import OrderDetailPage from './pages/OrderDetail/OrderDetailPage'
-import CartPage from './pages/Cart/CartPage'
-import CheckoutPage from './pages/Checkout/CheckoutPage'
-import OrderSuccessPage from './pages/OrderSuccess/OrderSuccessPage'
-import ProFilter from './pages/ProductFilter/ProFilter'
-import OfferProducts from './pages/OfferPro/OfferProducts'
-import ProductDetailPage from './pages/ProductDetail/ProductDetailPage'
-import HobbyProduct from './pages/HobbyProduct/HobbyProduct'
-import ContactPage from './pages/Contact/ContactPage'
-import OrderReturn from './pages/OrderReturn/OrderReturn'
-import CancelOrderPage from './pages/CancelOrder/CancelOrderPage'
-import OrderTrack from './pages/OrderTrack/OrderTrack'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './route/Router'
 
-export default function App() {
-  const dispatch = useDispatch<AppDispatch>()
-  const { items, saving, error, message } = useSelector((state: RootState) => state.cart)
-  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0)
-
-  useEffect(() => {
-    dispatch(loadCart())
-  }, [dispatch])
-
-  return (
-    <BrowserRouter>
-      <Header cartCount={cartCount} />
-      {(saving || error || message) && (
-        <div className={'cart-feedback' + (error ? ' cart-feedback-error' : '')} role={error ? 'alert' : 'status'}>
-          <span>{error || (saving ? 'Đang cập nhật giỏ hàng...' : message)}</span>
-          {error && <button type="button" onClick={() => dispatch(loadCart())}>Tải lại giỏ</button>}
-          {!saving && <button type="button" aria-label="Đóng thông báo giỏ hàng" onClick={() => dispatch(clearFeedback())}>Đóng</button>}
-        </div>
-      )}
-      <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/products" element={<ProFilter />} />
-          <Route path="/products/:productId" element={<ProductDetailPage />} />
-          <Route path="/offer" element={<OfferProducts />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/hobby" element={<HobbyProduct />} />
-          <Route path="/gio-hang" element={<CartPage />} />
-          <Route path="/thanh-toan" element={<CheckoutPage />} />
-          <Route path="/dat-hang-thanh-cong" element={<OrderSuccessPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
-          <Route path="/tai-khoan" element={<AccountProfilePage />} />
-          <Route path="/tai-khoan/don-hang" element={<MyOrdersPage />} />
-          <Route path="/tai-khoan/don-hang/chi-tiet" element={<OrderDetailPage />} />
-          <Route path="/tai-khoan/don-hang/return" element={<OrderReturn />} />
-          <Route path="/tai-khoan/don-hang/track" element={<OrderTrack />} />
-          <Route path="/tai-khoan/don-hang/cancel" element={<CancelOrderPage />} />
-          <Route path="/tai-khoan/doi-mat-khau" element={<ChangePasswordPage />} />
-          <Route path="/tai-khoan/dia-chi" element={<AddressBookPage />} />
-          <Route path="/tai-khoan/dia-chi/them-moi" element={<AddAddressPage />} />
-        </Routes>
-      </main>
-      <Footer />
-    </BrowserRouter>
-  )
+function App() {
+  return <RouterProvider router={router} />
 }
+
+export default App
