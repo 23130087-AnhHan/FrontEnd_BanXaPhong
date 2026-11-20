@@ -1,32 +1,41 @@
 import { useState } from 'react'
+import type { ProductImageData } from '../../../api/productApi'
 import './ProductGallery.css'
 
-const productImages = [
-  { id: 1, image: 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg', label: 'Ảnh sản phẩm 1' },
-  { id: 2, image: 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg', label: 'Ảnh sản phẩm 2' },
-  { id: 3, image: 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg', label: 'Ảnh sản phẩm 3' },
-  { id: 4, image: 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg', label: 'Ảnh sản phẩm 4' },
-]
+interface Props {
+  images: ProductImageData[]
+  productName: string
+}
 
-export default function ProductGallery() {
-  const [selectedImage, setSelectedImage] = useState(productImages[0])
+export default function ProductGallery({ images, productName }: Props) {
+  const [selected, setSelected] = useState(0)
+
+  if (images.length === 0) {
+    return (
+      <section className="product-gallery" aria-label="Hình ảnh sản phẩm">
+        <div className="product-gallery-main">
+          <img src="https://images.unsplash.com/photo-1607006314644-8cbdf6a94f6c?auto=format&fit=crop&w=600&q=80" alt={productName} />
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="product-gallery" aria-label="Hình ảnh sản phẩm">
       <div className="product-gallery-main">
-        <img src={selectedImage.image} alt={selectedImage.label} />
+        <img src={images[selected].imageUrl} alt={productName} />
       </div>
       <div className="product-gallery-thumbnails">
-        {productImages.map((productImage) => (
+        {images.map((img, idx) => (
           <button
-            key={productImage.id}
+            key={img.id}
             type="button"
-            className={'product-gallery-thumbnail' + (selectedImage.id === productImage.id ? ' active' : '')}
-            aria-label={'Xem ' + productImage.label.toLowerCase()}
-            aria-pressed={selectedImage.id === productImage.id}
-            onClick={() => setSelectedImage(productImage)}
+            className={'product-gallery-thumbnail' + (selected === idx ? ' active' : '')}
+            aria-label={`Xem hình ${idx + 1}`}
+            aria-pressed={selected === idx}
+            onClick={() => setSelected(idx)}
           >
-            <img src={productImage.image} alt="" />
+            <img src={img.imageUrl} alt="" />
           </button>
         ))}
       </div>
