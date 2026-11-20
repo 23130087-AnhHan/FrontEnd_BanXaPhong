@@ -1,54 +1,42 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { faImage, faStar } from '@fortawesome/free-solid-svg-icons'
+import { fetchProductReviews } from '../../../api/productApi'
+import type { ReviewData } from '../../../api/productApi'
 import Icon from '../../../components/Icon'
 import './ProductReviews.css'
 
-interface ProductReview {
-  id: number
-  name: string
-  initials: string
+interface Props {
+  productId: string
+  reviewCount: number
   rating: number
-  date: string
-  weight: string
-  comment: string
-  images?: string[]
 }
 
-const reviews: ProductReview[] = [
-  {
-    id: 1,
-    name: 'Nguyễn Thùy Trang',
-    initials: 'NT',
-    rating: 5,
-    date: '2 ngày trước',
-    weight: '100g',
-    comment: 'Mùi hương oải hương rất thơm và thư giãn, không bị nồng gắt. Bọt mịn, tắm xong da mềm và không bị khô căng. Rất đáng thử!',
-  },
-  {
-    id: 2,
-    name: 'Hoàng Minh Quân',
-    initials: 'MQ',
-    rating: 5,
-    date: '1 tuần trước',
-    weight: '200g',
-    comment: 'Gói hàng cẩn thận, mở hộp ra là thơm lừng. Bánh xà phòng dùng khá lâu, mùi hương nhẹ nhàng dễ chịu.',
-  },
-  {
-    id: 3,
-    name: 'Lê Phương Mai',
-    initials: 'PM',
-    rating: 5,
-    date: '2 tuần trước',
-    weight: '100g',
-    comment: 'Thành phần tự nhiên nên mình rất yên tâm sử dụng. Cảm giác da sạch dịu nhẹ mà vẫn giữ được độ ẩm sau khi tắm.',
-  },
-]
+function getInitials(name: string) {
+  const words = name.trim().split(/\s+/)
+  if (words.length >= 2) {
+    return (words[0][0] + words[words.length - 1][0]).toUpperCase()
+  }
+  return name.slice(0, 2).toUpperCase()
+}
 
-export default function ProductReviews() {
+function formatDate(dateString: string) {
+  const date = new Date(dateString)
+  if (isNaN(date.getTime())) return dateString
+  return date.toLocaleDateString('vi-VN')
+}
+
+export default function ProductReviews({ productId, reviewCount, rating }: Props) {
+  const [reviews, setReviews] = useState<ReviewData[]>([])
   const [selectedFilter, setSelectedFilter] = useState('all')
-  const filteredReviews = reviews.filter((review) => {
-    if (selectedFilter === 'five-stars') return review.rating === 5
-    if (selectedFilter === 'with-images') return (review.images?.length ?? 0) > 0
+
+  useEffect(() => {
+    if (!productId) return
+    fetchProductReviews(productId).then(setReviews)
+  }, [productId])
+
+  const filtered = reviews.filter((r) => {
+    if (selectedFilter === 'five-stars') return r.rating === 5
+    if (selectedFilter === 'with-images') return r.images && r.images.length > 0
     return true
   })
 
@@ -56,40 +44,51 @@ export default function ProductReviews() {
     <section id="product-reviews" className="product-detail-panel product-reviews" aria-labelledby="product-reviews-title">
       <h2 id="product-reviews-title">Đánh giá sản phẩm</h2>
       <div className="product-reviews-summary">
-        <span className="product-review-stars" aria-label="5 trên 5 sao">
-          {[1, 2, 3, 4, 5].map((star) => <Icon key={star} icon={faStar} />)}
+        <span className="product-review-stars" aria-label={`${rating.toFixed(1)} trên 5 sao`}>
+          {[1, 2, 3, 4, 5].map((s) => (
+            <Icon key={s} icon={faStar} className={s <= Math.round(rating) ? 'active' : 'empty'} />
+          ))}
         </span>
-        <strong>5.0 / 5.0</strong>
+        <strong>{rating.toFixed(1)} / 5.0</strong>
         <span>·</span>
-        <span>128 đánh giá</span>
+        <span>{reviewCount} đánh giá</span>
       </div>
 
       <div className="product-reviews-filters" role="group" aria-label="Lọc đánh giá">
         <span>Lọc theo:</span>
-        <button type="button" aria-pressed={selectedFilter === 'all'} onClick={() => setSelectedFilter('all')}>Tất cả (128)</button>
-        <button type="button" aria-pressed={selectedFilter === 'five-stars'} onClick={() => setSelectedFilter('five-stars')}>5 sao (112)</button>
+        <button type="button" aria-pressed={selectedFilter === 'all'} onClick={() => setSelectedFilter('all')}>
+          Tất cả ({reviews.length})
+        </button>
+        <button type="button" aria-pressed={selectedFilter === 'five-stars'} onClick={() => setSelectedFilter('five-stars')}>
+          5 sao
+        </button>
         <button type="button" aria-pressed={selectedFilter === 'with-images'} onClick={() => setSelectedFilter('with-images')}>
-          <Icon icon={faImage} /> Có hình ảnh (28)
+          <Icon icon={faImage} /> Có hình ảnh
         </button>
       </div>
 
       <div className="product-reviews-list">
-        {filteredReviews.length === 0 && <p className="product-reviews-empty">Chưa có đánh giá kèm hình ảnh.</p>}
-        {filteredReviews.map((review) => (
-          <article key={review.id} className="product-review-card">
+        {filtered.length === 0 && <p className="product-reviews-empty">Chưa có đánh giá nào.</p>}
+        {filtered.map((r) => (
+          <article key={r.id} className="product-review-card">
             <div className="product-review-header">
               <div className="product-review-author">
-                <span className="product-review-avatar" aria-hidden="true">{review.initials}</span>
+                <span className="product-review-avatar" aria-hidden="true">{getInitials(r.authorName)}</span>
                 <div>
-                  <h3>{review.name}</h3>
-                  <span className="product-review-stars" aria-label={review.rating + ' trên 5 sao'}>
-                    {[1, 2, 3, 4, 5].map((star) => <Icon key={star} icon={faStar} />)}
+                  <h3>{r.authorName}</h3>
+                  <span className="product-review-stars" aria-label={`${r.rating} trên 5 sao`}>
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <Icon key={s} icon={faStar} className={s <= r.rating ? 'active' : 'empty'} />
+                    ))}
                   </span>
                 </div>
               </div>
-              <span className="product-review-date">{review.date} - Phân loại: {review.weight}</span>
+              <span className="product-review-date">
+                {formatDate(r.createdAt)}
+                {r.weightGrams ? ` - Phân loại: ${r.weightGrams}g` : ''}
+              </span>
             </div>
-            <p>{review.comment}</p>
+            <p>{r.comment}</p>
           </article>
         ))}
       </div>
