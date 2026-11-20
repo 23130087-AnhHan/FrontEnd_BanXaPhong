@@ -5,6 +5,7 @@ import type { AppDispatch, RootState } from '../../store/store'
 import { loadProducts } from '../../components/ProductSlice'
 import ProListFilter from "./components/ProListFilter";
 import CheckboxFilter from "./components/CheckboxFilter";
+import type { FilterItem } from "./components/CheckboxFilter";
 import Title from "./components/Title";
 import "./ProFilter.css";
 import SelectSort from "./components/Select";
@@ -31,7 +32,7 @@ const categoryItems = [
     { id: 5, content: 'Xà phòng cho da nhạy cảm' },
 ];
 
-const defaultBrandItems = [];
+const defaultBrandItems: FilterItem[] = [];
 
 const priceItems = [
     { id: 10, content: 'Dưới 150.000 đ' },
@@ -65,7 +66,7 @@ const selectSort = [
 export default function ProFilter() {
     const dispatch = useDispatch<AppDispatch>()
     const products = useSelector((state: RootState) => state.products.items)
-    const [brandItems, setBrandItems] = useState(defaultBrandItems)
+    const [brandItems, setBrandItems] = useState(defaultBrandItems) 
 
     useEffect(() => {
         dispatch(loadProducts())
