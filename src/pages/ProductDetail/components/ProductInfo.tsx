@@ -1,56 +1,43 @@
 import { useState } from 'react'
 import { faBagShopping, faCircleCheck, faMinus, faPlus, faRotateLeft, faStar, faTruck } from '@fortawesome/free-solid-svg-icons'
+import type { ProductDetailData } from '../../../api/productApi'
 import Icon from '../../../components/Icon'
 import './ProductInfo.css'
 
-const weightOptions = ['100g', '200g', '250g']
+interface Props {
+  product: ProductDetailData
+}
 
-export default function ProductInfo() {
-  const [selectedWeight, setSelectedWeight] = useState('100g')
+export default function ProductInfo({ product }: Props) {
   const [quantity, setQuantity] = useState(1)
+
+  const discount = product.oldPrice ? Math.round((1 - product.price / product.oldPrice) * 100) : null
 
   return (
     <section className="product-info" aria-labelledby="product-detail-title">
-      <p className="product-info-code">Mã sản phẩm: SP-LAV001</p>
-      <h1 id="product-detail-title">Xà phòng Oải hương Pháp</h1>
+      <p className="product-info-code">Mã sản phẩm: {product.id}</p>
+      <h1 id="product-detail-title">{product.name}</h1>
 
       <div className="product-info-meta">
         <a href="#product-reviews" className="product-info-rating">
           <Icon icon={faStar} />
-          <span><strong>5.0</strong> (128 đánh giá)</span>
+          <span><strong>{product.rating.toFixed(1)}</strong> ({product.reviewCount} đánh giá)</span>
         </a>
-        <span className="product-info-sold">Đã bán 1.2k</span>
+        <span className="product-info-sold">Đã bán {product.soldCount.toLocaleString()}</span>
         <span className="product-info-stock"><Icon icon={faCircleCheck} /> Tình trạng: Còn hàng</span>
       </div>
 
       <div className="product-info-price">
-        <strong>185.000 đ</strong>
-        <del>215.000 đ</del>
-        <span>/ bánh 100g</span>
-        <span className="product-info-discount">Tiết kiệm 14%</span>
+        <strong>{product.price.toLocaleString()}đ</strong>
+        {product.oldPrice && <del>{product.oldPrice.toLocaleString()}đ</del>}
+        {discount && <span className="product-info-discount">Tiết kiệm {discount}%</span>}
       </div>
 
-      <div className="product-info-intro">
-        <p>Chiết xuất từ hoa oải hương Provence hữu cơ và dầu thực vật nguyên chất.</p>
-        <p>Làm sạch, thư giãn và nuôi dưỡng làn da.</p>
-      </div>
-
-      <fieldset className="product-info-weights">
-        <legend>Trọng lượng</legend>
-        <div className="product-info-weight-options">
-          {weightOptions.map((weight) => (
-            <button
-              key={weight}
-              type="button"
-              className={selectedWeight === weight ? 'active' : ''}
-              aria-pressed={selectedWeight === weight}
-              onClick={() => setSelectedWeight(weight)}
-            >
-              {weight}
-            </button>
-          ))}
+      {product.shortDescription && (
+        <div className="product-info-intro">
+          <p>{product.shortDescription}</p>
         </div>
-      </fieldset>
+      )}
 
       <div className="product-info-quantity">
         <span id="product-quantity-label">Số lượng:</span>
