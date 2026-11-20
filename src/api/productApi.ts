@@ -2,6 +2,59 @@ import type { Product } from '../data/products'
 
 const API_URL = 'http://localhost:3001'
 
+export interface ProductDetailData {
+  id: string
+  categoryId: string
+  brandId: string
+  name: string
+  price: number
+  oldPrice: number | null
+  shortDescription: string
+  description: string
+  soldCount: number
+  rating: number
+  reviewCount: number
+}
+
+export interface ProductImageData {
+  id: string
+  productId: string
+  imageUrl: string
+  sortOrder: number
+  isPrimary: boolean
+}
+
+export async function fetchProductDetail(productId: string): Promise<ProductDetailData | null> {
+  const res = await fetch(`${API_URL}/products/${productId}`)
+  if (!res.ok) return null
+  return res.json()
+}
+
+export async function fetchProductImages(productId: string): Promise<ProductImageData[]> {
+  const res = await fetch(`${API_URL}/productImages?productId=${productId}&_sort=sortOrder`)
+  if (!res.ok) return []
+  return res.json()
+}
+
+export interface ReviewData {
+  id: string
+  userId: string | null
+  productId: string
+  authorName: string
+  rating: number
+  comment: string
+  weightGrams?: number
+  images: string[]
+  createdAt: string
+}
+
+export async function fetchProductReviews(productId: string): Promise<ReviewData[]> {
+  const res = await fetch(`${API_URL}/reviews?productId=${productId}`)
+  if (!res.ok) return []
+  const reviews: ReviewData[] = await res.json()
+  return reviews.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+}
+
 interface RawProduct {
   id: string
   categoryId: string
