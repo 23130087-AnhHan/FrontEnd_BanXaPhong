@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { fetchProductDetail, fetchProductImages } from '../../api/productApi'
-import type { ProductDetailData, ProductImageData } from '../../api/productApi'
+import { fetchProductDetail, fetchProductImages, fetchProductVariants } from '../../api/productApi'
+import type { ProductDetailData, ProductImageData, ProductVariantData } from '../../api/productApi'
 import ProductGallery from './components/ProductGallery'
 import ProductInfo from './components/ProductInfo'
 import ProductDescription from './components/ProductDescription'
@@ -13,14 +13,20 @@ export default function ProductDetailPage() {
   const { productId } = useParams<{ productId: string }>()
   const [product, setProduct] = useState<ProductDetailData | null>(null)
   const [images, setImages] = useState<ProductImageData[]>([])
+  const [variants, setVariants] = useState<ProductVariantData[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!productId) return
     setLoading(true)
-    Promise.all([fetchProductDetail(productId), fetchProductImages(productId)]).then(([p, imgs]) => {
+    Promise.all([
+      fetchProductDetail(productId),
+      fetchProductImages(productId),
+      fetchProductVariants(productId),
+    ]).then(([p, imgs, vars]) => {
       setProduct(p)
       setImages(imgs)
+      setVariants(vars)
       setLoading(false)
     })
   }, [productId])
@@ -40,7 +46,7 @@ export default function ProductDetailPage() {
         </nav>
         <div className="product-detail-overview">
           <ProductGallery images={images} productName={product.name} />
-          <ProductInfo product={product} />
+          <ProductInfo product={product} variants={variants} />
         </div>
         <ProductDescription description={product.description} />
         <ProductReviews productId={product.id} reviewCount={product.reviewCount} rating={product.rating} />
