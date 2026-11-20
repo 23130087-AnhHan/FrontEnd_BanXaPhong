@@ -1,4 +1,8 @@
 import { products } from '../../data/products'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import type { AppDispatch, RootState } from '../../store/store'
+import { loadProducts } from '../../components/ProductSlice'
 import ProListFilter from "./components/ProListFilter";
 import CheckboxFilter from "./components/CheckboxFilter";
 import Title from "./components/Title";
@@ -64,6 +68,13 @@ const selectSort = [
     },
 ]
 export default function ProFilter() {
+    const dispatch = useDispatch<AppDispatch>()
+    const products = useSelector((state: RootState) => state.products.items)
+
+    useEffect(() => {
+        dispatch(loadProducts())
+    }, [dispatch])
+
     return (
         <div className="pro-filter-container">
             <div className="filter-sidebar">

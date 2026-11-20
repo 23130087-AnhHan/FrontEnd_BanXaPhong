@@ -2041,7 +2041,7 @@
     {
       "id": "IMG-XP005-01",
       "productId": "XP005",
-      "imageUrl": "https://hilltownvn.com/static/images/products/a-b-ng-thi-n-nhi-n-handmade-nghe-cam-cafe-bac-ha-hiltown-50g/vn-11134103-7qukw-liv3v1cfz7rged.webp",
+      "imageUrl": "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&w=600&q=80",
       "sortOrder": 1,
       "isPrimary": true
     },
@@ -2188,7 +2188,7 @@
     {
       "id": "IMG-XP012-01",
       "productId": "XP012",
-      "imageUrl": "https://hilltownvn.com/static/images/products/xa-phong-dau-dua-kh-ng-mui-100g/vn-11134207-7ras8-maxzgcke6k7r8e.jpeg",
+      "imageUrl": "https://images.unsplash.com/photo-1608248597359-52e896434861?auto=format&fit=crop&w=600&q=80",
       "sortOrder": 1,
       "isPrimary": true
     },
@@ -2503,7 +2503,7 @@
     {
       "id": "IMG-XP022-01",
       "productId": "XP022",
-      "imageUrl": "https://hilltownvn.com/static/images/products/xa-b-ng-thi-n-nhi-n-tu-dau-thuc-vat-va-tinh-dau/vn-11134207-7r98o-lmnb47uf9pzz40.jpeg",
+      "imageUrl": "https://images.unsplash.com/photo-1607006314644-8cbdf6a94f6c?auto=format&fit=crop&w=600&q=80",
       "sortOrder": 1,
       "isPrimary": true
     },
@@ -5345,23 +5345,22 @@
   ],
   "cartItems": [
     {
-      "productId": 7,
-      "name": "Xà phòng Hoa hồng & Đất sét",
-      "price": 155000,
-      "oldPrice": 190000,
+      "productId": "XP055",
+      "name": "Xà bông thủ công Tía Tô",
+      "price": 125000,
       "unit": "bánh 100g",
-      "image": "https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg",
+      "image": "https://www.lemai.com.vn/assets/anh-thu/xa-bong-tia-to-perilla-thu-cong/xa-bong-tia-to-perilla-thu-cong-le-mai-01.webp",
       "quantity": 1,
-      "id": "sfrinEY5qBU"
+      "id": "gZVHRDPB_2E"
     },
     {
-      "productId": 2,
-      "name": "Xà phòng Mật ong & Yến mạch",
-      "price": 165000,
+      "productId": "XP022",
+      "name": "Xà bông từ dầu thực vật và tinh dầu Hiltown 60g",
+      "price": 90000,
       "unit": "bánh 100g",
-      "image": "https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg",
-      "quantity": 2,
-      "id": "_ObyhLq65WQ"
+      "image": "https://images.unsplash.com/photo-1607006314644-8cbdf6a94f6c?auto=format&fit=crop&w=600&q=80",
+      "quantity": 1,
+      "id": "rHK2vanH5Y8"
     }
   ],
   "wishlists": [
