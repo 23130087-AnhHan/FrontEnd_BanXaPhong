@@ -9,8 +9,12 @@ import { faLeaf, faShieldHalved, faHandSparkles } from '@fortawesome/free-solid-
 import Banner from "./components/Banner"
 import bannerImg from '../../assets/img/offering.png'
 import VoucherSection from "./components/VoucherSection"
+import { useDispatch, useSelector } from "react-redux"
+import type { AppDispatch, RootState } from "../../store/store"
+import { useEffect } from "react"
+import { loadProducts } from "../../components/ProductSlice"
 
-const offersProducts = products
+
 const ListOption = [
     {
         id: 1,
@@ -66,6 +70,19 @@ const feature = [
 ]
 
 export default function OfferProducts() {
+    const dispatch = useDispatch<AppDispatch>()
+    const allProducts = useSelector((state: RootState) => state.products.items)
+
+
+    const offersProducts = allProducts.filter(
+        (p) => p.oldPrice != null && p.oldPrice > p.price
+    )
+    const displayProducts = offersProducts.length > 0 ? offersProducts : allProducts
+
+    useEffect(() => {
+        dispatch(loadProducts())
+    }, [dispatch])
+
     return (
         <div className="offer-wrap">
 
@@ -87,7 +104,7 @@ export default function OfferProducts() {
                 </div>
             </div>
             <ProductList
-                products={offersProducts}
+                products={displayProducts}
             />
         </div>
     )

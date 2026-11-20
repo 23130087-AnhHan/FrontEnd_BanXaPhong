@@ -1,5 +1,5 @@
 export interface FilterItem {
-    id: number;
+    id: number | string;
     content: string;
 }
 

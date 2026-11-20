@@ -3,7 +3,7 @@ import type { Product } from '../../../data/products'
 import '../../../components/ProductList.css'
 
 
-export default function ProListFilter({ products = [] }: { products: Product[] }) {
+export default function ProListFilter({ products = [] }: { products?: Product[] }) {
     return (
         <div className="product-section">
 

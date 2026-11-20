@@ -1,6 +1,11 @@
+import { useEffect, useState } from 'react'
 import { products } from '../../data/products'
+import { useDispatch, useSelector } from 'react-redux'
+import type { AppDispatch, RootState } from '../../store/store'
+import { loadProducts } from '../../components/ProductSlice'
 import ProListFilter from "./components/ProListFilter";
 import CheckboxFilter from "./components/CheckboxFilter";
+import type { FilterItem } from "./components/CheckboxFilter";
 import Title from "./components/Title";
 import "./ProFilter.css";
 import SelectSort from "./components/Select";
@@ -10,7 +15,7 @@ const title1 = {
     id: 1, name: 'Danh mục'
 };
 const title2 = {
-    id: 2, name: 'Loại da'
+    id: 2, name: 'Thương hiệu'
 };
 const title3 = {
     id: 3, name: 'Khoảng giá'
@@ -27,12 +32,7 @@ const categoryItems = [
     { id: 5, content: 'Xà phòng cho da nhạy cảm' },
 ];
 
-const skinTypeItems = [
-    { id: 6, content: 'Da thường' },
-    { id: 7, content: 'Da khô' },
-    { id: 8, content: 'Da dầu & Mụn' },
-    { id: 9, content: 'Da nhạy cảm' },
-];
+const defaultBrandItems: FilterItem[] = [];
 
 const priceItems = [
     { id: 10, content: 'Dưới 150.000 đ' },
@@ -64,6 +64,28 @@ const selectSort = [
     },
 ]
 export default function ProFilter() {
+    const dispatch = useDispatch<AppDispatch>()
+    const products = useSelector((state: RootState) => state.products.items)
+    const [brandItems, setBrandItems] = useState(defaultBrandItems) 
+
+    useEffect(() => {
+        dispatch(loadProducts())
+
+        fetch('http://localhost:3001/brands')
+            .then((res) => res.json())
+            .then((data) => {
+                if (Array.isArray(data)) {
+                    setBrandItems(
+                        data.slice(0, 4).map((b: { id: string; name: string }) => ({
+                            id: b.id,
+                            content: b.name,
+                        }))
+                    )
+                }
+            })
+            .catch(() => {})
+    }, [dispatch])
+
     return (
         <div className="pro-filter-container">
             <div className="filter-sidebar">
@@ -78,7 +100,7 @@ export default function ProFilter() {
 
                 <div className="filter-section">
                     <Title title={title2} />
-                    <CheckboxFilter items={skinTypeItems} />
+                    <CheckboxFilter items={brandItems} />
                 </div>
 
                 <div className="filter-section">
