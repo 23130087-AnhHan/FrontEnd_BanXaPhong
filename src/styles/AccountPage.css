@@ -68,6 +68,30 @@
 .account-form-fields {
   display: grid;
   gap: 20px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.account-message {
+  margin: 0;
+  color: #334537;
+  font-size: 14px;
+}
+
+.account-error {
+  color: #a52a20;
+}
+
+.account-field a {
+  color: #334537;
+  font-size: 13px;
+}
+
+.account-page button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .account-field {

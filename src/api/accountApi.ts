@@ -37,6 +37,19 @@ export function getProfile(): Promise<NguoiDung> {
   return accountRequest('/users/' + encodeURIComponent(currentUserId()))
 }
 
+export async function saveProfile(profile: Profile): Promise<NguoiDung> {
+  const id = currentUserId()
+  const users = await accountRequest<NguoiDung[]>('/users')
+  if (users.some((user) => user.id !== id && user.email.toLowerCase() === profile.email.toLowerCase())) {
+    throw new Error('Email này đã được sử dụng.')
+  }
+  return accountRequest('/users/' + encodeURIComponent(id), {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(profile),
+  })
+}
+
 export async function getAddresses(): Promise<Address[]> {
   const userId = currentUserId()
   const addresses = await accountRequest<Address[]>('/addresses' + accountFilter('userId', userId))
