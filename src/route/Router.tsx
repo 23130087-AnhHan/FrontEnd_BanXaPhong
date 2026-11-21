@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import { store } from '../store/store'
 import { loadCart } from '../store/cartSlice'
 import Layout from './Layout'
+import AccountGuard from './AccountGuard'
 import ErrorPage from './Error'
 import HomePage from '../pages/Home/HomePage'
 import LoginPage from '../pages/Login/LoginPage'
@@ -50,15 +51,19 @@ export const router = createBrowserRouter([
       { path: 'gio-hang', element: <CartPage /> },
       { path: 'thanh-toan', element: <CheckoutPage /> },
       { path: 'dat-hang-thanh-cong', element: <OrderSuccessPage /> },
-      { path: 'tai-khoan', element: <AccountProfilePage /> },
-      { path: 'tai-khoan/don-hang', element: <MyOrdersPage /> },
-      { path: 'tai-khoan/don-hang/chi-tiet', element: <OrderDetailPage /> },
-      { path: 'tai-khoan/don-hang/return', element: <OrderReturn /> },
-      { path: 'tai-khoan/don-hang/track', element: <OrderTrack /> },
-      { path: 'tai-khoan/don-hang/cancel', element: <CancelOrderPage /> },
-      { path: 'tai-khoan/doi-mat-khau', element: <ChangePasswordPage /> },
-      { path: 'tai-khoan/dia-chi', element: <AddressBookPage /> },
-      { path: 'tai-khoan/dia-chi/them-moi', element: <AddAddressPage /> },
+      {
+        path: 'tai-khoan', element: <AccountGuard />, children: [
+          { index: true, element: <AccountProfilePage /> },
+          { path: 'don-hang', element: <MyOrdersPage /> },
+          { path: 'don-hang/chi-tiet', element: <OrderDetailPage /> },
+          { path: 'don-hang/return', element: <OrderReturn /> },
+          { path: 'don-hang/track', element: <OrderTrack /> },
+          { path: 'don-hang/cancel', element: <CancelOrderPage /> },
+          { path: 'doi-mat-khau', element: <ChangePasswordPage /> },
+          { path: 'dia-chi', element: <AddressBookPage /> },
+          { path: 'dia-chi/them-moi', element: <AddAddressPage /> },
+        ],
+      },
     ],
   },
 ])
