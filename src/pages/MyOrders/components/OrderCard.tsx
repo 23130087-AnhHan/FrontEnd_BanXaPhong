@@ -14,7 +14,11 @@ export interface Order {
   total: string
   update: string
   action?: string
+  shippingFee?: number
   products: {
+    id?: string
+    image?: string
+    weight?: string
     name: string
     quantity: number
     price: string
@@ -54,11 +58,11 @@ export default function OrderCard({ order }: OrderCardProps) {
 
       <div className="order-products">
         {order.products.map((product) => (
-          <div className="order-product" key={product.name}>
-            <img src={productImage} alt="" width="64" height="64" loading="lazy" />
+          <div className="order-product" key={product.id ?? product.name}>
+            <img src={product.image || productImage} alt="" width="64" height="64" loading="lazy" />
             <div className="order-product-info">
               <h3>{product.name}</h3>
-              <p>Bánh 100g • Số lượng: {product.quantity}</p>
+              <p>Bánh {product.weight ?? '100g'} • Số lượng: {product.quantity}</p>
             </div>
             <div className="order-product-price">
               <strong>{product.total}</strong>
@@ -70,7 +74,7 @@ export default function OrderCard({ order }: OrderCardProps) {
 
       <div className="order-footer">
         <div className="order-total">
-          <p>{order.quantity} sản phẩm • Miễn phí giao hàng</p>
+          <p>{order.quantity} sản phẩm • {order.shippingFee ? 'Phí giao hàng: ' + order.shippingFee.toLocaleString('vi-VN') + ' đ' : 'Miễn phí giao hàng'}</p>
           <div className="order-total-value">
             <span>Tổng tiền:</span>
             <strong>{order.total}</strong>
@@ -79,7 +83,7 @@ export default function OrderCard({ order }: OrderCardProps) {
         <div className="order-bottom">
           <p className="order-update">{order.update}</p>
           <div className="order-actions">
-            <Link to="/tai-khoan/don-hang/chi-tiet" reloadDocument>Xem chi tiết</Link>
+            <Link to={'/tai-khoan/don-hang/chi-tiet/' + encodeURIComponent(order.id)} reloadDocument>Xem chi tiết</Link>
             {order.action && (
               <button
                 type="button"

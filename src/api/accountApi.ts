@@ -30,8 +30,8 @@ export function currentUserId() {
   return user.id
 }
 
-export function accountFilter(field: string, value: string) {
-  return '?_where=' + encodeURIComponent(JSON.stringify({ [field]: value }))
+export function accountFilter(field: string, value: string | string[]) {
+  return '?_where=' + encodeURIComponent(JSON.stringify({ [field]: Array.isArray(value) ? { in: value } : value }))
 }
 
 export function getProfile(): Promise<NguoiDung> {

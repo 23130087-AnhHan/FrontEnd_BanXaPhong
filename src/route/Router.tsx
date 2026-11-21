@@ -56,6 +56,7 @@ export const router = createBrowserRouter([
           { index: true, element: <AccountProfilePage /> },
           { path: 'don-hang', element: <MyOrdersPage /> },
           { path: 'don-hang/chi-tiet', element: <OrderDetailPage /> },
+          { path: 'don-hang/chi-tiet/:orderId', element: <OrderDetailPage /> },
           { path: 'don-hang/return', element: <OrderReturn /> },
           { path: 'don-hang/track', element: <OrderTrack /> },
           { path: 'don-hang/cancel', element: <CancelOrderPage /> },
