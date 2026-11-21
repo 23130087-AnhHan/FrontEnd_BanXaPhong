@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { dangXuat } from '../api/authApi'
 import { faUser } from '@fortawesome/free-regular-svg-icons/faUser'
 import { faReceipt } from '@fortawesome/free-solid-svg-icons/faReceipt'
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock'
@@ -19,6 +20,13 @@ const items = [
 ]
 
 export default function AccountSidebar({ activePage = 'profile' }: AccountSidebarProps) {
+  const navigate = useNavigate()
+
+  function logout() {
+    dangXuat()
+    navigate('/login', { replace: true })
+  }
+
   return (
     <aside className="account-sidebar">
       <h2>Quản lý tài khoản</h2>
@@ -36,7 +44,7 @@ export default function AccountSidebar({ activePage = 'profile' }: AccountSideba
             {item.label}
           </Link>
         ))}
-        <button className="account-sidebar-item" type="button">
+        <button className="account-sidebar-item" type="button" onClick={logout}>
           <span className="account-sidebar-icon"><Icon icon={faArrowRightFromBracket} /></span>
           Đăng xuất
         </button>

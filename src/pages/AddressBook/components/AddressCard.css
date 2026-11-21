@@ -62,7 +62,8 @@
   gap: 8px;
 }
 
-.address-card-actions button {
+.address-card-actions button,
+.address-card-actions a {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -76,6 +77,7 @@
   font-weight: 600;
   line-height: 16px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .address-card-actions .address-edit {
