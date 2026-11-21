@@ -1,4 +1,4 @@
-import type { Product } from '../data/products'
+import type { Product } from '../components/ProductCard'
 import { layNguoiDungHienTai } from './authApi'
 import { accountFilter, currentUserId } from './accountApi'
 

@@ -1,4 +1,17 @@
-import type { Product } from '../data/products'
+export interface Product {
+    id: string | number
+    name: string
+    price: number
+    oldPrice?: number | null
+    unit?: string
+    rating?: number
+    soldCount?: string | number
+    image: string
+    category?: string
+    brandId?: string
+    inStock?: boolean
+}
+
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from '../store/store'
 import { addToCart } from '../store/cartSlice'

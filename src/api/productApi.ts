@@ -1,4 +1,4 @@
-import type { Product } from '../data/products'
+import type { Product } from '../components/ProductCard'
 
 const API_URL = 'http://localhost:3001'
 

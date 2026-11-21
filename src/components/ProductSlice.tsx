@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchProductsWithImages } from '../api/productApi'
-import type { Product } from '../data/products'
+import type { Product } from './ProductCard'
 
 export const loadProducts = createAsyncThunk('products/loadProducts', async () => {
   return await fetchProductsWithImages()
