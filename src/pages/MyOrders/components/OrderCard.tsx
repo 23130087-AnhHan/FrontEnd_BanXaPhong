@@ -62,7 +62,7 @@ export default function OrderCard({ order }: OrderCardProps) {
             <img src={product.image || productImage} alt="" width="64" height="64" loading="lazy" />
             <div className="order-product-info">
               <h3>{product.name}</h3>
-              <p>Bánh {product.weight ?? '100g'} • Số lượng: {product.quantity}</p>
+              <p>{product.weight ? 'Bánh ' + product.weight : 'Sản phẩm'} • Số lượng: {product.quantity}</p>
             </div>
             <div className="order-product-price">
               <strong>{product.total}</strong>

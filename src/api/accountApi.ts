@@ -19,7 +19,9 @@ export type AddressInput = Omit<Address, 'id' | 'userId' | 'createdAt'>
 const API_URL = 'http://localhost:3001'
 
 export async function accountRequest<T>(path: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(API_URL + path, options)
+  let response: Response
+  try { response = await fetch(API_URL + path, options) }
+  catch { throw new Error('Không thể kết nối máy chủ. Vui lòng thử lại.') }
   if (!response.ok) throw new Error('Không thể tải hoặc lưu dữ liệu. Vui lòng thử lại.')
   return response.status === 204 ? undefined as T : response.json()
 }
@@ -31,7 +33,7 @@ export function currentUserId() {
 }
 
 export function accountFilter(field: string, value: string | string[]) {
-  return '?_where=' + encodeURIComponent(JSON.stringify({ [field]: Array.isArray(value) ? { in: value } : value }))
+  return '?_where=' + encodeURIComponent(JSON.stringify({ [field]: Array.isArray(value) ? { in: value } : { eq: value } }))
 }
 
 export function getProfile(): Promise<NguoiDung> {
@@ -98,13 +100,15 @@ export async function setDefaultAddress(id: string): Promise<void> {
 }
 
 export async function saveAddress(data: AddressInput, id?: string): Promise<Address> {
+  const userId = currentUserId()
   const addresses = await getAddresses()
+  if (currentUserId() !== userId) throw new Error('Tài khoản đã thay đổi. Vui lòng tải lại trang.')
   const previous = id ? addresses.find((address) => address.id === id) : undefined
   if (id && !previous) throw new Error('Không tìm thấy địa chỉ của bạn.')
   const saved = await accountRequest<Address>('/addresses' + (id ? '/' + encodeURIComponent(id) : ''), {
     method: id ? 'PATCH' : 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ...data, isDefault: previous?.isDefault ?? false, userId: currentUserId(), ...(!id && { createdAt: new Date().toISOString() }) }),
+    body: JSON.stringify({ ...data, isDefault: previous?.isDefault ?? false, userId, ...(!id && { createdAt: new Date().toISOString() }) }),
   })
   try {
     if (data.isDefault || addresses.length === 0) await setDefaultAddress(saved.id)

@@ -16,5 +16,5 @@ export default function AccountGuard() {
     }
   }, [])
 
-  return user ? <Outlet key={user.id} /> : <Navigate to="/login" replace state={{ from: location.pathname + location.search }} />
+  return user ? <Outlet key={user.id + location.pathname} /> : <Navigate to="/login" replace state={{ from: location.pathname + location.search }} />
 }

@@ -21,9 +21,6 @@ export default function OrderDetailPage() {
   useEffect(() => {
     if (!orderId) return
     let active = true
-    setLoading(true)
-    setOrder(null)
-    setError('')
     getOrder(orderId).then((data) => { if (active) setOrder(data) })
       .catch((error) => { if (active) setError(error instanceof Error ? error.message : 'Không tải được đơn hàng.') })
       .finally(() => { if (active) setLoading(false) })
@@ -35,7 +32,7 @@ export default function OrderDetailPage() {
       <div className="order-detail-container">
         <section className="order-detail-panel">
           {loading && <p role="status">Đang tải chi tiết đơn hàng...</p>}
-          {error && <p className="account-error" role="alert">{error} <button type="button" onClick={() => setReload(reload + 1)}>Thử lại</button></p>}
+          {error && <p className="account-error" role="alert">{error} <button type="button" disabled={loading} onClick={() => { setLoading(true); setError(''); setReload(reload + 1) }}>Thử lại</button></p>}
           {!loading && !error && <p>Chọn đơn hàng từ danh sách để xem chi tiết.</p>}
           <Link to="/tai-khoan/don-hang">Trở về danh sách đơn hàng</Link>
         </section>

@@ -7,6 +7,7 @@ import { layNguoiDungHienTai, luuNguoiDungHienTai } from '../../../api/authApi'
 import './ProfileForm.css'
 
 const emptyProfile: Profile = { hoTen: '', email: '', phone: '', birthday: '' }
+const today = new Date().toISOString().slice(0, 10)
 
 export default function ProfileForm() {
   const [profile, setProfile] = useState(emptyProfile)
@@ -20,10 +21,8 @@ export default function ProfileForm() {
 
   useEffect(() => {
     let active = true
-    setLoading(true)
-    setError('')
     Promise.all([getProfile(), getAddresses()]).then(([user, addresses]) => {
-      if (!active) return
+      if (!active || layNguoiDungHienTai()?.id !== user.id) return
       const data = { hoTen: user.hoTen, email: user.email, phone: user.phone ?? '', birthday: user.birthday ?? '' }
       setProfile(data)
       setOriginal(data)
@@ -67,7 +66,7 @@ export default function ProfileForm() {
       </div>
 
       {loading && <p className="account-message" role="status">Đang tải thông tin...</p>}
-      {error && <p className="account-message account-error" role="alert">{error} {!original.email && <button type="button" onClick={() => setReload(reload + 1)}>Thử lại</button>}</p>}
+      {error && <p className="account-message account-error" role="alert">{error} {!original.email && <button type="button" disabled={loading} onClick={() => { setLoading(true); setError(''); setReload(reload + 1) }}>Thử lại</button>}</p>}
       {message && <p className="account-message" role="status">{message}</p>}
 
       <fieldset className="account-form-fields" disabled={loading || saving || !original.email}>
@@ -83,7 +82,7 @@ export default function ProfileForm() {
           </div>
           <div className="account-field">
             <label htmlFor="profile-birthday">Ngày sinh</label>
-            <input id="profile-birthday" type="date" autoComplete="bday" max={new Date().toISOString().slice(0, 10)} value={profile.birthday} onChange={(event) => setProfile({ ...profile, birthday: event.target.value })} />
+            <input id="profile-birthday" type="date" autoComplete="bday" max={today} value={profile.birthday} onChange={(event) => setProfile({ ...profile, birthday: event.target.value })} />
           </div>
         </div>
 

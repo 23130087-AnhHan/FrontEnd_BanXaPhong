@@ -50,7 +50,7 @@ async function addOrderProducts(orders: OrderRecord[]): Promise<AccountOrder[]> 
       products: orderItems.map((item) => {
         const product = products.find((product) => String(product.id) === item.productId)
         const variant = variants.find((variant) => variant.id === item.variantId)
-        return { id: item.id, name: product?.name ?? 'Sản phẩm không còn trong danh mục', image: product?.image ?? '', weight: variant ? variant.weightGrams + 'g' : 'Chưa cập nhật', quantity: item.quantity, price: formatMoney(item.unitPrice), total: formatMoney(item.unitPrice * item.quantity) }
+        return { id: item.id, name: product?.name ?? 'Sản phẩm không còn trong danh mục', image: product?.image ?? '', weight: variant && variant.weightGrams > 0 ? variant.weightGrams + 'g' : '', quantity: item.quantity, price: formatMoney(item.unitPrice), total: formatMoney(item.unitPrice * item.quantity) }
       }),
     }
   })

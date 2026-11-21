@@ -20,8 +20,6 @@ export default function AddressBookPage() {
 
   useEffect(() => {
     let active = true
-    setLoading(true)
-    setError('')
     getAddresses().then((data) => { if (active) setAddresses(data) })
       .catch(() => { if (active) setError('Không tải được sổ địa chỉ. Vui lòng thử lại.') })
       .finally(() => { if (active) setLoading(false) })
@@ -72,7 +70,7 @@ export default function AddressBookPage() {
           </div>
 
           {loading && <p className="account-message" role="status">Đang tải sổ địa chỉ...</p>}
-          {error && <p className="account-message account-error" role="alert">{error} <button type="button" disabled={saving || loading} onClick={() => setReload(reload + 1)}>Thử lại</button></p>}
+          {error && <p className="account-message account-error" role="alert">{error} <button type="button" disabled={saving || loading} onClick={() => { setLoading(true); setError(''); setReload(reload + 1) }}>Thử lại</button></p>}
           {message && <p className="account-message" role="status">{message}</p>}
           {!loading && !error && addresses.length === 0 && <p className="account-message">Bạn chưa có địa chỉ giao hàng.</p>}
           <div className="address-book-list">

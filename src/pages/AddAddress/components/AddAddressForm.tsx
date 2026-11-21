@@ -19,8 +19,6 @@ export default function AddAddressForm() {
   useEffect(() => {
     if (!addressId) return
     let active = true
-    setLoading(true)
-    setError('')
     getAddress(addressId).then((data) => {
       if (!active) return
       const { receiverName, receiverPhone, province, district, ward, detailAddress, isDefault } = data
@@ -61,7 +59,7 @@ export default function AddAddressForm() {
       </div>
 
       {loading && <p className="account-message" role="status">Đang tải địa chỉ...</p>}
-      {error && <p className="account-message account-error" role="alert">{error} {!loaded && <button type="button" onClick={() => setReload(reload + 1)}>Thử lại</button>}</p>}
+      {error && <p className="account-message account-error" role="alert">{error} {!loaded && <button type="button" disabled={loading} onClick={() => { setLoading(true); setError(''); setReload(reload + 1) }}>Thử lại</button>}</p>}
       <fieldset className="account-form-fields" disabled={loading || saving || !loaded}>
         <div className="account-field">
           <label htmlFor="add-address-name">Người nhận</label>

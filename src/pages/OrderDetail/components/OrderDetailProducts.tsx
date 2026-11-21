@@ -16,7 +16,7 @@ export default function OrderDetailProducts({ order }: { order: AccountOrder }) 
             <div className="order-detail-product-info">
               <h3>{product.name}</h3>
               <div className="order-detail-product-meta">
-                <span className="order-detail-product-weight">Khối lượng: {product.weight}</span>
+                <span className="order-detail-product-weight">Khối lượng: {product.weight || 'Chưa cập nhật'}</span>
                 <span>SL: <strong>{product.quantity}</strong></span>
               </div>
             </div>

@@ -27,8 +27,6 @@ export default function MyOrdersPage() {
 
   useEffect(() => {
     let active = true
-    setLoading(true)
-    setError('')
     getOrders().then((data) => { if (active) setOrders(data) })
       .catch(() => { if (active) setError('Không tải được đơn hàng. Vui lòng thử lại.') })
       .finally(() => { if (active) setLoading(false) })
@@ -74,7 +72,7 @@ export default function MyOrdersPage() {
 
           <div className="order-list">
             {loading && <p className="account-message" role="status">Đang tải đơn hàng...</p>}
-            {error && <p className="account-message account-error" role="alert">{error} <button type="button" onClick={() => setReload(reload + 1)}>Thử lại</button></p>}
+            {error && <p className="account-message account-error" role="alert">{error} <button type="button" disabled={loading} onClick={() => { setLoading(true); setError(''); setReload(reload + 1) }}>Thử lại</button></p>}
             {!loading && !error && filteredOrders.length === 0 && <p className="account-message">Chưa có đơn hàng trong mục này.</p>}
             {!loading && !error && filteredOrders.map((order) => <OrderCard key={order.id} order={order} />)}
           </div>
