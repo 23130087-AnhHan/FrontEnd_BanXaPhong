@@ -50,6 +50,17 @@ export async function saveProfile(profile: Profile): Promise<NguoiDung> {
   })
 }
 
+export async function changePassword(currentPassword: string, newPassword: string): Promise<void> {
+  const user = await getProfile()
+  if (user.matKhau !== currentPassword) throw new Error('Mật khẩu hiện tại không đúng.')
+  if (currentPassword === newPassword) throw new Error('Mật khẩu mới phải khác mật khẩu hiện tại.')
+  await accountRequest('/users/' + encodeURIComponent(user.id), {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ matKhau: newPassword }),
+  })
+}
+
 export async function getAddresses(): Promise<Address[]> {
   const userId = currentUserId()
   const addresses = await accountRequest<Address[]>('/addresses' + accountFilter('userId', userId))
