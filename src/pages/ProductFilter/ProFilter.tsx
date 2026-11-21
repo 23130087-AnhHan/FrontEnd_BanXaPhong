@@ -24,13 +24,7 @@ const title4 = {
     id: 4, name: 'Đánh giá'
 };
 
-const categoryItems = [
-    { id: 1, content: 'Xà phòng tắm thảo mộc' },
-    { id: 2, content: 'Xà phòng rửa mặt dưỡng ẩm' },
-    { id: 3, content: 'Xà phòng tẩy tế bào chết' },
-    { id: 4, content: 'Bánh gội đầu thảo dược' },
-    { id: 5, content: 'Xà phòng cho da nhạy cảm' },
-];
+const categoryItems = [];
 
 const defaultBrandItems: FilterItem[] = [];
 
@@ -67,6 +61,7 @@ export default function ProFilter() {
     const dispatch = useDispatch<AppDispatch>()
     const products = useSelector((state: RootState) => state.products.items)
     const [brandItems, setBrandItems] = useState(defaultBrandItems) 
+    const [categories, setCategories] = useState(categoryItems)
 
     useEffect(() => {
         dispatch(loadProducts())
@@ -84,6 +79,22 @@ export default function ProFilter() {
                 }
             })
             .catch(() => {})
+
+        fetch('http://localhost:3001/categories')
+            .then((res) => res.json())
+            .then((data) => {
+                if (Array.isArray(data)) {
+                    setCategories(
+                        data.slice(0, 5).map((b: { id: string; name: string }) => ({
+                            id: b.id,
+                            content: b.name,
+                        }))
+                    )
+                }
+            })
+            .catch(() => {})
+
+
     }, [dispatch])
 
     return (
@@ -95,7 +106,7 @@ export default function ProFilter() {
 
                 <div className="filter-section">
                     <Title title={title1} />
-                    <CheckboxFilter items={categoryItems} />
+                    <CheckboxFilter items={categories} />
                 </div>
 
                 <div className="filter-section">
