@@ -1,15 +1,26 @@
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { faBagShopping, faCircleCheck, faMinus, faPlus, faRotateLeft, faStar, faTruck } from '@fortawesome/free-solid-svg-icons'
 import type { ProductDetailData, ProductVariantData } from '../../../api/productApi'
+import { layNguoiDungHienTai } from '../../../api/authApi'
+import { addToCart } from '../../../store/cartSlice'
+import type { AppDispatch, RootState } from '../../../store/store'
 import Icon from '../../../components/Icon'
 import './ProductInfo.css'
 
 interface Props {
   product: ProductDetailData
   variants?: ProductVariantData[]
+  primaryImage?: string
 }
 
-export default function ProductInfo({ product, variants = [] }: Props) {
+export default function ProductInfo({ product, variants = [], primaryImage = '' }: Props) {
+  const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { saving } = useSelector((state: RootState) => state.cart)
+
   const [selectedVariantId, setSelectedVariantId] = useState<string>('')
   const [quantity, setQuantity] = useState(1)
 
@@ -28,6 +39,36 @@ export default function ProductInfo({ product, variants = [] }: Props) {
   const currentSku = selectedVariant ? selectedVariant.sku : product.id
   const inStock = selectedVariant ? selectedVariant.stock > 0 : true
   const maxStock = selectedVariant?.stock ?? 99
+
+  function taoSanPhamGioHang() {
+    return {
+      id: product.id,
+      name: product.name,
+      price: currentPrice,
+      oldPrice: currentOldPrice,
+      unit: selectedVariant ? `${selectedVariant.weightGrams}g` : 'bánh 100g',
+      image: primaryImage,
+      inStock,
+    }
+  }
+
+  function handleAddToCart() {
+    if (!layNguoiDungHienTai()) {
+      navigate('/login', { state: { from: location.pathname + location.search } })
+      return
+    }
+    dispatch(addToCart(taoSanPhamGioHang()))
+  }
+
+  function handleBuyNow() {
+    if (!layNguoiDungHienTai()) {
+      navigate('/login', { state: { from: location.pathname + location.search } })
+      return
+    }
+    dispatch(addToCart(taoSanPhamGioHang())).then(() => {
+      navigate('/gio-hang')
+    })
+  }
 
   return (
     <section className="product-info" aria-labelledby="product-detail-title">
@@ -84,8 +125,12 @@ export default function ProductInfo({ product, variants = [] }: Props) {
       </div>
 
       <div className="product-info-actions">
-        <button type="button" className="product-info-cart"><Icon icon={faBagShopping} /> Thêm vào giỏ</button>
-        <button type="button" className="product-info-buy">Mua ngay</button>
+        <button type="button" className="product-info-cart" disabled={saving || !inStock} onClick={handleAddToCart}>
+          <Icon icon={faBagShopping} /> {saving ? 'Đang thêm...' : 'Thêm vào giỏ'}
+        </button>
+        <button type="button" className="product-info-buy" disabled={saving || !inStock} onClick={handleBuyNow}>
+          Mua ngay
+        </button>
       </div>
 
       <div className="product-info-policies">
