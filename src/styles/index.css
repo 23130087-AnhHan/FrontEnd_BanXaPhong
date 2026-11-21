@@ -21,31 +21,126 @@ button, input, select, textarea {
 }
 
 .cart-feedback {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 50;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
-  padding: 12px 24px;
-  background: #e7f0e8;
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  padding: 20px;
+  border: 1px solid #e0e5da;
+  border-left: 4px solid #405640;
+  border-radius: 14px;
+  background: #fffdf8;
   color: #334537;
+  font-size: 14px;
+  box-shadow: 0 12px 36px rgb(35 49 36 / 14%);
+}
+
+.cart-feedback-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e6efdf;
+}
+
+.cart-feedback-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.cart-feedback-content {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.cart-feedback strong {
+  display: block;
   font-size: 14px;
 }
 
-.cart-feedback span {
-  flex: 1;
-  min-width: 180px;
+.cart-feedback p {
+  margin: 5px 0 10px;
+  color: #6d7568;
+  font-size: 13px;
+  line-height: 20px;
 }
 
-.cart-feedback button {
-  border: 1px solid currentColor;
-  border-radius: 6px;
-  padding: 4px 10px;
+.cart-feedback-link,
+.cart-feedback-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  padding: 0;
   background: transparent;
   color: inherit;
+  text-decoration: none;
   cursor: pointer;
 }
 
+.cart-feedback-link {
+  min-height: 36px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: #334537;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cart-feedback-link:hover {
+  background: #405640;
+}
+
+.cart-feedback-link svg {
+  width: 13px;
+  height: 13px;
+}
+
+.cart-feedback-close {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  margin: -6px -8px 0 0;
+  border-radius: 50%;
+}
+
+.cart-feedback-close svg {
+  width: 14px;
+  height: 14px;
+}
+
+.cart-feedback-close:hover {
+  background: #eeefe7;
+}
+
+.cart-feedback :is(a, button):focus-visible {
+  outline: 2px solid #334537;
+  outline-offset: 4px;
+}
+
 .cart-feedback-error {
-  background: #fff1ed;
+  border-left-color: #9c3324;
   color: #9c3324;
+}
+
+.cart-feedback-error .cart-feedback-icon {
+  background: #fae9e3;
+}
+
+@media (max-width: 767px) {
+  .cart-feedback {
+    right: 16px;
+    top: calc(16px + env(safe-area-inset-top));
+    padding: 16px;
+  }
 }

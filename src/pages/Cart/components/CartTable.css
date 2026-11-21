@@ -182,6 +182,10 @@
   cursor: pointer;
 }
 
+.cart-remove:not(:disabled):hover {
+  color: #c0392b;
+}
+
 .cart-remove svg {
   width: 13px;
   height: 13px;
