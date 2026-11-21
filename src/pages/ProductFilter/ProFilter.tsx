@@ -24,7 +24,7 @@ const title4 = {
     id: 4, name: 'Đánh giá'
 };
 
-const categoryItems = [];
+const defaultCategories: FilterItem[] = [];
 
 const defaultBrandItems: FilterItem[] = [];
 
@@ -60,8 +60,22 @@ const selectSort = [
 export default function ProFilter() {
     const dispatch = useDispatch<AppDispatch>()
     const products = useSelector((state: RootState) => state.products.items)
-    const [brandItems, setBrandItems] = useState(defaultBrandItems) 
-    const [categories, setCategories] = useState(categoryItems)
+    const [brandItems, setBrandItems] = useState<FilterItem[]>(defaultBrandItems) 
+    const [categories, setCategories] = useState<FilterItem[]>(defaultCategories)
+    const [selectedCategoryIds, setSelectedCategoryIds] = useState<(string | number)[]>([])
+
+    const handleToggleCategory = (id: string | number) => {
+        setSelectedCategoryIds((prev) =>
+            prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+        )
+    }
+
+    const handleReset = () => {
+        setSelectedCategoryIds([])
+    }
+    const filteredProducts = selectedCategoryIds.length === 0
+        ? products
+        : products.filter((p) => p.category && selectedCategoryIds.includes(p.category))
 
     useEffect(() => {
         dispatch(loadProducts())
@@ -93,8 +107,6 @@ export default function ProFilter() {
                 }
             })
             .catch(() => {})
-
-
     }, [dispatch])
 
     return (
@@ -106,7 +118,11 @@ export default function ProFilter() {
 
                 <div className="filter-section">
                     <Title title={title1} />
-                    <CheckboxFilter items={categories} />
+                    <CheckboxFilter
+                        items={categories}
+                        selectedIds={selectedCategoryIds}
+                        onToggle={handleToggleCategory}
+                    />
                 </div>
 
                 <div className="filter-section">
@@ -130,7 +146,7 @@ export default function ProFilter() {
                 </div>
 
                 <div className="filter-actions">
-                    <button type="button" className="btn-filter-reset">Đặt lại</button>
+                    <button type="button" className="btn-filter-reset" onClick={handleReset}>Đặt lại</button>
                     <button type="button" className="btn-filter-apply">Áp dụng</button>
                 </div>
             </div>
@@ -142,7 +158,7 @@ export default function ProFilter() {
                         <SelectSort content={selectSort} />
                     </div>
                 </div>
-                <ProListFilter products={products} />
+                <ProListFilter products={filteredProducts} />
             </div>
         </div>
     );
