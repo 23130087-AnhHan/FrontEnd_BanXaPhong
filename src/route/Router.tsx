@@ -1,6 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { store } from '../store/store'
-import { loadCart } from '../store/cartSlice'
 import Layout from './Layout'
 import AccountGuard from './AccountGuard'
 import ErrorPage from './Error'
@@ -27,11 +25,6 @@ import OrderReturn from '../pages/OrderReturn/OrderReturn'
 import CancelOrderPage from '../pages/CancelOrder/CancelOrderPage'
 import OrderTrack from '../pages/OrderTrack/OrderTrack'
 
-function dataLoader() {
-  store.dispatch(loadCart())
-  return null
-}
-
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -43,8 +36,8 @@ export const router = createBrowserRouter([
       { path: 'register', element: <RegisterPage /> },
       { path: 'forgot-password', element: <ForgotPasswordPage /> },
       { path: 'reset-password', element: <ResetPasswordPage /> },
-      { path: 'products', element: <ProFilter />, loader: dataLoader },
-      { path: 'products/:productId', element: <ProductDetailPage />, loader: dataLoader },
+      { path: 'products', element: <ProFilter /> },
+      { path: 'products/:productId', element: <ProductDetailPage /> },
       { path: 'offer', element: <OfferProducts /> },
       { path: 'hobby', element: <HobbyProduct /> },
       { path: 'contact', element: <ContactPage /> },
