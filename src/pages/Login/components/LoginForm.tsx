@@ -60,7 +60,7 @@ export default function LoginForm() {
             if (!ketQua.nguoiDung) return
             luuNguoiDungHienTai(ketQua.nguoiDung, ghiNhoToi)
             const from = location.state?.from
-            navigate(typeof from === 'string' && from.startsWith('/tai-khoan') ? from : '/', { replace: true })
+            navigate(typeof from === 'string' && from.startsWith('/') && !from.startsWith('//') && !from.includes('\\') ? from : '/', { replace: true })
         } catch {
             setLoiMayChu('Không thể kết nối đến máy chủ, vui lòng thử lại')
         } finally {

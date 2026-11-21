@@ -24,6 +24,7 @@ async function request(path = '', options?: RequestInit) {
 
 export async function getCartItems(userId = layNguoiDungHienTai()?.id): Promise<CartItem[]> {
   if (!userId) return []
+  if (currentUserId() !== userId) throw new Error('Tài khoản đã thay đổi. Vui lòng thử lại.')
   const response = await request(accountFilter('userId', userId))
   const items: CartItem[] = await response.json()
   return items.filter((item) => item.userId === userId)
