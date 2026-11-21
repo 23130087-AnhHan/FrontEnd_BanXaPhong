@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { products } from '../../data/products'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from '../../store/store'
 import { loadProducts } from '../../components/ProductSlice'

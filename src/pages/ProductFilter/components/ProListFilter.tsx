@@ -1,5 +1,4 @@
-import ProductCard from '../../../components/ProductCard'
-import type { Product } from '../../../data/products'
+import ProductCard, { type Product } from '../../../components/ProductCard'
 import '../../../components/ProductList.css'
 
 

@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchProductsWithImages } from '../api/productApi'
-import { bestSellers as defaultBestSellers, newProducts as defaultNewProducts, mostView as defaultMostView } from '../data/products'
-import type { Product } from '../data/products'
+import type { Product } from './ProductCard'
 
 export const loadProducts = createAsyncThunk('products/loadProducts', async () => {
   return await fetchProductsWithImages()
@@ -18,10 +17,10 @@ interface ProductState {
 }
 
 const initialState: ProductState = {
-  items: [...defaultBestSellers, ...defaultNewProducts],
-  bestSellers: defaultBestSellers,
-  newProducts: defaultNewProducts,
-  mostView: defaultMostView,
+  items: [],
+  bestSellers: [],
+  newProducts: [],
+  mostView: [],
   loading: false,
   status: 'idle',
   error: null,

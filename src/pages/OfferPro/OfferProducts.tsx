@@ -1,6 +1,5 @@
 import HomeTitle from "../../components/HomeTitle"
 import ProductList from "../../components/ProductList"
-import { products } from '../../data/products'
 import OptionOffering from "./components/OptionOffering"
 import SelectSort from "../ProductFilter/components/Select"
 import "./OfferProducts.css"

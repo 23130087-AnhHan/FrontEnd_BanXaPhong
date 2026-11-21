@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { addCartItem, deleteCartItem, getCartItems, updateCartQuantity } from '../api/cartApi'
 import type { CartItem } from '../api/cartApi'
-import type { Product } from '../data/products'
+import type { Product } from '../components/ProductCard'
 import type { RootState } from './store'
 import { layNguoiDungHienTai } from '../api/authApi'
 
