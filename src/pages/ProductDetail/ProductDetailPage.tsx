@@ -34,6 +34,8 @@ export default function ProductDetailPage() {
   if (loading) return <div className="product-detail-page"><p>Đang tải...</p></div>
   if (!product) return <div className="product-detail-page"><p>Không tìm thấy sản phẩm.</p></div>
 
+  const primaryImage = images.find((img) => img.isPrimary)?.imageUrl || images[0]?.imageUrl || ''
+
   return (
     <div className="product-detail-page">
       <div className="product-detail-container">
@@ -46,7 +48,7 @@ export default function ProductDetailPage() {
         </nav>
         <div className="product-detail-overview">
           <ProductGallery images={images} productName={product.name} />
-          <ProductInfo product={product} variants={variants} />
+          <ProductInfo product={product} variants={variants} primaryImage={primaryImage} />
         </div>
         <ProductDescription description={product.description} />
         <ProductReviews productId={product.id} reviewCount={product.reviewCount} rating={product.rating} />
