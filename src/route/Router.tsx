@@ -62,6 +62,7 @@ export const router = createBrowserRouter([
           { path: 'doi-mat-khau', element: <ChangePasswordPage /> },
           { path: 'dia-chi', element: <AddressBookPage /> },
           { path: 'dia-chi/them-moi', element: <AddAddressPage /> },
+          { path: 'dia-chi/:addressId/chinh-sua', element: <AddAddressPage /> },
         ],
       },
     ],

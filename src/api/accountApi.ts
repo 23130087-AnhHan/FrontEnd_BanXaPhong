@@ -15,6 +15,7 @@ export interface Address {
 }
 
 export type Profile = Pick<NguoiDung, 'hoTen' | 'email' | 'phone' | 'birthday'>
+export type AddressInput = Omit<Address, 'id' | 'userId' | 'createdAt'>
 const API_URL = 'http://localhost:3001'
 
 export async function accountRequest<T>(path: string, options?: RequestInit): Promise<T> {
@@ -65,6 +66,69 @@ export async function getAddresses(): Promise<Address[]> {
   const userId = currentUserId()
   const addresses = await accountRequest<Address[]>('/addresses' + accountFilter('userId', userId))
   return addresses.filter((address) => address.userId === userId)
+}
+
+export async function getAddress(id: string): Promise<Address> {
+  const address = await accountRequest<Address>('/addresses/' + encodeURIComponent(id))
+  if (address.userId !== currentUserId()) throw new Error('Không tìm thấy địa chỉ của bạn.')
+  return address
+}
+
+function patchAddress(id: string, data: Partial<AddressInput>): Promise<Address> {
+  return accountRequest('/addresses/' + encodeURIComponent(id), {
+    method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data),
+  })
+}
+
+export async function setDefaultAddress(id: string): Promise<void> {
+  const addresses = await getAddresses()
+  const target = addresses.find((address) => address.id === id)
+  if (!target) throw new Error('Không tìm thấy địa chỉ của bạn.')
+  const changed: Address[] = []
+  try {
+    for (const address of [target, ...addresses.filter((item) => item.id !== id && item.isDefault)]) {
+      if (address.isDefault === (address.id === id)) continue
+      await patchAddress(address.id, { isDefault: address.id === id })
+      changed.push(address)
+    }
+  } catch (error) {
+    await Promise.allSettled(changed.map((address) => patchAddress(address.id, { isDefault: address.isDefault })))
+    throw error
+  }
+}
+
+export async function saveAddress(data: AddressInput, id?: string): Promise<Address> {
+  const addresses = await getAddresses()
+  const previous = id ? addresses.find((address) => address.id === id) : undefined
+  if (id && !previous) throw new Error('Không tìm thấy địa chỉ của bạn.')
+  const saved = await accountRequest<Address>('/addresses' + (id ? '/' + encodeURIComponent(id) : ''), {
+    method: id ? 'PATCH' : 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...data, isDefault: previous?.isDefault ?? false, userId: currentUserId(), ...(!id && { createdAt: new Date().toISOString() }) }),
+  })
+  try {
+    if (data.isDefault || addresses.length === 0) await setDefaultAddress(saved.id)
+    return saved
+  } catch (error) {
+    await accountRequest('/addresses/' + encodeURIComponent(saved.id), previous ? {
+      method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(previous),
+    } : { method: 'DELETE' }).catch(() => {})
+    throw error
+  }
+}
+
+export async function deleteAddress(id: string): Promise<void> {
+  const addresses = await getAddresses()
+  const target = addresses.find((address) => address.id === id)
+  if (!target) throw new Error('Không tìm thấy địa chỉ của bạn.')
+  const replacement = addresses.find((address) => address.id !== id)
+  if (target.isDefault && replacement) await setDefaultAddress(replacement.id)
+  try {
+    await accountRequest('/addresses/' + encodeURIComponent(id), { method: 'DELETE' })
+  } catch (error) {
+    if (target.isDefault && replacement) await setDefaultAddress(id).catch(() => {})
+    throw error
+  }
 }
 
 export function formatAddress(address: Pick<Address, 'detailAddress' | 'ward' | 'district' | 'province'>) {
