@@ -1,13 +1,15 @@
-import { products as catalog } from '../../../data/products'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../../store/store'
 import { Link } from 'react-router-dom'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight'
 import Icon from '../../../components/Icon'
 import ProductList from '../../../components/ProductList'
 import './RecommendedProducts.css'
 
-const products = [catalog[1], catalog[2], catalog[4], catalog[6]]
-
 export default function RecommendedProducts() {
+  const allProducts = useSelector((state: RootState) => state.products.items)
+  const products = allProducts.slice(0, 4)
+
   return (
     <section className="order-recommendations" aria-labelledby="order-recommendations-title">
       <div className="order-recommendations-heading">
