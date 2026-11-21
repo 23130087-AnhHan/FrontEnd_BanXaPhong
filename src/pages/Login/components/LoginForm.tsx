@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { faEye } from '@fortawesome/free-solid-svg-icons/faEye'
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash'
 import Icon from '../../../components/Icon'
-import { dangNhap } from '../../../api/authApi'
+import { dangNhap, luuNguoiDungHienTai } from '../../../api/authApi'
 import './LoginForm.css'
 
 function kiemTraHopLe(email: string, matKhau: string): { loiEmail: string; loiMatKhau: string } {
@@ -25,6 +25,7 @@ function kiemTraHopLe(email: string, matKhau: string): { loiEmail: string; loiMa
 
 export default function LoginForm() {
     const navigate = useNavigate()
+    const location = useLocation()
 
     const [email, setEmail] = useState('')
     const [matKhau, setMatKhau] = useState('')
@@ -56,14 +57,10 @@ export default function LoginForm() {
                 return
             }
 
-            if (ghiNhoToi) {
-                localStorage.setItem('nguoiDungHienTai', JSON.stringify(ketQua.nguoiDung))
-            } else {
-                sessionStorage.setItem('nguoiDungHienTai', JSON.stringify(ketQua.nguoiDung))
-            }
-
-            window.dispatchEvent(new Event('auth-change'))
-            navigate('/')
+            if (!ketQua.nguoiDung) return
+            luuNguoiDungHienTai(ketQua.nguoiDung, ghiNhoToi)
+            const from = location.state?.from
+            navigate(typeof from === 'string' && from.startsWith('/') && !from.startsWith('//') && !from.includes('\\') ? from : '/', { replace: true })
         } catch {
             setLoiMayChu('Không thể kết nối đến máy chủ, vui lòng thử lại')
         } finally {

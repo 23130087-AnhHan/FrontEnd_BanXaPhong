@@ -5,6 +5,8 @@ export type NguoiDung = {
     hoTen: string
     email: string
     matKhau: string
+    phone?: string
+    birthday?: string
 }
 
 export type KetQuaDangNhap = {
@@ -74,10 +76,21 @@ export function layNguoiDungHienTai(): Omit<NguoiDung, 'matKhau'> | null {
     if (!duLieu) return null
 
     try {
-        return JSON.parse(duLieu)
+        const nguoiDung = JSON.parse(duLieu)
+        return typeof nguoiDung?.id === 'string' && typeof nguoiDung?.email === 'string' && typeof nguoiDung?.hoTen === 'string' ? nguoiDung : null
     } catch {
         return null
     }
+}
+
+export function luuNguoiDungHienTai(nguoiDung: Omit<NguoiDung, 'matKhau'>, ghiNho?: boolean): void {
+    const luuLauDai = ghiNho ?? localStorage.getItem('nguoiDungHienTai') !== null
+    localStorage.removeItem('nguoiDungHienTai')
+    sessionStorage.removeItem('nguoiDungHienTai')
+    const { id, hoTen, email } = nguoiDung
+    const storage = luuLauDai ? localStorage : sessionStorage
+    storage.setItem('nguoiDungHienTai', JSON.stringify({ id, hoTen, email }))
+    window.dispatchEvent(new Event('auth-change'))
 }
 
 export function dangXuat(): void {

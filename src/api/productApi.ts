@@ -36,6 +36,23 @@ export async function fetchProductImages(productId: string): Promise<ProductImag
   return res.json()
 }
 
+export interface ProductVariantData {
+  id: string
+  productId: string
+  sku: string
+  weightGrams: number
+  price: number
+  oldPrice: number | null
+  stock: number
+  isDefault: boolean
+}
+
+export async function fetchProductVariants(productId: string): Promise<ProductVariantData[]> {
+  const res = await fetch(`${API_URL}/productVariants?productId=${productId}`)
+  if (!res.ok) return []
+  return res.json()
+}
+
 export interface ReviewData {
   id: string
   userId: string | null

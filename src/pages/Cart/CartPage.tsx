@@ -10,11 +10,11 @@ import './CartPage.css'
 
 export default function CartPage() {
   const dispatch = useDispatch<AppDispatch>()
-  const { items, status, saving, selectedIds } = useSelector((state: RootState) => state.cart)
+  const { items, status, saving, selectedIds, userId } = useSelector((state: RootState) => state.cart)
   const selectedItems = items.filter((item) => selectedIds.includes(item.id))
   const itemCount = selectedItems.reduce((sum, item) => sum + item.quantity, 0)
   const total = selectedItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const busy = saving || status !== 'succeeded'
+  const busy = saving || status !== 'succeeded' || !userId
 
   return (
     <div className="cart-page">
@@ -39,8 +39,8 @@ export default function CartPage() {
           )}
           {status === 'succeeded' && items.length === 0 && (
             <div className="cart-state">
-              <p>Giỏ hàng của bạn đang trống.</p>
-              <Link to="/products">Tiếp tục mua sắm</Link>
+              <p>{userId ? 'Giỏ hàng của bạn đang trống.' : 'Vui lòng đăng nhập để xem giỏ hàng của bạn.'}</p>
+              {userId ? <Link to="/products">Tiếp tục mua sắm</Link> : <Link to="/login" state={{ from: '/gio-hang' }}>Đăng nhập</Link>}
             </div>
           )}
           {status === 'succeeded' && items.length > 0 && <CartTable

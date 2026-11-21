@@ -1,12 +1,13 @@
-import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import AccountSidebar from '../../components/AccountSidebar'
 import OrderCard from './components/OrderCard'
-import type { Order } from './components/OrderCard'
+import { getOrders } from '../../api/orderApi'
+import type { AccountOrder } from '../../api/orderApi'
 import '../../styles/AccountPage.css'
 import './MyOrdersPage.css'
 
-type OrderFilter = 'all' | Order['status']
+type OrderFilter = 'all' | AccountOrder['status']
 
 const filters: { status: OrderFilter; label: string }[] = [
   { status: 'all', label: 'Tất cả' },
@@ -16,71 +17,22 @@ const filters: { status: OrderFilter; label: string }[] = [
   { status: 'cancelled', label: 'Đã hủy' },
 ]
 
-const orders: Order[] = [
-  {
-    id: 'SP261027-018',
-    date: '27/10/2026',
-    status: 'pending',
-    quantity: 3,
-    total: '465.000 đ',
-    update: 'Saponi đã nhận đơn và sẽ sớm xác nhận với bạn.',
-    products: [
-      { name: 'Xà phòng Trà xanh nguyên chất', quantity: 2, price: '150.000 đ', total: '300.000 đ' },
-      { name: 'Xà phòng Mật ong & Yến mạch', quantity: 1, price: '165.000 đ', total: '165.000 đ' },
-    ],
-  },
-  {
-    id: 'SP261024-052',
-    date: '24/10/2026',
-    status: 'shipping',
-    quantity: 2,
-    total: '375.000 đ',
-    update: 'Dự kiến giao: 28/10 – 29/10/2026',
-    action: 'Theo dõi đơn',
-    products: [
-      { name: 'Xà phòng Oải hương hữu cơ', quantity: 1, price: '180.000 đ', total: '180.000 đ' },
-      { name: 'Xà phòng Hoa hồng & Đất sét hồng', quantity: 1, price: '195.000 đ', total: '195.000 đ' },
-    ],
-  },
-  {
-    id: 'SP261008-031',
-    date: '08/10/2026',
-    status: 'delivered',
-    quantity: 2,
-    total: '330.000 đ',
-    update: 'Đã giao thành công ngày 11/10/2026.',
-    action: 'Mua lại',
-    products: [
-      { name: 'Xà phòng Mật ong & Yến mạch', quantity: 2, price: '165.000 đ', total: '330.000 đ' },
-    ],
-  },
-  {
-    id: 'SP260920-014',
-    date: '20/09/2026',
-    status: 'cancelled',
-    quantity: 2,
-    total: '350.000 đ',
-    update: 'Đã hủy theo yêu cầu của bạn • Chưa thanh toán',
-    action: 'Mua lại',
-    products: [
-      { name: 'Xà phòng Than tre & Bạc hà', quantity: 2, price: '175.000 đ', total: '350.000 đ' },
-    ],
-  },
-]
 
 export default function MyOrdersPage() {
-  const location = useLocation()
   const [activeFilter, setActiveFilter] = useState<OrderFilter>('all')
-  const cancelledOrderId = (location.state as { cancelledOrderId?: string } | null)?.cancelledOrderId
-  const currentOrders: Order[] = orders.map((order) => order.id === cancelledOrderId
-    ? {
-        ...order,
-        status: 'cancelled',
-        update: 'Đã huỷ theo yêu cầu của bạn - Chưa thanh toán',
-        action: 'Mua lại',
-      }
-    : order)
-  const filteredOrders = currentOrders.filter((order) => activeFilter === 'all' || order.status === activeFilter)
+  const [orders, setOrders] = useState<AccountOrder[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [reload, setReload] = useState(0)
+
+  useEffect(() => {
+    let active = true
+    getOrders().then((data) => { if (active) setOrders(data) })
+      .catch(() => { if (active) setError('Không tải được đơn hàng. Vui lòng thử lại.') })
+      .finally(() => { if (active) setLoading(false) })
+    return () => { active = false }
+  }, [reload])
+  const filteredOrders = orders.filter((order) => activeFilter === 'all' || order.status === activeFilter)
 
   return (
     <div className="account-page">
@@ -108,7 +60,7 @@ export default function MyOrdersPage() {
                 aria-pressed={activeFilter === filter.status}
                 onClick={() => setActiveFilter(filter.status)}
               >
-                {filter.label} ({currentOrders.filter((order) => filter.status === 'all' || order.status === filter.status).length})
+                {filter.label} ({orders.filter((order) => filter.status === 'all' || order.status === filter.status).length})
               </button>
             ))}
           </div>
@@ -119,7 +71,10 @@ export default function MyOrdersPage() {
           </div>
 
           <div className="order-list">
-            {filteredOrders.map((order) => <OrderCard key={order.id} order={order} />)}
+            {loading && <p className="account-message" role="status">Đang tải đơn hàng...</p>}
+            {error && <p className="account-message account-error" role="alert">{error} <button type="button" disabled={loading} onClick={() => { setLoading(true); setError(''); setReload(reload + 1) }}>Thử lại</button></p>}
+            {!loading && !error && filteredOrders.length === 0 && <p className="account-message">Chưa có đơn hàng trong mục này.</p>}
+            {!loading && !error && filteredOrders.map((order) => <OrderCard key={order.id} order={order} />)}
           </div>
         </section>
       </div>
