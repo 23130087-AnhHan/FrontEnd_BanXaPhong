@@ -5542,7 +5542,10 @@
       "rating": 5,
       "comment": "Hình ảnh sản phẩm giống như giới thiệu.",
       "weightGrams": 110,
-      "images": [],
+      "images": [
+        "https://www.lemai.com.vn/assets/anh-thu/xa-bong-trai-bo-avocado-thu-cong/xa-bong-trai-bo-avocado-thu-cong-le-mai-01.webp",
+        "https://www.lemai.com.vn/assets/anh-thu/xa-bong-trai-bo-avocado-thu-cong/xa-bong-trai-bo-avocado-thu-cong-le-mai-03-600.webp"
+      ],
       "createdAt": "2026-08-23T03:47:00"
     },
     {
@@ -5564,7 +5567,9 @@
       "rating": 4,
       "comment": "Đóng gói đẹp, phù hợp làm quà.",
       "weightGrams": 110,
-      "images": [],
+      "images": [
+        "https://www.lemai.com.vn/assets/anh-thu/xa-bong-trai-bo-avocado-thu-cong/xa-bong-trai-bo-avocado-thu-cong-le-mai-04-600.webp"
+      ],
       "createdAt": "2026-09-29T03:47:00"
     },
     {
@@ -5586,7 +5591,10 @@
       "rating": 4,
       "comment": "Đóng gói đẹp, phù hợp làm quà.",
       "weightGrams": 128,
-      "images": [],
+      "images": [
+        "https://moonsoap.me/_astro/motaluna.BLhnAFf6_1o9cMJ.webp",
+        "https://moonsoap.me/_astro/motaluna-ban.BlX98GR7_sk3Dk.webp"
+      ],
       "createdAt": "2026-08-17T01:47:00"
     },
     {
@@ -5619,7 +5627,9 @@
       "rating": 5,
       "comment": "Mùi hương dễ chịu, sử dụng khá thích.",
       "weightGrams": 100,
-      "images": [],
+      "images": [
+        "https://product.hstatic.net/200000355161/product/white-cofffee_9b4aa5a0cffa4c228855a443e8859fac.png"
+      ],
       "createdAt": "2026-09-21T00:47:00"
     },
     {
@@ -5700,7 +5710,9 @@
       "rating": 5,
       "comment": "Hình ảnh sản phẩm giống như giới thiệu.",
       "weightGrams": 50,
-      "images": [],
+      "images": [
+        "https://hilltownvn.com/static/images/products/a-b-ng-thi-n-nhi-n-handmade-nghe-cam-cafe-bac-ha-hiltown-50g/vn-11134207-7qukw-lk0l72qiwj3oc8.jpeg"
+      ],
       "createdAt": "2026-11-14T06:47:00"
     },
     {
@@ -5711,7 +5723,10 @@
       "rating": 5,
       "comment": "Hình ảnh sản phẩm giống như giới thiệu.",
       "weightGrams": 50,
-      "images": [],
+      "images": [
+        "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&w=600&q=80",
+        "https://hilltownvn.com/static/images/products/a-b-ng-thi-n-nhi-n-handmade-nghe-cam-cafe-bac-ha-hiltown-50g/vn-11134207-7qukw-lk0l72rmuwhu54.jpeg"
+      ],
       "createdAt": "2026-10-05T17:47:00"
     },
     {

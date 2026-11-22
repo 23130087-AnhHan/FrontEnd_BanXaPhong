@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { faImage, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faImage, faStar, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { fetchProductReviews } from '../../../api/productApi'
 import type { ReviewData } from '../../../api/productApi'
 import Icon from '../../../components/Icon'
@@ -28,11 +28,24 @@ function formatDate(dateString: string) {
 export default function ProductReviews({ productId, reviewCount, rating }: Props) {
   const [reviews, setReviews] = useState<ReviewData[]>([])
   const [selectedFilter, setSelectedFilter] = useState('all')
+  const [previewImage, setPreviewImage] = useState<string | null>(null)
 
   useEffect(() => {
     if (!productId) return
     fetchProductReviews(productId).then(setReviews)
   }, [productId])
+
+  useEffect(() => {
+    if (!previewImage) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setPreviewImage(null)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [previewImage])
+
+  const fiveStarCount = reviews.filter((r) => r.rating === 5).length
+  const withImagesCount = reviews.filter((r) => r.images && r.images.length > 0).length
 
   const filtered = reviews.filter((r) => {
     if (selectedFilter === 'five-stars') return r.rating === 5
@@ -60,10 +73,10 @@ export default function ProductReviews({ productId, reviewCount, rating }: Props
           Tất cả ({reviews.length})
         </button>
         <button type="button" aria-pressed={selectedFilter === 'five-stars'} onClick={() => setSelectedFilter('five-stars')}>
-          5 sao
+          5 sao ({fiveStarCount})
         </button>
         <button type="button" aria-pressed={selectedFilter === 'with-images'} onClick={() => setSelectedFilter('with-images')}>
-          <Icon icon={faImage} /> Có hình ảnh
+          <Icon icon={faImage} /> Có hình ảnh ({withImagesCount})
         </button>
       </div>
 
@@ -89,9 +102,29 @@ export default function ProductReviews({ productId, reviewCount, rating }: Props
               </span>
             </div>
             <p>{r.comment}</p>
+            {r.images && r.images.length > 0 && (
+              <div className="product-review-images">
+                {r.images.map((img, idx) => (
+                  <button key={idx} type="button" className="product-review-img-btn" onClick={() => setPreviewImage(img)} aria-label={`Xem ảnh đánh giá ${idx + 1}`}>
+                    <img src={img} alt={`Ảnh đánh giá ${idx + 1}`} />
+                  </button>
+                ))}
+              </div>
+            )}
           </article>
         ))}
       </div>
+
+      {previewImage && (
+        <div className="product-review-modal" onClick={() => setPreviewImage(null)} role="dialog" aria-modal="true" aria-label="Xem ảnh phóng to">
+          <div className="product-review-modal-content" onClick={(e) => e.stopPropagation()}>
+            <img src={previewImage} alt="Xem ảnh đánh giá phóng to" />
+            <button type="button" className="product-review-modal-close" onClick={() => setPreviewImage(null)} aria-label="Đóng ảnh phóng to">
+              <Icon icon={faXmark} />
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
