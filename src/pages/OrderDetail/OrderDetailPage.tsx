@@ -5,6 +5,7 @@ import type { AccountOrder } from '../../api/orderApi'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark'
 import { faRepeat } from '@fortawesome/free-solid-svg-icons/faRepeat'
+import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
 import Icon from '../../components/Icon'
 import OrderRecipientInfo from './components/OrderRecipientInfo'
 import OrderDetailProducts from './components/OrderDetailProducts'
@@ -61,6 +62,9 @@ export default function OrderDetailPage() {
         <OrderPaymentSummary order={order} />
 
         <div className="order-detail-actions">
+          {order.status === 'delivered' && (
+            <Link to="/tai-khoan/don-hang/review" state={{ order }} className="order-detail-button"><Icon icon={faStar} />Đánh giá sản phẩm</Link>
+          )}
           {order.status === 'pending' && <Link to="/tai-khoan/don-hang/cancel" state={{ order }} className="order-detail-button order-detail-cancel">
             <Icon icon={faXmark} />Hủy đơn
           </Link>}

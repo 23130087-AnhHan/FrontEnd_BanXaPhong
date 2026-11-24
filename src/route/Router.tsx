@@ -24,6 +24,7 @@ import ContactPage from '../pages/Contact/ContactPage'
 import OrderReturn from '../pages/OrderReturn/OrderReturn'
 import CancelOrderPage from '../pages/CancelOrder/CancelOrderPage'
 import OrderTrack from '../pages/OrderTrack/OrderTrack'
+import OrderReviewPage from '../pages/OrderReview/OrderReviewPage'
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +54,7 @@ export const router = createBrowserRouter([
           { path: 'don-hang/return', element: <OrderReturn /> },
           { path: 'don-hang/track', element: <OrderTrack /> },
           { path: 'don-hang/cancel', element: <CancelOrderPage /> },
+          { path: 'don-hang/review', element: <OrderReviewPage /> },
           { path: 'doi-mat-khau', element: <ChangePasswordPage /> },
           { path: 'dia-chi', element: <AddressBookPage /> },
           { path: 'dia-chi/them-moi', element: <AddAddressPage /> },

@@ -107,6 +107,10 @@ export default function OrderCard({ order }: OrderCardProps) {
               </button>
             )}
 
+            {order.status === 'delivered' && (
+              <Link to="/tai-khoan/don-hang/review" state={{ order }}>Đánh giá</Link>
+            )}
+
             {order.status === "delivered" && (
               <button
                 type="button" className="order-action-primary"
