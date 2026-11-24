@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import Icon from '../../../components/Icon'
 import type { Order } from '../../MyOrders/components/OrderCard'
+import ReviewImages from './ReviewImages'
 import './ProductReviewCard.css'
 
 interface ProductReviewCardProps {
@@ -60,6 +61,7 @@ export default function ProductReviewCard({ product, productIndex }: ProductRevi
           <span>{comment.length}/500</span>
         </div>
       </div>
+      <ReviewImages productIndex={productIndex} />
     </article>
   )
 }
