@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { faArrowLeft, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import Icon from '../../components/Icon'
 import type { Order } from '../MyOrders/components/OrderCard'
+import ReviewOrderSummary from './components/ReviewOrderSummary'
 import './OrderReviewPage.css'
 
 const previewOrder: Order = {
@@ -61,6 +62,9 @@ export default function OrderReviewPage() {
                 <strong>Đơn hàng đã giao thành công</strong>
                 <p>Cảm ơn bạn đã chọn Saponi. Hãy cho chúng tôi biết trải nghiệm của bạn nhé.</p>
               </div>
+            </div>
+            <div className="order-review-layout">
+              <ReviewOrderSummary order={order} />
             </div>
           </>
         ) : (
