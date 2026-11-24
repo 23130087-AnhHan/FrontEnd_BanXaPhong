@@ -1,8 +1,11 @@
+import type { FormEvent } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { faArrowLeft, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import Icon from '../../components/Icon'
 import type { Order } from '../MyOrders/components/OrderCard'
 import ReviewOrderSummary from './components/ReviewOrderSummary'
+import ProductReviewCard from './components/ProductReviewCard'
+import ReviewActions from './components/ReviewActions'
 import './OrderReviewPage.css'
 
 const previewOrder: Order = {
@@ -38,6 +41,10 @@ export default function OrderReviewPage() {
   const location = useLocation()
   const order = (location.state as { order?: Order } | null)?.order ?? previewOrder
 
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+  }
+
   return (
     <div className="order-review-page">
       <div className="order-review-container">
@@ -64,6 +71,12 @@ export default function OrderReviewPage() {
               </div>
             </div>
             <div className="order-review-layout">
+              <form className="order-review-form" onSubmit={handleSubmit}>
+                {order.products.map((product, productIndex) => (
+                  <ProductReviewCard key={product.id ?? product.name + '-' + productIndex} product={product} productIndex={productIndex} />
+                ))}
+                <ReviewActions />
+              </form>
               <ReviewOrderSummary order={order} />
             </div>
           </>
