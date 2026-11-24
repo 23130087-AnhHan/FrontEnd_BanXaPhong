@@ -1,0 +1,43 @@
+.review-actions-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.review-actions-buttons a,
+.review-actions-buttons button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 10px 22px;
+  border: 1px solid #d9dcd4;
+  border-radius: 8px;
+  background: #fff;
+  color: #434843;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.review-actions-buttons button {
+  border-color: #334537;
+  background: #334537;
+  color: #fff;
+  font-weight: 500;
+}
+
+.review-actions-buttons button svg {
+  width: 14px;
+  height: 14px;
+}
+
+.review-actions-buttons a:hover {
+  background: #f5f3ef;
+}
+
+.review-actions-buttons button:hover {
+  background: #50644f;
+}

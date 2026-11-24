@@ -1,0 +1,136 @@
+.order-review-page {
+  margin: -24px;
+  padding: 32px 48px 64px;
+  background: #fbf9f5;
+  color: #30332e;
+}
+
+.order-review-container {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.order-review-breadcrumb,
+.order-review-breadcrumb a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.order-review-breadcrumb {
+  color: #71746c;
+  font-size: 13px;
+}
+
+.order-review-breadcrumb a {
+  color: #50644f;
+  text-decoration: none;
+}
+
+.order-review-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.order-review-breadcrumb svg {
+  width: 14px;
+  height: 14px;
+}
+
+.order-review-breadcrumb [aria-current='page'] {
+  color: #30332e;
+  font-weight: 600;
+}
+
+.order-review-heading {
+  margin: 28px 0;
+}
+
+.order-review-heading h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.order-review-heading p,
+.order-review-unavailable p {
+  margin: 0;
+  color: #71746c;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.order-review-delivered {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border: 1px solid #dce5d7;
+  border-radius: 10px;
+  background: #eef3eb;
+  color: #334537;
+}
+
+.order-review-delivered > svg {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  color: #637b58;
+}
+
+.order-review-delivered strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.order-review-delivered p {
+  margin: 4px 0 0;
+  color: #63715e;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.order-review-panel {
+  min-width: 0;
+  padding: 28px;
+  border: 1px solid #e4e2de;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+}
+
+.order-review-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  align-items: start;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.order-review-form {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+
+.order-review-panel h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.order-review-unavailable {
+  display: grid;
+  gap: 12px;
+}
+
+.order-review-unavailable a {
+  color: #50644f;
+  font-size: 14px;
+}
+
+.order-review-page :is(a, button, input, textarea):focus-visible {
+  outline: 2px solid #50644f;
+  outline-offset: 3px;
+}
