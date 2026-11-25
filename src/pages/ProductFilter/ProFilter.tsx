@@ -8,6 +8,7 @@ import type { FilterItem } from "./components/CheckboxFilter";
 import Title from "./components/Title";
 import "./ProFilter.css";
 import SelectSort from "./components/Select";
+import Pagination from './components/Pagination';
 
 
 const title1 = {
@@ -158,6 +159,7 @@ export default function ProFilter() {
                     </div>
                 </div>
                 <ProListFilter products={filteredProducts} />
+                 <Pagination/>
             </div>
         </div>
     );
