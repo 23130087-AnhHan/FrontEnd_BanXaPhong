@@ -8,6 +8,7 @@ import type { FilterItem } from "./components/CheckboxFilter";
 import Title from "./components/Title";
 import "./ProFilter.css";
 import SelectSort from "./components/Select";
+import Pagination from './components/Pagination';
 
 
 const title1 = {
@@ -56,25 +57,37 @@ const selectSort = [
         content: 'Sản phẩm mới'
     },
 ]
+const ITEMS_PER_PAGE = 8
+
 export default function ProFilter() {
     const dispatch = useDispatch<AppDispatch>()
     const products = useSelector((state: RootState) => state.products.items)
     const [brandItems, setBrandItems] = useState<FilterItem[]>(defaultBrandItems) 
     const [categories, setCategories] = useState<FilterItem[]>(defaultCategories)
     const [selectedCategoryIds, setSelectedCategoryIds] = useState<(string | number)[]>([])
+    const [currentPage, setCurrentPage] = useState(1)
 
     const handleToggleCategory = (id: string | number) => {
         setSelectedCategoryIds((prev) =>
             prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
         )
+        setCurrentPage(1)
     }
 
     const handleReset = () => {
         setSelectedCategoryIds([])
+        setCurrentPage(1)
     }
     const filteredProducts = selectedCategoryIds.length === 0
         ? products
         : products.filter((p) => p.category && selectedCategoryIds.includes(p.category))
+
+    const totalPages = Math.max(1, Math.ceil(filteredProducts.length / ITEMS_PER_PAGE))
+    const safePage = Math.min(currentPage, totalPages)
+    const paginatedProducts = filteredProducts.slice(
+        (safePage - 1) * ITEMS_PER_PAGE,
+        safePage * ITEMS_PER_PAGE
+    )
 
     useEffect(() => {
         dispatch(loadProducts())
@@ -157,7 +170,14 @@ export default function ProFilter() {
                         <SelectSort content={selectSort} />
                     </div>
                 </div>
-                <ProListFilter products={filteredProducts} />
+                <ProListFilter products={paginatedProducts} />
+                <Pagination
+                    currentPage={safePage}
+                    totalPages={totalPages}
+                    onPageChange={(page) => {
+                        setCurrentPage(page)
+                    }}
+                />
             </div>
         </div>
     );

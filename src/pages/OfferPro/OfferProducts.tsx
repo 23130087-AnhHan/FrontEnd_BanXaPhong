@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux"
 import type { AppDispatch, RootState } from "../../store/store"
 import { useEffect } from "react"
 import { loadProducts } from "../../components/ProductSlice"
+import EndOffer from "./components/EndOffer"
 
 
 const ListOption = [
@@ -105,6 +106,7 @@ export default function OfferProducts() {
             <ProductList
                 products={displayProducts}
             />
+            <EndOffer/>
         </div>
     )
 }

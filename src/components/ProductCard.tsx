@@ -75,6 +75,9 @@ export default function ProductCard({ product }: { product: Product }) {
 
                 <div className="card-price">
                     <strong>{product.price.toLocaleString('vi-VN')} đ</strong>
+                    {product.oldPrice != null && product.oldPrice > product.price && (
+                        <del className="card-old-price">{product.oldPrice.toLocaleString('vi-VN')} đ</del>
+                    )}
                     <span>/ {product.unit || 'bánh'}</span>
                 </div>
 
