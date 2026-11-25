@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
-import { faImage, faStar, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { useEffect, useRef, useState } from 'react'
+import { faImage, faPenToSquare, faStar, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { fetchProductReviews } from '../../../api/productApi'
 import type { ReviewData } from '../../../api/productApi'
 import Icon from '../../../components/Icon'
+import ProductReviewForm from './ProductReviewForm'
 import './ProductReviews.css'
 
 interface Props {
@@ -29,6 +30,13 @@ export default function ProductReviews({ productId, reviewCount, rating }: Props
   const [reviews, setReviews] = useState<ReviewData[]>([])
   const [selectedFilter, setSelectedFilter] = useState('all')
   const [previewImage, setPreviewImage] = useState<string | null>(null)
+  const [isReviewFormOpen, setIsReviewFormOpen] = useState(false)
+  const writeReviewButton = useRef<HTMLButtonElement>(null)
+
+  function handleCloseReviewForm() {
+    setIsReviewFormOpen(false)
+    writeReviewButton.current?.focus()
+  }
 
   useEffect(() => {
     if (!productId) return
@@ -55,7 +63,12 @@ export default function ProductReviews({ productId, reviewCount, rating }: Props
 
   return (
     <section id="product-reviews" className="product-detail-panel product-reviews" aria-labelledby="product-reviews-title">
-      <h2 id="product-reviews-title">Đánh giá sản phẩm</h2>
+      <div className="product-reviews-heading">
+        <h2 id="product-reviews-title">Đánh giá sản phẩm</h2>
+        <button ref={writeReviewButton} type="button" className="product-reviews-write-button" onClick={() => setIsReviewFormOpen(!isReviewFormOpen)} aria-expanded={isReviewFormOpen} aria-controls={'product-review-form-' + productId}>
+          <Icon icon={isReviewFormOpen ? faXmark : faPenToSquare} />{isReviewFormOpen ? 'Đóng form' : 'Viết đánh giá'}
+        </button>
+      </div>
       <div className="product-reviews-summary">
         <span className="product-review-stars" aria-label={`${rating.toFixed(1)} trên 5 sao`}>
           {[1, 2, 3, 4, 5].map((s) => (
@@ -66,6 +79,8 @@ export default function ProductReviews({ productId, reviewCount, rating }: Props
         <span>·</span>
         <span>{reviewCount} đánh giá</span>
       </div>
+
+      {isReviewFormOpen && <ProductReviewForm productId={productId} onCancel={handleCloseReviewForm} />}
 
       <div className="product-reviews-filters" role="group" aria-label="Lọc đánh giá">
         <span>Lọc theo:</span>

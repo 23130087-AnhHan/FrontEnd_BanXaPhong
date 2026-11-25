@@ -31,7 +31,7 @@ export default function ProductDetailPage() {
           <ProductInfo product={product} variants={variants} primaryImage={primaryImage} />
         </div>
         <ProductDescription description={product.description} />
-        <ProductReviews productId={product.id} reviewCount={product.reviewCount} rating={product.rating} />
+        <ProductReviews key={product.id} productId={product.id} reviewCount={product.reviewCount} rating={product.rating} />
         <ProductSuggestions currentProductId={product.id} categoryId={product.categoryId} />
       </div>
     </div>
