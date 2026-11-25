@@ -21,6 +21,7 @@ const ratingLabels = [
 export default function ProductReviewForm({ productId, onCancel }: ProductReviewFormProps) {
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
+  const [isUploadingImages, setIsUploadingImages] = useState(false)
   const formId = 'product-review-form-' + productId
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -59,11 +60,11 @@ export default function ProductReviewForm({ productId, onCancel }: ProductReview
         </div>
       </div>
 
-      <ReviewImages productIndex={0} />
+      <ReviewImages productIndex={0} onUploadingChange={setIsUploadingImages} />
 
       <div className="product-review-form-actions">
         <button type="button" onClick={onCancel}>Huỷ</button>
-        <button type="submit" className="product-review-form-submit">Gửi đánh giá<Icon icon={faPaperPlane} /></button>
+        <button type="submit" className="product-review-form-submit" disabled={isUploadingImages}>{isUploadingImages ? 'Đang tải ảnh...' : 'Gửi đánh giá'}<Icon icon={faPaperPlane} /></button>
       </div>
     </form>
   )

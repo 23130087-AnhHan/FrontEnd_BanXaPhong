@@ -41,3 +41,8 @@
 .review-actions-buttons button:hover {
   background: #50644f;
 }
+
+.review-actions-buttons button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}

@@ -8,6 +8,7 @@ import './ProductReviewCard.css'
 interface ProductReviewCardProps {
   product: Order['products'][number]
   productIndex: number
+  onUploadingChange?: (productIndex: number, isUploading: boolean) => void
 }
 
 const ratingLabels = [
@@ -21,7 +22,7 @@ const ratingLabels = [
 
 const defaultProductImage = 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg'
 
-export default function ProductReviewCard({ product, productIndex }: ProductReviewCardProps) {
+export default function ProductReviewCard({ product, productIndex, onUploadingChange }: ProductReviewCardProps) {
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
   const titleId = 'review-product-title-' + productIndex
@@ -61,7 +62,7 @@ export default function ProductReviewCard({ product, productIndex }: ProductRevi
           <span>{comment.length}/500</span>
         </div>
       </div>
-      <ReviewImages productIndex={productIndex} />
+      <ReviewImages productIndex={productIndex} inputName={'productImages-' + productIndex} onUploadingChange={(isUploading) => onUploadingChange?.(productIndex, isUploading)} />
     </article>
   )
 }
