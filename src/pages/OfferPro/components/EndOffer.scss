@@ -1,0 +1,25 @@
+
+.product-end {
+    text-align: center;
+}
+
+.product-end p {
+    color: #999;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.product-end button {
+    padding: 9px 16px;
+    background: transparent;
+    border: 1px solid #788477;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #333;
+}
+
+.product-end button:hover {
+    background: #788477;
+    color: white;
+}
