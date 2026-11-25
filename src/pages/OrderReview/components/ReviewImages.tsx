@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ChangeEvent } from 'react'
 import { faCamera, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { uploadReviewImage } from '../../../api/cloudinaryApi'
 import Icon from '../../../components/Icon'
 import './ReviewImages.css'
 
@@ -10,24 +11,30 @@ interface ReviewImage {
 
 interface ReviewImagesProps {
   productIndex: number
+  inputName?: string
+  onUploadingChange?: (isUploading: boolean) => void
 }
 
-export default function ReviewImages({ productIndex }: ReviewImagesProps) {
+export default function ReviewImages({ productIndex, inputName = 'images', onUploadingChange }: ReviewImagesProps) {
   const [images, setImages] = useState<ReviewImage[]>([])
+  const [pendingImages, setPendingImages] = useState<ReviewImage[]>([])
+  const [isUploading, setIsUploading] = useState(false)
   const [error, setError] = useState('')
   const imageUrls = useRef<string[]>([])
+  const uploadController = useRef<AbortController | null>(null)
   const hintId = 'review-images-hint-' + productIndex
 
   useEffect(() => {
     return () => {
+      uploadController.current?.abort()
       imageUrls.current.forEach((url) => URL.revokeObjectURL(url))
     }
   }, [])
 
-  function handleChooseImages(event: ChangeEvent<HTMLInputElement>) {
+  async function handleChooseImages(event: ChangeEvent<HTMLInputElement>) {
     const selectedFiles = Array.from(event.target.files ?? [])
     event.target.value = ''
-    if (selectedFiles.length === 0) return
+    if (selectedFiles.length === 0 || uploadController.current) return
 
     if (images.length + selectedFiles.length > 5) {
       setError('Bạn chỉ có thể thêm tối đa 5 ảnh cho mỗi sản phẩm.')
@@ -50,42 +57,82 @@ export default function ReviewImages({ productIndex }: ReviewImagesProps) {
       return { name: file.name, url }
     })
 
-    setImages((currentImages) => [...currentImages, ...newImages])
+    const controller = new AbortController()
+    uploadController.current = controller
+    setPendingImages(newImages)
+    setIsUploading(true)
     setError('')
+    onUploadingChange?.(true)
+
+    try {
+      const results = await Promise.allSettled(selectedFiles.map((file) => uploadReviewImage(file, controller.signal)))
+      if (controller.signal.aborted) return
+
+      const uploadedImages: ReviewImage[] = []
+      const failedNames: string[] = []
+      let uploadError = ''
+
+      results.forEach((result, index) => {
+        if (result.status === 'fulfilled') {
+          uploadedImages.push({ name: selectedFiles[index].name, url: result.value })
+        } else {
+          failedNames.push(selectedFiles[index].name)
+          if (!uploadError) uploadError = result.reason instanceof Error ? result.reason.message : 'Vui lòng thử lại.'
+        }
+      })
+
+      setImages((currentImages) => currentImages.concat(uploadedImages))
+      if (failedNames.length > 0) setError('Không tải được ' + failedNames.join(', ') + '. ' + uploadError + ' Vui lòng chọn lại ảnh lỗi.')
+    } finally {
+      newImages.forEach((image) => URL.revokeObjectURL(image.url))
+      imageUrls.current = imageUrls.current.filter((url) => !newImages.some((image) => image.url === url))
+      uploadController.current = null
+      if (!controller.signal.aborted) {
+        setPendingImages([])
+        setIsUploading(false)
+        onUploadingChange?.(false)
+      }
+    }
   }
 
   function handleRemoveImage(imageUrl: string) {
-    URL.revokeObjectURL(imageUrl)
-    imageUrls.current = imageUrls.current.filter((url) => url !== imageUrl)
     setImages((currentImages) => currentImages.filter((image) => image.url !== imageUrl))
-    setError('')
   }
 
   return (
     <div className="review-images">
       <div className="review-images-heading">
         <span>Hình ảnh sản phẩm</span>
-        <span>{images.length}/5 ảnh</span>
+        <span>{images.length + pendingImages.length}/5 ảnh</span>
       </div>
 
-      <div className="review-images-list">
+      <div className="review-images-list" aria-busy={isUploading}>
         {images.map((image) => (
           <div className="review-image-preview" key={image.url}>
             <img src={image.url} alt={'Ảnh đánh giá: ' + image.name} />
+            <input type="hidden" name={inputName} value={image.url} />
             <button type="button" onClick={() => handleRemoveImage(image.url)} aria-label={'Xoá ảnh ' + image.name}><Icon icon={faXmark} /></button>
           </div>
         ))}
 
-        {images.length < 5 && (
+        {pendingImages.map((image) => (
+          <div className="review-image-preview review-image-pending" key={image.url}>
+            <img src={image.url} alt={'Đang tải ảnh: ' + image.name} />
+            <span>Đang tải...</span>
+          </div>
+        ))}
+
+        {images.length + pendingImages.length < 5 && (
           <label className="review-image-upload">
             <Icon icon={faCamera} />
-            <span>Thêm ảnh</span>
-            <input type="file" accept="image/jpeg,image/png,image/webp" multiple onChange={handleChooseImages} aria-label="Thêm ảnh đánh giá sản phẩm" aria-describedby={hintId} />
+            <span>{isUploading ? 'Đang tải...' : 'Thêm ảnh'}</span>
+            <input type="file" accept="image/jpeg,image/png,image/webp" multiple disabled={isUploading} onChange={handleChooseImages} aria-label="Thêm ảnh đánh giá sản phẩm" aria-describedby={hintId} />
           </label>
         )}
       </div>
 
       <p className="review-images-hint" id={hintId}>Tối đa 5 ảnh JPG, PNG hoặc WEBP, mỗi ảnh không quá 5 MB.</p>
+      {isUploading && <p className="review-images-status" role="status">Đang tải {pendingImages.length} ảnh, vui lòng chờ.</p>}
       {error && <p className="review-images-error" role="alert">{error}</p>}
     </div>
   )
