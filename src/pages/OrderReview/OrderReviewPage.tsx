@@ -1,4 +1,4 @@
-import type { FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { faArrowLeft, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import Icon from '../../components/Icon'
@@ -40,6 +40,14 @@ const previewOrder: Order = {
 export default function OrderReviewPage() {
   const location = useLocation()
   const order = (location.state as { order?: Order } | null)?.order ?? previewOrder
+  const [uploadingProducts, setUploadingProducts] = useState<number[]>([])
+
+  function handleUploadingChange(productIndex: number, isUploading: boolean) {
+    setUploadingProducts((currentProducts) => {
+      if (!isUploading) return currentProducts.filter((index) => index !== productIndex)
+      return currentProducts.includes(productIndex) ? currentProducts : currentProducts.concat(productIndex)
+    })
+  }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -73,9 +81,9 @@ export default function OrderReviewPage() {
             <div className="order-review-layout">
               <form className="order-review-form" onSubmit={handleSubmit}>
                 {order.products.map((product, productIndex) => (
-                  <ProductReviewCard key={product.id ?? product.name + '-' + productIndex} product={product} productIndex={productIndex} />
+                  <ProductReviewCard key={product.id ?? product.name + '-' + productIndex} product={product} productIndex={productIndex} onUploadingChange={handleUploadingChange} />
                 ))}
-                <ReviewActions />
+                <ReviewActions isUploading={uploadingProducts.length > 0} />
               </form>
               <ReviewOrderSummary order={order} />
             </div>

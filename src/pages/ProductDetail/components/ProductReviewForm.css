@@ -169,6 +169,11 @@
   opacity: 0.85;
 }
 
+.product-review-form-actions button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
 .product-review-form :is(input, textarea, button):focus-visible,
 .product-review-form-star:has(input:focus-visible) {
   outline: 2px solid #50644f;
