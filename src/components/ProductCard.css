@@ -105,14 +105,21 @@
     margin: 0 0 14px;
     display: flex;
     align-items: baseline;
-    gap: 5px;
+    flex-wrap: wrap;
+    gap: 6px;
     font-weight: normal;
 }
 
 .card-price strong {
     font-size: 18px;
-    font-weight: normal;
-    color: #222;
+    font-weight: 600;
+    color: #334839;
+}
+
+.card-price .card-old-price {
+    font-size: 13px;
+    color: #888;
+    text-decoration: line-through;
 }
 
 .card-price span {
