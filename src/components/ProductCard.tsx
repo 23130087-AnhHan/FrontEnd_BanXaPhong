@@ -26,14 +26,14 @@ import { useState } from 'react'
 
 
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({ product, defaultHobby = false }: { product: Product; defaultHobby?: boolean }) {
     const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
     const location = useLocation()
     const user = layNguoiDungHienTai()
     const { items, status, saving } = useSelector((state: RootState) => state.cart)
     const quantity = items.find((item) => String(item.productId) === String(product.id))?.quantity ?? 0
-    const [isHobby, setIsHobby] = useState(false);
+    const [isHobby, setIsHobby] = useState(defaultHobby);
 
     function addProduct() {
         if (!layNguoiDungHienTai()) {
@@ -60,7 +60,7 @@ export default function ProductCard({ product }: { product: Product }) {
                     <span className="card-discount-badge">-{Math.round((1 - product.price / product.oldPrice) * 100)}%</span>
                 )}
                 <button className="btn-heart" type="button" onClick={() => setIsHobby(!isHobby)}>
-                    <FontAwesomeIcon icon={isHobby ? faHeartRegular : faHeartSolid} />
+                    <FontAwesomeIcon icon={isHobby ? faHeartSolid: faHeartRegular} />
                 </button>
             </div>
             <div className="card-info">
