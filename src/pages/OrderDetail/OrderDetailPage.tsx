@@ -46,7 +46,7 @@ export default function OrderDetailPage() {
       <div className="order-detail-container">
         <div className="order-detail-meta">
           <nav className="order-detail-breadcrumb" aria-label="Đường dẫn">
-            <Link to="/tai-khoan/don-hang" reloadDocument><Icon icon={faArrowLeft} />Trở về danh sách đơn hàng</Link>
+            <Link to="/tai-khoan/don-hang"><Icon icon={faArrowLeft} />Trở về danh sách đơn hàng</Link>
             <span aria-hidden="true">/</span>
             <span aria-current="page">#{order.id}</span>
           </nav>

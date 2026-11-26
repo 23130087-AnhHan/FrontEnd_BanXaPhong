@@ -46,6 +46,7 @@
 .order-detail-breadcrumb [aria-current='page'] {
   color: #1b1c1a;
   font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
 .order-detail-breadcrumb svg {
