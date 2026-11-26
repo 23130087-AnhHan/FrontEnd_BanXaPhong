@@ -77,6 +77,9 @@ const cartSlice = createSlice({
     toggleAll(state) {
       state.selectedIds = state.selectedIds.length === state.items.length ? [] : state.items.map((item) => item.id)
     },
+    selectItems(state, action: PayloadAction<string[]>) {
+      state.selectedIds = state.items.filter((item) => action.payload.includes(item.id)).map((item) => item.id)
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -165,5 +168,5 @@ const cartSlice = createSlice({
   },
 })
 
-export const { toggleItem, toggleAll, clearFeedback, resetCart } = cartSlice.actions
+export const { toggleItem, toggleAll, selectItems, clearFeedback, resetCart } = cartSlice.actions
 export default cartSlice.reducer

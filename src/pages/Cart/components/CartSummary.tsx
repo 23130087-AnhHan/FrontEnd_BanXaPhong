@@ -8,9 +8,11 @@ interface CartSummaryProps {
   itemCount: number
   total: number
   busy: boolean
+  selectedIds: string[]
+  userId: string | null
 }
 
-export default function CartSummary({ itemCount, total, busy }: CartSummaryProps) {
+export default function CartSummary({ itemCount, total, busy, selectedIds, userId }: CartSummaryProps) {
   return (
     <aside className="cart-summary" aria-labelledby="cart-summary-title">
       <h2 id="cart-summary-title">Tóm tắt đơn hàng</h2>
@@ -36,7 +38,7 @@ export default function CartSummary({ itemCount, total, busy }: CartSummaryProps
       {busy || itemCount === 0 ? (
         <button type="button" className="cart-checkout" disabled>Tiến hành thanh toán <Icon icon={faArrowRight} /></button>
       ) : (
-        <Link to="/thanh-toan" className="cart-checkout">Tiến hành thanh toán <Icon icon={faArrowRight} /></Link>
+        <Link to="/thanh-toan" state={{ userId, cartItemIds: selectedIds }} className="cart-checkout">Tiến hành thanh toán <Icon icon={faArrowRight} /></Link>
       )}
     </aside>
   )

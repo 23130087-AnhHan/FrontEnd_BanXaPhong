@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
       { path: 'hobby', element: <HobbyProduct /> },
       { path: 'contact', element: <ContactPage /> },
       { path: 'gio-hang', element: <CartPage /> },
-      { path: 'thanh-toan', element: <CheckoutPage /> },
+      { element: <AccountGuard />, children: [{ path: 'thanh-toan', element: <CheckoutPage /> }] },
       { path: 'dat-hang-thanh-cong', element: <OrderSuccessPage /> },
       {
         path: 'tai-khoan', element: <AccountGuard />, children: [
