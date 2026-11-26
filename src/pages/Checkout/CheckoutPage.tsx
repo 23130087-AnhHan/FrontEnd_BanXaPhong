@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../store/store'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import Icon from '../../components/Icon'
 import ShippingForm from './components/ShippingForm'
@@ -7,6 +9,10 @@ import CheckoutSummary from './components/CheckoutSummary'
 import './CheckoutPage.css'
 
 export default function CheckoutPage() {
+  const { items, selectedIds, status, saving } = useSelector((state: RootState) => state.cart)
+  const products = items.filter((item) => selectedIds.includes(item.id))
+  const shippingFee = 30000
+
   return (
     <div className="checkout-page">
       <nav className="checkout-breadcrumb" aria-label="Đường dẫn">
@@ -28,7 +34,7 @@ export default function CheckoutPage() {
             Quay lại giỏ hàng
           </Link>
         </div>
-        <CheckoutSummary />
+        <CheckoutSummary products={products} shippingFee={shippingFee} busy={saving || status !== 'succeeded'} />
       </div>
     </div>
   )
