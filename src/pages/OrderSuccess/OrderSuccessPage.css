@@ -57,6 +57,34 @@
   color: #71746c;
   font-size: 14px;
   line-height: 21px;
+  overflow-wrap: anywhere;
+}
+
+.order-success-warning {
+  margin-bottom: 24px;
+  padding: 16px;
+  border-radius: 8px;
+  background: #f5f0df;
+  color: #615129;
+}
+
+.order-success-page button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #334537;
+  color: #fff;
+  cursor: pointer;
+}
+
+.order-success-warning a {
+  margin-left: 16px;
+  color: inherit;
+}
+
+.order-success-page button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .order-success-actions {
