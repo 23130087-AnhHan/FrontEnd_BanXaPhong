@@ -6,30 +6,33 @@
 }
 
 .offer-wrap .feature-container {
-    display: flex;
-    justify-content: center;
-    gap: 48px;
-    margin: 20px 0 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0 36px;
     padding: 0;
 }
 
 .offer-wrap .feature {
     flex: unset;
+    justify-content: center;
     background: none;
     box-shadow: none;
     padding: 0;
-    gap: 10px;
+    gap: 8px;
 }
 
 .offer-wrap .feature-icon {
-    width: 36px;
-    height: 36px;
+    width: auto;
+    height: auto;
+    background: none;
+    color: #354b3d;
     font-size: 15px;
 }
 
 .offer-wrap .feature-content {
     font-size: 14px;
-    color: #374151;
+    color: #4b5563;
 }
 
 .offer-bar {
