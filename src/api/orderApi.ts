@@ -7,7 +7,7 @@ export interface AccountOrder {
   id: string
   userId: string
   status: 'pending' | 'shipping' | 'delivered' | 'cancelled'
-  shippingAddress: Pick<Address, 'receiverName' | 'receiverPhone' | 'province' | 'district' | 'ward' | 'detailAddress'>
+  shippingAddress: Pick<Address, 'receiverName' | 'receiverPhone' | 'province' | 'district' | 'ward' | 'detailAddress'> & { email?: string }
   paymentMethod: string
   paymentStatus: string
   shippingMethod: string
@@ -19,6 +19,8 @@ export interface AccountOrder {
   note: string | null
   createdAt: string
   estimatedDeliveryAt: string | null
+  checkoutId?: string
+  checkoutStatus?: 'creating' | 'complete'
   date: string
   quantity: number
   total: string
@@ -26,8 +28,8 @@ export interface AccountOrder {
   products: { id: string; name: string; image: string; weight: string; quantity: number; price: string; total: string }[]
 }
 
-type OrderRecord = Omit<AccountOrder, 'date' | 'quantity' | 'total' | 'update' | 'products'>
-interface OrderItem { id: string; orderId: string; productId: string; variantId: string; unitPrice: number; quantity: number }
+export type OrderRecord = Omit<AccountOrder, 'date' | 'quantity' | 'total' | 'update' | 'products'>
+export interface OrderItem { id: string; orderId: string; productId: string; variantId: string; unitPrice: number; quantity: number; cartItemId?: string | null }
 
 export const orderStatusLabels = { pending: 'Chờ xác nhận', shipping: 'Đang giao', delivered: 'Đã giao', cancelled: 'Đã hủy' }
 export const formatMoney = (amount: number) => amount.toLocaleString('vi-VN') + ' đ'
@@ -59,13 +61,17 @@ async function addOrderProducts(orders: OrderRecord[]): Promise<AccountOrder[]> 
 export async function getOrders(): Promise<AccountOrder[]> {
   const userId = currentUserId()
   const orders = await accountRequest<OrderRecord[]>('/orders' + accountFilter('userId', userId))
-  const owned = orders.filter((order) => order.userId === userId).sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
-  return addOrderProducts(owned)
+  const owned = orders.filter((order) => order.userId === userId && order.checkoutStatus !== 'creating').sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+  const result = await addOrderProducts(owned)
+  if (currentUserId() !== userId) throw new Error('Tài khoản đã thay đổi. Vui lòng tải lại đơn hàng.')
+  return result
 }
 
 export async function getOrder(id: string): Promise<AccountOrder> {
+  const userId = currentUserId()
   const order = await accountRequest<OrderRecord>('/orders/' + encodeURIComponent(id))
-  if (order.userId !== currentUserId()) throw new Error('Không tìm thấy đơn hàng của bạn.')
+  if (order.userId !== userId || currentUserId() !== userId || order.checkoutStatus === 'creating') throw new Error('Không tìm thấy đơn hàng đã hoàn tất của bạn.')
   const [result] = await addOrderProducts([order])
+  if (currentUserId() !== userId) throw new Error('Tài khoản đã thay đổi. Vui lòng tải lại đơn hàng.')
   return result
 }
