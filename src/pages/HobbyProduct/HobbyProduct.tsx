@@ -10,7 +10,7 @@ import HobbyTitle from "./components/HobbyTitle"
 
 export default function HobbyProduct() {
     const dispatch = useDispatch<AppDispatch>()
-    const products = useSelector((state: RootState) => state.products.items)
+    const products = useSelector((state: RootState) => state.products.items).slice(0,6)
 
     useEffect(() => {
         dispatch(loadProducts())
@@ -29,6 +29,7 @@ export default function HobbyProduct() {
             </div>
             <ProductList
                 products={products}
+                defaultHobby
             />
             <div className="bot-hobby">
                 <span className="bot-content">Bạn đã xem {products.length} sản phẩm yêu thích</span>
