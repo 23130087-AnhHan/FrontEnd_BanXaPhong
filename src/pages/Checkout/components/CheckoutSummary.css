@@ -46,6 +46,7 @@
   display: grid;
   gap: 4px;
   min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .checkout-product h3 {
