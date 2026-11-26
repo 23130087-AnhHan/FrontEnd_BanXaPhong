@@ -13,8 +13,9 @@ export interface Order {
   quantity: number
   total: string
   update: string
-  action?: string
   shippingFee?: number
+  paymentMethod?: string
+  paymentStatus?: string
   products: {
     id?: string
     image?: string
@@ -25,8 +26,6 @@ export interface Order {
     total: string
   }[]
 }
-
-const productImage = 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg'
 
 const statuses = {
   pending: { label: 'Chờ xác nhận', icon: faClock },
@@ -59,7 +58,7 @@ export default function OrderCard({ order }: OrderCardProps) {
       <div className="order-products">
         {order.products.map((product) => (
           <div className="order-product" key={product.id ?? product.name}>
-            <img src={product.image || productImage} alt="" width="64" height="64" loading="lazy" />
+            <img src={product.image} alt="" width="64" height="64" loading="lazy" />
             <div className="order-product-info">
               <h3>{product.name}</h3>
               <p>{product.weight ? 'Bánh ' + product.weight : 'Sản phẩm'} • Số lượng: {product.quantity}</p>
@@ -74,7 +73,10 @@ export default function OrderCard({ order }: OrderCardProps) {
 
       <div className="order-footer">
         <div className="order-total">
-          <p>{order.quantity} sản phẩm • {order.shippingFee ? 'Phí giao hàng: ' + order.shippingFee.toLocaleString('vi-VN') + ' đ' : 'Miễn phí giao hàng'}</p>
+          <div>
+            <p>{order.quantity} sản phẩm • {order.shippingFee ? 'Phí giao hàng: ' + order.shippingFee.toLocaleString('vi-VN') + ' đ' : 'Miễn phí giao hàng'}</p>
+            {order.paymentMethod && <p>{order.paymentMethod === 'cod' ? 'Thanh toán khi nhận hàng (COD)' : 'VNPay'} · {order.paymentStatus === 'paid' ? 'Đã thanh toán' : 'Chưa thanh toán'}</p>}
+          </div>
           <div className="order-total-value">
             <span>Tổng tiền:</span>
             <strong>{order.total}</strong>
@@ -83,20 +85,7 @@ export default function OrderCard({ order }: OrderCardProps) {
         <div className="order-bottom">
           <p className="order-update">{order.update}</p>
           <div className="order-actions">
-            <Link to={'/tai-khoan/don-hang/chi-tiet/' + encodeURIComponent(order.id)} reloadDocument>Xem chi tiết</Link>
-            {order.action && (
-              <button
-                type="button"
-                className="order-action-primary"
-                onClick={() => {
-                  if (order.action === 'Theo dõi đơn') {
-                    navigate('/tai-khoan/don-hang/track', { state: { order } })
-                  }
-                }}
-              >
-                {order.action}
-              </button>
-            )}
+            <Link to={'/tai-khoan/don-hang/chi-tiet/' + encodeURIComponent(order.id)}>Xem chi tiết</Link>
 
             {order.status === 'pending' && (
               <button

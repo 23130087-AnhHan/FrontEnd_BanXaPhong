@@ -40,6 +40,7 @@
   font-size: 14px;
   font-weight: 600;
   line-height: 17px;
+  overflow-wrap: anywhere;
 }
 
 .order-info span {
@@ -136,7 +137,7 @@
   border-top: 1px solid #e4e2de;
 }
 
-.order-total > p,
+.order-total p,
 .order-update {
   color: #71746c;
 }
