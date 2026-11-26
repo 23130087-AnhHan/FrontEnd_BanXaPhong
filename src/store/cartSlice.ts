@@ -5,6 +5,8 @@ import type { CartItem } from '../api/cartApi'
 import type { Product } from '../components/ProductCard'
 import type { RootState } from './store'
 import { layNguoiDungHienTai } from '../api/authApi'
+import { createCodOrder, cleanupCodCart } from '../api/checkoutApi'
+import type { CodOrderInput } from '../api/checkoutApi'
 
 interface CartState {
   items: CartItem[]
@@ -51,6 +53,18 @@ export const changeQuantity = createAsyncThunk(
 export const removeFromCart = createAsyncThunk('cart/remove', async (id: string) => {
   await deleteCartItem(id)
   return id
+}, {
+  condition: (_, { getState }) => {
+    const cart = (getState() as RootState).cart
+    return cart.status === 'succeeded' && !cart.saving && cart.userId === layNguoiDungHienTai()?.id
+  },
+})
+
+export const checkoutCod = createAsyncThunk('cart/checkoutCod', async (input: CodOrderInput) => {
+  const order = await createCodOrder(input)
+  let cleanup = { removedIds: [] as string[], incomplete: true }
+  try { cleanup = await cleanupCodCart(order.id) } catch {}
+  return { order, ...cleanup }
 }, {
   condition: (_, { getState }) => {
     const cart = (getState() as RootState).cart
@@ -164,6 +178,25 @@ const cartSlice = createSlice({
         state.requestId = null
         state.saving = false
         state.error = 'Không xóa được sản phẩm. Vui lòng thử lại.'
+      })
+      .addCase(checkoutCod.pending, (state, action) => {
+        state.requestId = action.meta.requestId
+        state.saving = true
+        state.error = ''
+        state.message = ''
+      })
+      .addCase(checkoutCod.fulfilled, (state, action) => {
+        if (state.requestId !== action.meta.requestId) return
+        state.requestId = null
+        state.saving = false
+        state.items = state.items.filter((item) => !action.payload.removedIds.includes(item.id))
+        state.selectedIds = state.selectedIds.filter((id) => !action.payload.removedIds.includes(id))
+      })
+      .addCase(checkoutCod.rejected, (state, action) => {
+        if (state.requestId !== action.meta.requestId) return
+        state.requestId = null
+        state.saving = false
+        state.error = action.error.message || 'Chưa đặt được đơn hàng. Vui lòng thử lại.'
       })
   },
 })

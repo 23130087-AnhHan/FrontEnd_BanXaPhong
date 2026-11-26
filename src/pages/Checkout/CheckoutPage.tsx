@@ -1,11 +1,12 @@
-import { Link, useLocation } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from '../../store/store'
-import { loadCart, selectItems } from '../../store/cartSlice'
+import { checkoutCod, loadCart, selectItems } from '../../store/cartSlice'
 import { layNguoiDungHienTai } from '../../api/authApi'
-import { readCheckoutDraft, saveCheckoutDraft } from './checkoutStorage'
+import { clearCheckoutDraft, readCheckoutDraft, saveCheckoutDraft } from './checkoutStorage'
+import { CHECKOUT_SHIPPING_FEE } from '../../api/checkoutApi'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import Icon from '../../components/Icon'
 import ShippingForm from './components/ShippingForm'
@@ -18,6 +19,8 @@ import './CheckoutPage.css'
 
 export default function CheckoutPage() {
   const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
+  const submitting = useRef(false)
   const location = useLocation()
   const userId = layNguoiDungHienTai()?.id ?? ''
   const { items, userId: cartUserId, status, saving } = useSelector((state: RootState) => state.cart)
@@ -31,7 +34,7 @@ export default function CheckoutPage() {
   })
   const cartReady = status === 'succeeded' && cartUserId === userId
   const products = cartReady ? items.filter((item) => draft.cartItemIds.includes(item.id)) : []
-  const shippingFee = 30000
+  const shippingFee = CHECKOUT_SHIPPING_FEE
   const [addresses, setAddresses] = useState<Address[]>([])
   const shipping = draft.shipping ?? {
     receiverName: '', receiverPhone: '', email: '', province: '', district: '', ward: '', detailAddress: '',
@@ -104,12 +107,25 @@ export default function CheckoutPage() {
     }))
   }
 
-  function checkInformation(event: FormEvent<HTMLFormElement>) {
+  async function submitOrder(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    if (loading || error || saving || !cartReady || products.length === 0 || layNguoiDungHienTai()?.id !== userId) return
-    setMessage(draft.paymentMethod === 'vnpay'
-      ? 'Thông tin hợp lệ. Bạn đã chọn VNPay. Cổng thanh toán chưa được kết nối, chưa phát sinh thanh toán hoặc đơn hàng.'
-      : 'Thông tin hợp lệ. Bạn đã chọn thanh toán khi nhận hàng (COD). Đơn hàng chưa được gửi.')
+    if (submitting.current || loading || error || saving || !cartReady || products.length === 0 || products.length !== draft.cartItemIds.length || draft.paymentMethod !== 'cod' || layNguoiDungHienTai()?.id !== userId) return
+    submitting.current = true
+    setMessage('')
+    const checkoutId = draft.checkoutId || crypto.randomUUID()
+    const nextDraft = { ...draft, checkoutId }
+    setDraft(nextDraft)
+    saveCheckoutDraft(userId, nextDraft)
+    try {
+      const result = await dispatch(checkoutCod({ checkoutId, items: products, shippingAddress: shipping, addressId: draft.addressId, note: draft.note })).unwrap()
+      if (layNguoiDungHienTai()?.id !== userId) return
+      clearCheckoutDraft(userId)
+      navigate('/dat-hang-thanh-cong/' + encodeURIComponent(result.order.id), { replace: true, state: { cartCleanupFailed: result.incomplete } })
+    } catch (error) {
+      if (layNguoiDungHienTai()?.id === userId) setMessage(error instanceof Error ? error.message : (error as { message?: string })?.message || 'Chưa đặt được đơn hàng. Vui lòng thử lại.')
+    } finally {
+      submitting.current = false
+    }
   }
 
   return (
@@ -124,6 +140,8 @@ export default function CheckoutPage() {
 
       <h1>Thanh toán</h1>
 
+      {draft.checkoutId && <p className="checkout-state"><Link to={'/dat-hang-thanh-cong?checkout=' + encodeURIComponent(draft.checkoutId)} state={{ cartCleanupFailed: true }}>Kiểm tra đơn vừa gửi</Link></p>}
+
       {status !== 'failed' && !cartReady && <p className="checkout-state" role="status">Đang tải giỏ hàng...</p>}
       {status === 'failed' && <div className="checkout-state" role="alert"><p>Chưa tải được giỏ hàng.</p><button type="button" onClick={() => dispatch(loadCart())}>Thử lại</button></div>}
       {cartReady && products.length === 0 && <div className="checkout-state"><p>Chưa có sản phẩm được chọn để thanh toán.</p><Link to="/gio-hang">Quay lại giỏ hàng</Link></div>}
@@ -132,7 +150,7 @@ export default function CheckoutPage() {
           {products.length !== draft.cartItemIds.length && <p className="checkout-state" role="status">Một số sản phẩm không còn trong giỏ hàng. Vui lòng kiểm tra lại trước khi tiếp tục.</p>}
           {loading && <p className="checkout-state" role="status">Đang tải thông tin giao hàng...</p>}
           {error && <div className="checkout-state" role="alert"><p>{error}</p><button type="button" onClick={() => { setLoading(true); setError(''); setReload((value) => value + 1) }}>Thử lại</button></div>}
-          <form className="checkout-layout" onSubmit={checkInformation} onChange={() => setMessage('')} onInvalidCapture={() => setMessage('')} aria-busy={loading || saving}>
+          <form className="checkout-layout" onSubmit={submitOrder} onChange={() => setMessage('')} onInvalidCapture={() => setMessage('')} aria-busy={loading || saving}>
             <fieldset className="checkout-main" disabled={loading || !!error || saving} aria-label="Thông tin và phương thức giao hàng">
               <ShippingForm addresses={addresses} addressId={draft.addressId} shipping={shipping} onAddressChange={chooseAddress} onChange={updateShipping} />
               <CheckoutMethods
@@ -147,7 +165,7 @@ export default function CheckoutPage() {
                 Quay lại giỏ hàng
               </Link>
             </fieldset>
-            <CheckoutSummary products={products} shippingFee={shippingFee} busy={loading || !!error || saving} message={message} />
+            <CheckoutSummary products={products} shippingFee={shippingFee} busy={loading || !!error || saving || products.length !== draft.cartItemIds.length} submitting={saving} paymentMethod={draft.paymentMethod} message={message} />
           </form>
         </>
       )}
