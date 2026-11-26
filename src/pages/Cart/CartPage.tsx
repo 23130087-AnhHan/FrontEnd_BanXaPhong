@@ -60,7 +60,7 @@ export default function CartPage() {
             </div>
           </div>
         </div>
-        <CartSummary itemCount={itemCount} total={total} busy={busy} />
+        <CartSummary itemCount={itemCount} total={total} busy={busy} selectedIds={selectedIds} userId={userId} />
       </div>
     </div>
   )

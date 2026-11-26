@@ -1,33 +1,38 @@
-import { Link } from 'react-router-dom'
+import type { CartItem } from '../../../api/cartApi'
 import { faTag } from '@fortawesome/free-solid-svg-icons/faTag'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight'
 import Icon from '../../../components/Icon'
 import './CheckoutSummary.css'
 
-const productImage = 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg'
+interface CheckoutSummaryProps {
+  products: CartItem[]
+  shippingFee: number
+  busy: boolean
+  message: string
+}
 
-const products = [
-  { id: 1, name: 'Xà phòng Oải hương Pháp', price: '180.000 đ', quantity: 2, total: '360.000 đ' },
-  { id: 2, name: 'Xà phòng Hoa hồng Đất sét', price: '155.000 đ', oldPrice: '190.000 đ', quantity: 1, total: '155.000 đ' },
-]
-
-export default function CheckoutSummary() {
+export default function CheckoutSummary({ products, shippingFee, busy, message }: CheckoutSummaryProps) {
+  const itemCount = products.reduce((sum, product) => sum + product.quantity, 0)
+  const subtotal = products.reduce((sum, product) => sum + product.price * product.quantity, 0)
+  const savings = products.reduce((sum, product) => sum + Math.max(0, (product.oldPrice ?? product.price) - product.price) * product.quantity, 0)
+  const deliveryFee = products.length ? shippingFee : 0
+  const total = subtotal + deliveryFee
   return (
     <aside className="checkout-summary" aria-labelledby="checkout-summary-title">
       <div className="checkout-summary-heading">
         <h2 id="checkout-summary-title">Đơn hàng của bạn</h2>
-        <span>3 sản phẩm</span>
+        <span>{itemCount} sản phẩm</span>
       </div>
 
       <div className="checkout-products">
         {products.map((product) => (
           <div className="checkout-product" key={product.id}>
-            <img src={productImage} alt="" width={68} height={76} />
+            <img src={product.image} alt="" width={68} height={76} />
             <div className="checkout-product-info">
               <h3>{product.name}</h3>
-              <p>Bánh 100g</p>
-              <p>{product.quantity} × {product.price} {product.oldPrice && <del>{product.oldPrice}</del>}</p>
-              <strong>{product.total}</strong>
+              <p>{product.unit}</p>
+              <p>{product.quantity} × {product.price.toLocaleString('vi-VN')} đ {product.oldPrice != null && product.oldPrice > product.price && <del>{product.oldPrice.toLocaleString('vi-VN')} đ</del>}</p>
+              <strong>{(product.price * product.quantity).toLocaleString('vi-VN')} đ</strong>
             </div>
           </div>
         ))}
@@ -36,29 +41,30 @@ export default function CheckoutSummary() {
       <div className="checkout-coupon">
         <label htmlFor="checkout-coupon">Mã ưu đãi</label>
         <div className="checkout-coupon-input">
-          <input id="checkout-coupon" type="text" placeholder="Nhập mã ưu đãi" />
-          <button type="button">Áp dụng</button>
+          <input id="checkout-coupon" type="text" placeholder="Chưa có mã ưu đãi" disabled />
+          <button type="button" disabled>Áp dụng</button>
         </div>
       </div>
 
       <div className="checkout-costs">
         <dl>
-          <div><dt>Tạm tính (3 sản phẩm)</dt><dd>515.000 đ</dd></div>
+          <div><dt>Tạm tính ({itemCount} sản phẩm)</dt><dd>{subtotal.toLocaleString('vi-VN')} đ</dd></div>
           <div><dt>Ưu đãi bổ sung</dt><dd>0 đ</dd></div>
-          <div><dt>Phí giao hàng tiêu chuẩn</dt><dd>30.000 đ</dd></div>
+          <div><dt>Phí giao hàng tiêu chuẩn</dt><dd>{deliveryFee.toLocaleString('vi-VN')} đ</dd></div>
         </dl>
         <div className="checkout-grand-total">
           <span>Tổng thanh toán</span>
-          <strong>545.000 đ</strong>
+          <strong>{total.toLocaleString('vi-VN')} đ</strong>
         </div>
         <p className="checkout-cost-note">Đã bao gồm phí vận chuyển.</p>
-        <p className="checkout-savings"><Icon icon={faTag} />Bạn đã tiết kiệm 35.000 đ trong giá sản phẩm.</p>
+        {savings > 0 && <p className="checkout-savings"><Icon icon={faTag} />Bạn đã tiết kiệm {savings.toLocaleString('vi-VN')} đ trong giá sản phẩm.</p>}
       </div>
 
-      <Link to="/dat-hang-thanh-cong" className="checkout-pay">
-        Thanh toán 545.000 đ
+      <button type="submit" className="checkout-pay" disabled={busy || products.length === 0}>
+        Kiểm tra thông tin
         <Icon icon={faArrowRight} />
-      </Link>
+      </button>
+      {message && <p className="checkout-feedback" role="status">{message}</p>}
       <p className="checkout-terms">
         Bằng việc thanh toán, bạn đồng ý với <span>Điều khoản mua hàng</span> và <span>Chính sách bảo mật</span> của Saponi.
       </p>
