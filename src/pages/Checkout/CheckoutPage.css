@@ -47,6 +47,19 @@
   display: grid;
   gap: 24px;
   min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.checkout-state,
+.checkout-feedback {
+  padding: 16px;
+  border-radius: 8px;
+  background: #f3f6f0;
+  color: #334537;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
 .checkout-section,
