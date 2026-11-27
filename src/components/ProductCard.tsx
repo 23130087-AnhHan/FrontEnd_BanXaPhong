@@ -43,6 +43,10 @@ export default function ProductCard({ product, defaultHobby = false }: { product
         dispatch(addToCart(product))
     }
 
+    function buyNow() {
+        navigate('/thanh-toan')
+    }
+
     return (
         <div className="card">
             <div className="card-img">
@@ -92,7 +96,7 @@ export default function ProductCard({ product, defaultHobby = false }: { product
                         <FontAwesomeIcon icon={faBagShopping} />
                         {product.inStock === false ? 'Hết hàng' : 'Thêm giỏ'}
                     </button>
-                    <button className="btn-buy" type="button">
+                    <button className="btn-buy" type="button" onClick={buyNow}>
                         Mua ngay
                     </button>
                 </div>
