@@ -63,8 +63,8 @@ export default function CheckoutSummary({ products, shippingFee, busy, message, 
         {savings > 0 && <p className="checkout-savings"><Icon icon={faTag} />Bạn đã tiết kiệm {savings.toLocaleString('vi-VN')} đ trong giá sản phẩm.</p>}
       </div>
 
-      <button type="submit" className="checkout-pay" disabled={busy || products.length === 0 || paymentMethod !== 'cod'}>
-        {submitting ? 'Đang đặt hàng...' : paymentMethod === 'cod' ? 'Đặt hàng COD' : 'VNPay chưa sẵn sàng'}
+      <button type="submit" className="checkout-pay" disabled={busy || products.length === 0}>
+        {submitting ? 'Đang xử lý...' : paymentMethod === 'cod' ? 'Đặt hàng COD' : 'Thanh toán qua VNPay'}
         <Icon icon={faArrowRight} />
       </button>
       {message && <p className="checkout-feedback" role="alert">{message}</p>}

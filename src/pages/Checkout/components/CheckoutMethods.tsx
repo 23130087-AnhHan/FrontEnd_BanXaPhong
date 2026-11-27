@@ -46,7 +46,7 @@ export default function CheckoutMethods({ shippingFee, paymentMethod, note, onPa
             <Icon icon={faCreditCard} />
             <span className="checkout-option-info">
               <strong>VNPAY · Thẻ ATM nội địa</strong>
-              <span>Thanh toán qua cổng VNPAY. Hiện chưa kết nối cổng thanh toán.</span>
+              <span>Chuyển sang cổng VNPay Sandbox để thanh toán thử nghiệm.</span>
             </span>
           </label>
           <label className="checkout-option">
