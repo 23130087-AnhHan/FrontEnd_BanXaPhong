@@ -67,3 +67,8 @@
 .cancel-order-buttons :is(a, button):hover {
   opacity: 0.85;
 }
+
+.cancel-order-buttons button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}

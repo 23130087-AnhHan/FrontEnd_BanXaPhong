@@ -13,9 +13,52 @@ export interface AccountOrder extends OrderRecord {
 }
 
 
-export const orderStatusLabels = { pending: 'Chờ xác nhận', shipping: 'Đang giao', delivered: 'Đã giao', cancelled: 'Đã hủy' }
+export const orderStatusLabels = { pending: 'Chờ xác nhận', confirmed: 'Đã xác nhận', shipping: 'Đang giao', delivered: 'Đã giao', cancelled: 'Đã hủy' }
 export const formatMoney = (amount: number) => amount.toLocaleString('vi-VN') + ' đ'
 export const paymentStatusLabels: Record<string, string> = { unpaid: 'Chưa thanh toán', pending: 'Chờ thanh toán', paid: 'Đã thanh toán', failed: 'Thanh toán chưa thành công' }
+
+export const cancelReasons = [
+  { id: 'change-products', label: 'Tôi muốn thay đổi sản phẩm hoặc số lượng' },
+  { id: 'change-address', label: 'Tôi muốn thay đổi địa chỉ nhận hàng' },
+  { id: 'change-payment', label: 'Tôi muốn thay đổi phương thức thanh toán' },
+  { id: 'duplicate-order', label: 'Tôi đã đặt trùng đơn hàng' },
+  { id: 'no-longer-needed', label: 'Tôi không còn nhu cầu mua' },
+  { id: 'other', label: 'Lý do khác' },
+]
+
+export interface CancelOrderInput {
+  reasonId: string
+  note: string
+}
+
+export function canCancelOrder(status: OrderRecord['status']) {
+  return status === 'pending' || status === 'confirmed'
+}
+
+export async function cancelOrder(id: string, input: CancelOrderInput): Promise<OrderRecord> {
+  const userId = currentUserId()
+  const reason = cancelReasons.find((reason) => reason.id === input.reasonId)
+  const note = input.note.trim()
+  if (!reason) throw new Error('Vui lòng chọn lý do huỷ đơn.')
+  if (note.length > 500) throw new Error('Ghi chú không được quá 500 ký tự.')
+  if (reason.id === 'other' && !note) throw new Error('Vui lòng nhập ghi chú cho lý do khác.')
+
+  const orderPath = '/orders/' + encodeURIComponent(id)
+  const order = await accountRequest<OrderRecord>(orderPath)
+  if (order.userId !== userId || order.checkoutStatus === 'creating') throw new Error('Không tìm thấy đơn hàng đã hoàn tất của bạn.')
+  if (currentUserId() !== userId) throw new Error('Tài khoản đã thay đổi. Vui lòng tải lại đơn hàng.')
+  if (order.status === 'cancelled') return order
+  if (!canCancelOrder(order.status)) throw new Error('Chỉ có thể huỷ đơn đang chờ xác nhận hoặc đã xác nhận.')
+
+  const cancelledAt = new Date().toISOString()
+  const cancelledOrder = await accountRequest<OrderRecord>(orderPath, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status: 'cancelled', cancelReason: reason.label, cancelNote: note || null, cancelledAt, updatedAt: cancelledAt }),
+  })
+  if (currentUserId() !== userId) throw new Error('Tài khoản đã thay đổi. Vui lòng tải lại đơn hàng.')
+  return cancelledOrder
+}
 
 async function addOrderProducts(orders: OrderRecord[]): Promise<AccountOrder[]> {
   if (orders.length === 0) return []
@@ -31,7 +74,7 @@ async function addOrderProducts(orders: OrderRecord[]): Promise<AccountOrder[]> 
       date: new Date(order.createdAt).toLocaleDateString('vi-VN'),
       quantity: orderItems.reduce((sum, item) => sum + item.quantity, 0),
       total: formatMoney(order.totalAmount),
-      update: orderStatusLabels[order.status],
+      update: order.status === 'cancelled' && order.cancelReason ? 'Đã huỷ: ' + order.cancelReason : orderStatusLabels[order.status],
       products: orderItems.map((item) => {
         const product = products.find((product) => String(product.id) === item.productId)
         const variant = variants.find((variant) => variant.id === item.variantId)

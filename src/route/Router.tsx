@@ -59,6 +59,7 @@ export const router = createBrowserRouter([
           { path: 'don-hang/return', element: <OrderReturn /> },
           { path: 'don-hang/track', element: <OrderTrack /> },
           { path: 'don-hang/cancel', element: <CancelOrderPage /> },
+          { path: 'don-hang/cancel/:orderId', element: <CancelOrderPage /> },
           { path: 'don-hang/review', element: <OrderReviewPage /> },
           { path: 'doi-mat-khau', element: <ChangePasswordPage /> },
           { path: 'dia-chi', element: <AddressBookPage /> },
