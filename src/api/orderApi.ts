@@ -1,26 +1,10 @@
 import { accountFilter, accountRequest, currentUserId } from './accountApi'
-import type { Address } from './accountApi'
+import type { OrderItem, OrderRecord } from '../../shared/checkout.ts'
+export type { OrderItem, OrderRecord } from '../../shared/checkout.ts'
 import { fetchProductsWithImages } from './productApi'
 import type { ProductVariantData } from './productApi'
 
-export interface AccountOrder {
-  id: string
-  userId: string
-  status: 'pending' | 'shipping' | 'delivered' | 'cancelled'
-  shippingAddress: Pick<Address, 'receiverName' | 'receiverPhone' | 'province' | 'district' | 'ward' | 'detailAddress'> & { email?: string }
-  paymentMethod: string
-  paymentStatus: string
-  shippingMethod: string
-  shippingCarrier: string | null
-  subtotal: number
-  shippingFee: number
-  discount: number
-  totalAmount: number
-  note: string | null
-  createdAt: string
-  estimatedDeliveryAt: string | null
-  checkoutId?: string
-  checkoutStatus?: 'creating' | 'complete'
+export interface AccountOrder extends OrderRecord {
   date: string
   quantity: number
   total: string
@@ -28,11 +12,10 @@ export interface AccountOrder {
   products: { id: string; name: string; image: string; weight: string; quantity: number; price: string; total: string }[]
 }
 
-export type OrderRecord = Omit<AccountOrder, 'date' | 'quantity' | 'total' | 'update' | 'products'>
-export interface OrderItem { id: string; orderId: string; productId: string; variantId: string; unitPrice: number; quantity: number; cartItemId?: string | null }
 
 export const orderStatusLabels = { pending: 'Chờ xác nhận', shipping: 'Đang giao', delivered: 'Đã giao', cancelled: 'Đã hủy' }
 export const formatMoney = (amount: number) => amount.toLocaleString('vi-VN') + ' đ'
+export const paymentStatusLabels: Record<string, string> = { unpaid: 'Chưa thanh toán', pending: 'Chờ thanh toán', paid: 'Đã thanh toán', failed: 'Thanh toán chưa thành công' }
 
 async function addOrderProducts(orders: OrderRecord[]): Promise<AccountOrder[]> {
   if (orders.length === 0) return []

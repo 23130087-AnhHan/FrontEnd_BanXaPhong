@@ -62,6 +62,7 @@ export default function OrderDetailPage() {
         <OrderPaymentSummary order={order} />
 
         <div className="order-detail-actions">
+          {order.status === 'pending' && order.paymentMethod === 'vnpay' && order.paymentStatus !== 'paid' && order.checkoutStatus === 'complete' && <Link to={'/thanh-toan/vnpay/ket-qua?orderId=' + encodeURIComponent(order.id)} className="order-detail-button order-detail-button-primary">Thanh toán VNPay</Link>}
           {order.status === 'delivered' && (
             <Link to="/tai-khoan/don-hang/review" state={{ order }} className="order-detail-button"><Icon icon={faStar} />Đánh giá sản phẩm</Link>
           )}

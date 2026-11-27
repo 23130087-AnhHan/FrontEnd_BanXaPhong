@@ -2,17 +2,8 @@ import type { Product } from '../components/ProductCard'
 import { layNguoiDungHienTai } from './authApi'
 import { accountFilter, currentUserId } from './accountApi'
 
-export interface CartItem {
-  id: string
-  userId?: string
-  productId: string | number
-  name: string
-  price: number
-  oldPrice?: number
-  unit: string
-  image: string
-  quantity: number
-}
+import type { CartItem } from '../../shared/checkout.ts'
+export type { CartItem } from '../../shared/checkout.ts'
 
 const API_URL = 'http://localhost:3001/cartItems'
 

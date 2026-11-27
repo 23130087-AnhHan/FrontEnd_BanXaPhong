@@ -4,4 +4,10 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    proxy: { '/api/payments': 'http://127.0.0.1:3002' },
+  },
+  preview: {
+    proxy: { '/api/payments': 'http://127.0.0.1:3002' },
+  },
 })

@@ -7,6 +7,7 @@ import type { RootState } from './store'
 import { layNguoiDungHienTai } from '../api/authApi'
 import { createCodOrder, cleanupCodCart } from '../api/checkoutApi'
 import type { CodOrderInput } from '../api/checkoutApi'
+import { startVnpay } from '../api/paymentApi'
 
 interface CartState {
   items: CartItem[]
@@ -66,6 +67,13 @@ export const checkoutCod = createAsyncThunk('cart/checkoutCod', async (input: Co
   try { cleanup = await cleanupCodCart(order.id) } catch {}
   return { order, ...cleanup }
 }, {
+  condition: (_, { getState }) => {
+    const cart = (getState() as RootState).cart
+    return cart.status === 'succeeded' && !cart.saving && cart.userId === layNguoiDungHienTai()?.id
+  },
+})
+
+export const checkoutVnpay = createAsyncThunk('cart/checkoutVnpay', startVnpay, {
   condition: (_, { getState }) => {
     const cart = (getState() as RootState).cart
     return cart.status === 'succeeded' && !cart.saving && cart.userId === layNguoiDungHienTai()?.id
@@ -197,6 +205,23 @@ const cartSlice = createSlice({
         state.requestId = null
         state.saving = false
         state.error = action.error.message || 'Chưa đặt được đơn hàng. Vui lòng thử lại.'
+      })
+      .addCase(checkoutVnpay.pending, (state, action) => {
+        state.requestId = action.meta.requestId
+        state.saving = true
+        state.error = ''
+        state.message = ''
+      })
+      .addCase(checkoutVnpay.fulfilled, (state, action) => {
+        if (state.requestId !== action.meta.requestId) return
+        state.requestId = null
+        state.saving = false
+      })
+      .addCase(checkoutVnpay.rejected, (state, action) => {
+        if (state.requestId !== action.meta.requestId) return
+        state.requestId = null
+        state.saving = false
+        state.error = action.error.message || 'Chưa mở được cổng VNPay. Vui lòng thử lại.'
       })
   },
 })

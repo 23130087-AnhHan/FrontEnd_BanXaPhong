@@ -6,6 +6,7 @@ import { loadCart } from '../../store/cartSlice'
 import { getOrder, formatMoney } from '../../api/orderApi'
 import type { AccountOrder } from '../../api/orderApi'
 import { cleanupCodCart, getCodCheckout } from '../../api/checkoutApi'
+import { finalizeVnpay } from '../../api/paymentApi'
 import { currentUserId } from '../../api/accountApi'
 import { clearCheckoutDraft, readCheckoutDraft } from '../Checkout/checkoutStorage'
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
@@ -35,19 +36,23 @@ export default function OrderSuccessPage() {
     const request = orderId ? getOrder(orderId) : getCodCheckout(checkoutId!).then((order) => getOrder(order.id))
     request.then((data) => {
       if (!active) return
+      if (data.paymentMethod === 'vnpay' && data.paymentStatus !== 'paid') {
+        navigate('/thanh-toan/vnpay/ket-qua?orderId=' + encodeURIComponent(data.id), { replace: true })
+        return
+      }
       setOrder(data)
       if (data.checkoutId && readCheckoutDraft(data.userId).checkoutId === data.checkoutId) clearCheckoutDraft(data.userId)
     }).catch((error: unknown) => {
       if (active) setError(error instanceof Error ? error.message : 'Chưa tải được đơn hàng.')
     }).finally(() => { if (active) setLoading(false) })
     return () => { active = false }
-  }, [orderId, checkoutId, reload])
+  }, [orderId, checkoutId, reload, navigate])
 
   async function retryCleanup() {
     if (!order || cleaning) return
     setCleaning(true)
     try {
-      const result = await cleanupCodCart(order.id)
+      const result = order.paymentMethod === 'vnpay' ? await finalizeVnpay(order.id) : await cleanupCodCart(order.id)
       if (currentUserId() !== order.userId) return
       setCleanupFailed(result.incomplete)
       dispatch(loadCart())

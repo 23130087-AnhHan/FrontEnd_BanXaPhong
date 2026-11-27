@@ -4,7 +4,7 @@ import { faMoneyBill } from '@fortawesome/free-solid-svg-icons/faMoneyBill'
 import { faFilePen } from '@fortawesome/free-solid-svg-icons/faFilePen'
 import Icon from '../../../components/Icon'
 import { formatAddress } from '../../../api/accountApi'
-import { orderStatusLabels } from '../../../api/orderApi'
+import { orderStatusLabels, paymentStatusLabels } from '../../../api/orderApi'
 import type { AccountOrder } from '../../../api/orderApi'
 import './OrderRecipientInfo.css'
 
@@ -35,7 +35,7 @@ export default function OrderRecipientInfo({ order }: { order: AccountOrder }) {
         <div className="order-recipient-box order-recipient-transport">
           <h3>VẬN CHUYỂN &amp; THANH TOÁN</h3>
           <p className="order-recipient-delivery"><Icon icon={faTruck} />{order.shippingCarrier || 'Chưa cập nhật đơn vị vận chuyển'} · {order.shippingMethod === 'standard' ? 'Giao hàng tiêu chuẩn' : order.shippingMethod}</p>
-          <p className="order-recipient-payment"><Icon icon={faMoneyBill} />{order.paymentMethod === 'vnpay' ? 'VNPay' : 'Thanh toán khi nhận hàng (COD)'} · {order.paymentStatus === 'paid' ? 'Đã thanh toán' : 'Chưa thanh toán'}</p>
+          <p className="order-recipient-payment"><Icon icon={faMoneyBill} />{order.paymentMethod === 'vnpay' ? 'VNPay' : 'Thanh toán khi nhận hàng (COD)'} · {paymentStatusLabels[order.paymentStatus] || 'Chưa thanh toán'}</p>
         </div>
 
         <div className="order-recipient-box order-recipient-note">

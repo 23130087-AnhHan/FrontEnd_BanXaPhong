@@ -3,10 +3,11 @@ import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from '../../store/store'
-import { checkoutCod, loadCart, selectItems } from '../../store/cartSlice'
+import { checkoutCod, checkoutVnpay, loadCart, selectItems } from '../../store/cartSlice'
 import { layNguoiDungHienTai } from '../../api/authApi'
 import { clearCheckoutDraft, readCheckoutDraft, saveCheckoutDraft } from './checkoutStorage'
 import { CHECKOUT_SHIPPING_FEE } from '../../api/checkoutApi'
+import { openVnpay } from '../../api/paymentApi'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import Icon from '../../components/Icon'
 import ShippingForm from './components/ShippingForm'
@@ -109,7 +110,7 @@ export default function CheckoutPage() {
 
   async function submitOrder(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    if (submitting.current || loading || error || saving || !cartReady || products.length === 0 || products.length !== draft.cartItemIds.length || draft.paymentMethod !== 'cod' || layNguoiDungHienTai()?.id !== userId) return
+    if (submitting.current || loading || error || saving || !cartReady || products.length === 0 || products.length !== draft.cartItemIds.length || layNguoiDungHienTai()?.id !== userId) return
     submitting.current = true
     setMessage('')
     const checkoutId = draft.checkoutId || crypto.randomUUID()
@@ -117,7 +118,15 @@ export default function CheckoutPage() {
     setDraft(nextDraft)
     saveCheckoutDraft(userId, nextDraft)
     try {
-      const result = await dispatch(checkoutCod({ checkoutId, items: products, shippingAddress: shipping, addressId: draft.addressId, note: draft.note })).unwrap()
+      const input = { checkoutId, items: products, shippingAddress: shipping, addressId: draft.addressId, note: draft.note }
+      if (draft.paymentMethod === 'vnpay') {
+        const result = await dispatch(checkoutVnpay(input)).unwrap()
+        if (layNguoiDungHienTai()?.id !== userId) return
+        if (result.paid) navigate('/thanh-toan/vnpay/ket-qua?orderId=' + encodeURIComponent(result.orderId), { replace: true })
+        else openVnpay(result)
+        return
+      }
+      const result = await dispatch(checkoutCod(input)).unwrap()
       if (layNguoiDungHienTai()?.id !== userId) return
       clearCheckoutDraft(userId)
       navigate('/dat-hang-thanh-cong/' + encodeURIComponent(result.order.id), { replace: true, state: { cartCleanupFailed: result.incomplete } })
@@ -140,7 +149,7 @@ export default function CheckoutPage() {
 
       <h1>Thanh toán</h1>
 
-      {draft.checkoutId && <p className="checkout-state"><Link to={'/dat-hang-thanh-cong?checkout=' + encodeURIComponent(draft.checkoutId)} state={{ cartCleanupFailed: true }}>Kiểm tra đơn vừa gửi</Link></p>}
+      {draft.checkoutId && <p className="checkout-state"><Link to={(draft.paymentMethod === 'cod' ? '/dat-hang-thanh-cong?checkout=' : '/thanh-toan/vnpay/ket-qua?checkout=') + encodeURIComponent(draft.checkoutId)} state={{ cartCleanupFailed: true }}>Kiểm tra đơn vừa gửi</Link></p>}
 
       {status !== 'failed' && !cartReady && <p className="checkout-state" role="status">Đang tải giỏ hàng...</p>}
       {status === 'failed' && <div className="checkout-state" role="alert"><p>Chưa tải được giỏ hàng.</p><button type="button" onClick={() => dispatch(loadCart())}>Thử lại</button></div>}
@@ -157,7 +166,7 @@ export default function CheckoutPage() {
                 shippingFee={shippingFee}
                 paymentMethod={draft.paymentMethod}
                 note={draft.note}
-                onPaymentChange={(paymentMethod) => setDraft((previous) => ({ ...previous, paymentMethod }))}
+                onPaymentChange={(paymentMethod) => setDraft((previous) => ({ ...previous, paymentMethod, checkoutId: undefined }))}
                 onNoteChange={(note) => setDraft((previous) => ({ ...previous, note }))}
               />
               <Link to="/gio-hang" className="checkout-back">
