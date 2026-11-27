@@ -13,7 +13,7 @@ export interface AccountOrder extends OrderRecord {
 }
 
 
-export const orderStatusLabels = { pending: 'Chờ xác nhận', shipping: 'Đang giao', delivered: 'Đã giao', cancelled: 'Đã hủy' }
+export const orderStatusLabels = { pending: 'Chờ xác nhận', confirmed: 'Đã xác nhận', shipping: 'Đang giao', delivered: 'Đã giao', cancelled: 'Đã hủy' }
 export const formatMoney = (amount: number) => amount.toLocaleString('vi-VN') + ' đ'
 export const paymentStatusLabels: Record<string, string> = { unpaid: 'Chưa thanh toán', pending: 'Chờ thanh toán', paid: 'Đã thanh toán', failed: 'Thanh toán chưa thành công' }
 
@@ -31,6 +31,10 @@ export interface CancelOrderInput {
   note: string
 }
 
+export function canCancelOrder(status: OrderRecord['status']) {
+  return status === 'pending' || status === 'confirmed'
+}
+
 export async function cancelOrder(id: string, input: CancelOrderInput): Promise<OrderRecord> {
   const userId = currentUserId()
   const reason = cancelReasons.find((reason) => reason.id === input.reasonId)
@@ -44,7 +48,7 @@ export async function cancelOrder(id: string, input: CancelOrderInput): Promise<
   if (order.userId !== userId || order.checkoutStatus === 'creating') throw new Error('Không tìm thấy đơn hàng đã hoàn tất của bạn.')
   if (currentUserId() !== userId) throw new Error('Tài khoản đã thay đổi. Vui lòng tải lại đơn hàng.')
   if (order.status === 'cancelled') return order
-  if (order.status !== 'pending') throw new Error('Chỉ có thể huỷ đơn hàng đang chờ xác nhận.')
+  if (!canCancelOrder(order.status)) throw new Error('Chỉ có thể huỷ đơn đang chờ xác nhận hoặc đã xác nhận.')
 
   const cancelledAt = new Date().toISOString()
   const cancelledOrder = await accountRequest<OrderRecord>(orderPath, {

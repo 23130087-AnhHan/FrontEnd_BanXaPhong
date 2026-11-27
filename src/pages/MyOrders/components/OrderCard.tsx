@@ -4,13 +4,13 @@ import { faCircleCheck } from '@fortawesome/free-regular-svg-icons/faCircleCheck
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons/faCircleXmark'
 import { Link, useNavigate } from 'react-router-dom'
 import Icon from '../../../components/Icon'
-import { paymentStatusLabels } from '../../../api/orderApi'
+import { canCancelOrder, paymentStatusLabels } from '../../../api/orderApi'
 import './OrderCard.css'
 
 export interface Order {
   id: string
   date: string
-  status: 'pending' | 'shipping' | 'delivered' | 'cancelled'
+  status: 'pending' | 'confirmed' | 'shipping' | 'delivered' | 'cancelled'
   quantity: number
   total: string
   update: string
@@ -31,6 +31,7 @@ export interface Order {
 
 const statuses = {
   pending: { label: 'Chờ xác nhận', icon: faClock },
+  confirmed: { label: 'Đã xác nhận', icon: faCircleCheck },
   shipping: { label: 'Đang giao', icon: faTruck },
   delivered: { label: 'Đã giao', icon: faCircleCheck },
   cancelled: { label: 'Đã hủy', icon: faCircleXmark },
@@ -90,10 +91,10 @@ export default function OrderCard({ order }: OrderCardProps) {
             <Link to={'/tai-khoan/don-hang/chi-tiet/' + encodeURIComponent(order.id)}>Xem chi tiết</Link>
             {order.status === 'pending' && order.paymentMethod === 'vnpay' && order.paymentStatus !== 'paid' && order.checkoutStatus === 'complete' && <Link to={'/thanh-toan/vnpay/ket-qua?orderId=' + encodeURIComponent(order.id)}>Thanh toán VNPay</Link>}
 
-            {order.status === 'pending' && (
+            {canCancelOrder(order.status) && (
               <button
                 type="button"
-                onClick={() => navigate('/tai-khoan/don-hang/cancel', { state: { order } })}
+                onClick={() => navigate('/tai-khoan/don-hang/cancel/' + encodeURIComponent(order.id))}
               >
                 Huỷ đơn
               </button>

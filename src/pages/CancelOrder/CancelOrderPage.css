@@ -115,3 +115,49 @@
 .cancel-order-help a:hover {
   text-decoration: underline;
 }
+
+.cancel-order-message {
+  margin: 0 0 24px;
+  padding: 16px 20px;
+  border: 1px solid #dedfd8;
+  border-radius: 8px;
+  background: #fff;
+  color: #50644f;
+  font-size: 14px;
+}
+
+.cancel-order-error {
+  border-color: #e8c8be;
+  background: #fff6f2;
+  color: #a24436;
+}
+
+.cancel-order-message p {
+  margin: 0 0 12px;
+}
+
+.cancel-order-message button {
+  padding: 8px 16px;
+  border: 1px solid #50644f;
+  border-radius: 6px;
+  background: #fff;
+  color: #50644f;
+  cursor: pointer;
+}
+
+.cancel-order-unavailable {
+  align-self: start;
+}
+
+.cancel-order-unavailable p {
+  margin: 12px 0;
+  color: #71746c;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.cancel-order-unavailable a,
+.cancel-order-back {
+  color: #50644f;
+  font-size: 14px;
+}

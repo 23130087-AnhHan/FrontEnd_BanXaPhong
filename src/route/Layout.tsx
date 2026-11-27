@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, ScrollRestoration } from 'react-router-dom'
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons/faCircleExclamation'
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons/faBagShopping'
@@ -65,6 +65,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <ScrollRestoration />
     </>
   )
 }

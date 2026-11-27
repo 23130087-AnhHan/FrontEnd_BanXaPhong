@@ -70,6 +70,7 @@
   color: #856324;
 }
 
+.order-status.confirmed,
 .order-status.delivered {
   background: #d3e8d5;
 }

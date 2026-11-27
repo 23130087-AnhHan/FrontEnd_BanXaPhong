@@ -12,6 +12,7 @@ type OrderFilter = 'all' | AccountOrder['status']
 const filters: { status: OrderFilter; label: string }[] = [
   { status: 'all', label: 'Tất cả' },
   { status: 'pending', label: 'Chờ xác nhận' },
+  { status: 'confirmed', label: 'Đã xác nhận' },
   { status: 'shipping', label: 'Đang giao' },
   { status: 'delivered', label: 'Đã giao' },
   { status: 'cancelled', label: 'Đã hủy' },

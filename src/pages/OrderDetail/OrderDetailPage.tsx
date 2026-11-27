@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { getOrder } from '../../api/orderApi'
+import { canCancelOrder, getOrder } from '../../api/orderApi'
 import type { AccountOrder } from '../../api/orderApi'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark'
@@ -66,7 +66,7 @@ export default function OrderDetailPage() {
           {order.status === 'delivered' && (
             <Link to="/tai-khoan/don-hang/review" state={{ order }} className="order-detail-button"><Icon icon={faStar} />Đánh giá sản phẩm</Link>
           )}
-          {order.status === 'pending' && <Link to="/tai-khoan/don-hang/cancel" state={{ order }} className="order-detail-button order-detail-cancel">
+          {canCancelOrder(order.status) && <Link to={'/tai-khoan/don-hang/cancel/' + encodeURIComponent(order.id)} className="order-detail-button order-detail-cancel">
             <Icon icon={faXmark} />Hủy đơn
           </Link>}
           {(order.status === 'delivered' || order.status === 'cancelled') && <Link to="/gio-hang" className="order-detail-button order-detail-button-primary" reloadDocument>
