@@ -14,7 +14,7 @@ export interface Product {
 
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from '../store/store'
-import { addToCart } from '../store/cartSlice'
+import { addToCart, clearFeedback } from '../store/cartSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faBagShopping } from '@fortawesome/free-solid-svg-icons'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -43,8 +43,18 @@ export default function ProductCard({ product, defaultHobby = false }: { product
         dispatch(addToCart(product))
     }
 
-    function buyNow() {
-        navigate('/thanh-toan')
+    async function buyNow() {
+        const currentUser = layNguoiDungHienTai()
+        if (!currentUser) {
+            navigate('/login', { state: { from: location.pathname + location.search } })
+            return
+        }
+
+        const result = await dispatch(addToCart(product))
+        if (addToCart.fulfilled.match(result)) {
+            dispatch(clearFeedback())
+            navigate('/thanh-toan', { state: { userId: currentUser.id, cartItemIds: [result.payload.id] } })
+        }
     }
 
     return (
