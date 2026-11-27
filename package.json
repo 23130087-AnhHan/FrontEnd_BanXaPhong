@@ -9,9 +9,10 @@
   "scripts": {
     "dev": "vite",
     "server": "json-server --watch db.json --port 3001",
+    "payment": "node --env-file-if-exists=server/.env server/index.ts",
     "build": "vite build",
     "lint": "oxlint",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p server/tsconfig.json",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -26,6 +27,7 @@
     "react-router-dom": "^7.18.5"
   },
   "devDependencies": {
+    "@types/node": "^24.19.4",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
