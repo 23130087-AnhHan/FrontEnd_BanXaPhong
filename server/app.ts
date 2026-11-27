@@ -21,12 +21,16 @@ export async function readBody(request: IncomingMessage): Promise<Record<string,
   return data as Record<string, unknown>
 }
 
-export function createPaymentServer() {
+export function createPaymentServer(ipnOnly = false) {
   return createServer(async (request, response) => {
     const url = new URL(request.url || '/', 'http://localhost')
     try {
       if (url.pathname === '/api/payments/vnpay/ipn' && request.method === 'GET') {
         json(response, await paymentTask(() => handleIpn(url.search)))
+        return
+      }
+      if (ipnOnly) {
+        json(response, { message: 'Chỉ hỗ trợ IPN VNPay.' }, 404)
         return
       }
       const origin = request.headers.origin

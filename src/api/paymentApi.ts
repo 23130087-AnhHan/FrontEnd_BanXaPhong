@@ -44,6 +44,6 @@ export const finalizeVnpay = (orderId: string) => paymentRequest<{ incomplete: b
 export function openVnpay(result: PaymentRedirect) {
   if (!result.paymentUrl) throw new Error('Chưa nhận được đường dẫn thanh toán VNPay.')
   const url = new URL(result.paymentUrl)
-  if (url.protocol !== 'https:' || !['sandbox.vnpayment.vn', 'pay.vnpaytest.vn'].includes(url.hostname)) throw new Error('Đường dẫn VNPay Sandbox không hợp lệ.')
+  if (url.protocol !== 'https:' || !['sandbox.vnpayment.vn', 'sandbox.vnpaytest.vn', 'pay.vnpaytest.vn'].includes(url.hostname)) throw new Error('Đường dẫn VNPay Sandbox không hợp lệ.')
   window.location.assign(url.href)
 }

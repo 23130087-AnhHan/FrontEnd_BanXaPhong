@@ -26,7 +26,7 @@ export function verifyCallback(query: string) {
   if (!/^[a-f\d]{128}$/i.test(signature) || !timingSafeEqual(Buffer.from(signature, 'hex'), expected) || params.vnp_TmnCode !== config.tmnCode) {
     throw new Error('Chữ ký kết quả VNPay không hợp lệ.')
   }
-  if (!params.vnp_TxnRef || !/^\d{1,12}$/.test(params.vnp_Amount || '') || !/^\d{2}$/.test(params.vnp_ResponseCode || '') || !/^\d{2}$/.test(params.vnp_TransactionStatus || '')) {
+  if (!params.vnp_TxnRef || (params.vnp_CurrCode && params.vnp_CurrCode !== 'VND') || !/^\d{1,12}$/.test(params.vnp_Amount || '') || !/^\d{2}$/.test(params.vnp_ResponseCode || '') || !/^\d{2}$/.test(params.vnp_TransactionStatus || '')) {
     throw new Error('Kết quả VNPay thiếu thông tin giao dịch.')
   }
   return params
