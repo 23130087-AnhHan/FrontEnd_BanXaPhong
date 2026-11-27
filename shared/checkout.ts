@@ -47,6 +47,10 @@ export interface OrderRecord {
   discount: number
   totalAmount: number
   note: string | null
+  cancelReason?: string | null
+  cancelNote?: string | null
+  cancelledAt?: string | null
+  updatedAt?: string
   createdAt: string
   estimatedDeliveryAt: string | null
   checkoutId?: string
