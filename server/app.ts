@@ -1,7 +1,7 @@
 import { createServer } from 'node:http'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { config } from './config.ts'
-import { createPayment, startPayment, paymentStatus, checkoutStatus, verifyReturn, finalizePayment, paymentTask } from './paymentService.ts'
+import { createPayment, startPayment, paymentStatus, checkoutStatus, verifyReturn, finalizePayment, handleIpn, paymentTask } from './paymentService.ts'
 import type { CheckoutInput } from '../shared/checkout.ts'
 
 export function json(response: ServerResponse, data: unknown, status = 200) {
@@ -26,7 +26,7 @@ export function createPaymentServer() {
     const url = new URL(request.url || '/', 'http://localhost')
     try {
       if (url.pathname === '/api/payments/vnpay/ipn' && request.method === 'GET') {
-        json(response, { RspCode: '97', Message: 'Invalid signature' })
+        json(response, await paymentTask(() => handleIpn(url.search)))
         return
       }
       const origin = request.headers.origin

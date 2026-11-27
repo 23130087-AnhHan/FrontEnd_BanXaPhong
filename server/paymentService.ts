@@ -120,6 +120,40 @@ export async function finalizePayment(orderId: string, userId: string) {
   return result
 }
 
+export async function handleIpn(query: string) {
+  let params: Record<string, string>
+  try { params = verifyCallback(query) }
+  catch { return { RspCode: '97', Message: 'Invalid signature or parameters' } }
+  try {
+    const orders = await dbRequest<OrderRecord[]>('/orders' + filterBy('paymentMethod', 'vnpay'))
+    const matches = orders.filter((order) => order.checkoutStatus === 'complete' && order.vnpayAttempts?.some((attempt) => attempt.txnRef === params.vnp_TxnRef))
+    if (matches.length !== 1) return { RspCode: '01', Message: 'Order not found' }
+    const order = matches[0]
+    try { matchAttempt(order, params) }
+    catch { return { RspCode: '04', Message: 'Invalid amount' } }
+    if (order.paymentStatus === 'paid') {
+      if (order.cartCleanupPending) { try { await finalizePayment(order.id, order.userId) } catch {} }
+      return { RspCode: '02', Message: 'Order already confirmed' }
+    }
+    const paid = params.vnp_ResponseCode === '00' && params.vnp_TransactionStatus === '00'
+    if (paid && (!/^\d{1,20}$/.test(params.vnp_TransactionNo || '') || !/^\d{14}$/.test(params.vnp_PayDate || ''))) return { RspCode: '97', Message: 'Missing transaction information' }
+    const failed = isRetryable(params)
+    const attempts = (order.vnpayAttempts || []).map((attempt): PaymentAttempt => attempt.txnRef === params.vnp_TxnRef ? {
+      ...attempt, status: paid ? 'paid' : failed ? 'failed' : 'pending', responseCode: params.vnp_ResponseCode, transactionNo: params.vnp_TransactionNo,
+    } : attempt)
+    const current = order.vnpayAttempts?.at(-1)?.txnRef === params.vnp_TxnRef
+    await patchOrder(order.id, {
+      vnpayAttempts: attempts,
+      ...(paid ? { paymentStatus: 'paid', paymentTransactionNo: params.vnp_TransactionNo, paymentPaidAt: new Date().toISOString(), cartCleanupPending: true }
+        : current ? { paymentStatus: failed ? 'failed' : 'pending' } : {}),
+    })
+    if (paid) { try { await finalizePayment(order.id, order.userId) } catch {} }
+    return { RspCode: '00', Message: 'Confirm success' }
+  } catch {
+    return { RspCode: '99', Message: 'Unable to save payment result' }
+  }
+}
+
 let pending = Promise.resolve()
 export function paymentTask<T>(run: () => Promise<T>) {
   const result = pending.then(run)
