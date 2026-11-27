@@ -3,7 +3,11 @@ import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import Icon from '../../../components/Icon'
 import './CancelOrderActions.css'
 
-export default function CancelOrderActions() {
+interface CancelOrderActionsProps {
+  isSubmitting?: boolean
+}
+
+export default function CancelOrderActions({ isSubmitting = false }: CancelOrderActionsProps) {
   return (
     <div className="cancel-order-actions">
       <div className="cancel-order-warning">
@@ -17,12 +21,7 @@ export default function CancelOrderActions() {
       </div>
       <div className="cancel-order-buttons">
         <Link to="/tai-khoan/don-hang">Quay lại, giữ đơn hàng</Link>
-        <button
-          type="submit"
-          form="cancel-order-form"
-        >
-          Xác nhận huỷ đơn
-        </button>
+        <button type="submit" form="cancel-order-form" disabled={isSubmitting}>{isSubmitting ? 'Đang huỷ đơn...' : 'Xác nhận huỷ đơn'}</button>
       </div>
     </div>
   )
