@@ -3,6 +3,7 @@ import type { CheckoutInput } from '../../shared/checkout.ts'
 
 export interface PaymentResult {
   orderId: string
+  checkoutId?: string
   paymentStatus: string
   cartCleanupPending: boolean
   gatewayResult?: 'success' | 'cancelled' | 'failed'

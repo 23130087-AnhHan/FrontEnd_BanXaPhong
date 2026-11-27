@@ -15,6 +15,7 @@ export interface AccountOrder extends OrderRecord {
 
 export const orderStatusLabels = { pending: 'Chờ xác nhận', shipping: 'Đang giao', delivered: 'Đã giao', cancelled: 'Đã hủy' }
 export const formatMoney = (amount: number) => amount.toLocaleString('vi-VN') + ' đ'
+export const paymentStatusLabels: Record<string, string> = { unpaid: 'Chưa thanh toán', pending: 'Chờ thanh toán', paid: 'Đã thanh toán', failed: 'Thanh toán chưa thành công' }
 
 async function addOrderProducts(orders: OrderRecord[]): Promise<AccountOrder[]> {
   if (orders.length === 0) return []

@@ -4,6 +4,7 @@ import { faCircleCheck } from '@fortawesome/free-regular-svg-icons/faCircleCheck
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons/faCircleXmark'
 import { Link, useNavigate } from 'react-router-dom'
 import Icon from '../../../components/Icon'
+import { paymentStatusLabels } from '../../../api/orderApi'
 import './OrderCard.css'
 
 export interface Order {
@@ -16,6 +17,7 @@ export interface Order {
   shippingFee?: number
   paymentMethod?: string
   paymentStatus?: string
+  checkoutStatus?: string
   products: {
     id?: string
     image?: string
@@ -51,7 +53,7 @@ export default function OrderCard({ order }: OrderCardProps) {
         </div>
         <span className={'order-status ' + order.status}>
           <Icon icon={status.icon} />
-          {status.label}
+          {order.status === 'pending' && order.paymentMethod === 'vnpay' && order.paymentStatus !== 'paid' ? 'Chờ thanh toán' : status.label}
         </span>
       </div>
 
@@ -75,7 +77,7 @@ export default function OrderCard({ order }: OrderCardProps) {
         <div className="order-total">
           <div>
             <p>{order.quantity} sản phẩm • {order.shippingFee ? 'Phí giao hàng: ' + order.shippingFee.toLocaleString('vi-VN') + ' đ' : 'Miễn phí giao hàng'}</p>
-            {order.paymentMethod && <p>{order.paymentMethod === 'cod' ? 'Thanh toán khi nhận hàng (COD)' : 'VNPay'} · {order.paymentStatus === 'paid' ? 'Đã thanh toán' : 'Chưa thanh toán'}</p>}
+            {order.paymentMethod && <p>{order.paymentMethod === 'cod' ? 'Thanh toán khi nhận hàng (COD)' : 'VNPay'} · {paymentStatusLabels[order.paymentStatus || 'unpaid'] || 'Chưa thanh toán'}</p>}
           </div>
           <div className="order-total-value">
             <span>Tổng tiền:</span>
@@ -86,6 +88,7 @@ export default function OrderCard({ order }: OrderCardProps) {
           <p className="order-update">{order.update}</p>
           <div className="order-actions">
             <Link to={'/tai-khoan/don-hang/chi-tiet/' + encodeURIComponent(order.id)}>Xem chi tiết</Link>
+            {order.status === 'pending' && order.paymentMethod === 'vnpay' && order.paymentStatus !== 'paid' && order.checkoutStatus === 'complete' && <Link to={'/thanh-toan/vnpay/ket-qua?orderId=' + encodeURIComponent(order.id)}>Thanh toán VNPay</Link>}
 
             {order.status === 'pending' && (
               <button

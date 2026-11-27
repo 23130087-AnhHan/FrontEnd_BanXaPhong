@@ -36,7 +36,7 @@ export async function paymentStatus(orderId: string, userId: string) {
   const order = await ownedOrder(orderId, userId)
   const attempt = order.vnpayAttempts?.at(-1)
   return {
-    orderId: order.id, paymentStatus: order.paymentStatus, cartCleanupPending: Boolean(order.cartCleanupPending),
+    orderId: order.id, checkoutId: order.checkoutId, paymentStatus: order.paymentStatus, cartCleanupPending: Boolean(order.cartCleanupPending),
     canRetry: order.status === 'pending' && order.paymentStatus !== 'paid' && attempt?.status === 'failed',
     canResume: order.status === 'pending' && order.paymentStatus !== 'paid' && attempt?.status === 'pending' && Date.parse(attempt.expiresAt) > Date.now(),
   }

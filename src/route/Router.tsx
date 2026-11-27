@@ -16,6 +16,7 @@ import OrderDetailPage from '../pages/OrderDetail/OrderDetailPage'
 import CartPage from '../pages/Cart/CartPage'
 import CheckoutPage from '../pages/Checkout/CheckoutPage'
 import OrderSuccessPage from '../pages/OrderSuccess/OrderSuccessPage'
+import PaymentResultPage from '../pages/PaymentResult/PaymentResultPage'
 import ProFilter from '../pages/ProductFilter/ProFilter'
 import OfferProducts from '../pages/OfferPro/OfferProducts'
 import ProductDetailPage from '../pages/ProductDetail/ProductDetailPage'
@@ -45,6 +46,7 @@ export const router = createBrowserRouter([
       { path: 'gio-hang', element: <CartPage /> },
       { element: <AccountGuard />, children: [
         { path: 'thanh-toan', element: <CheckoutPage /> },
+        { path: 'thanh-toan/vnpay/ket-qua', element: <PaymentResultPage /> },
         { path: 'dat-hang-thanh-cong', element: <OrderSuccessPage /> },
         { path: 'dat-hang-thanh-cong/:orderId', element: <OrderSuccessPage /> },
       ] },
