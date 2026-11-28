@@ -1,6 +1,8 @@
-﻿import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../store/store'
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons/faBagShopping'
@@ -14,7 +16,6 @@ import './Header.css'
 interface HeaderProps {
   activePage?: 'home' | 'products' | 'offers' | 'contact'
   cartCount?: number
-  wishlistCount?: number
 }
 
 const navigation = [
@@ -26,6 +27,8 @@ const navigation = [
 
 export default function Header({ activePage, cartCount = 0 }: HeaderProps) {
   const location = useLocation()
+  const navigate = useNavigate()
+  const wishlistCount = useSelector((state: RootState) => state.wishlist.items.length)
   const currentPage = activePage || navigation.find((item) => item.href === location.pathname)?.id
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [nguoiDung, setNguoiDung] = useState(layNguoiDungHienTai)
@@ -51,6 +54,14 @@ export default function Header({ activePage, cartCount = 0 }: HeaderProps) {
       setIsMenuOpen(false)
       menuButtonRef.current?.focus()
     }
+  }
+
+  function openWishlist() {
+    if (!layNguoiDungHienTai()) {
+      navigate('/login', { state: { from: location.pathname + location.search } })
+      return
+    }
+    navigate('/hobby')
   }
 
   return (
@@ -103,9 +114,10 @@ export default function Header({ activePage, cartCount = 0 }: HeaderProps) {
         </form>
 
         <div className="header-actions">
-          <Link to="/hobby" aria-label="Sản phẩm yêu thích">
+          <button className="header-wishlist" type="button" onClick={openWishlist} aria-label={'Sản phẩm yêu thích, ' + wishlistCount + ' sản phẩm'}>
             <Icon icon={faHeart} />
-          </Link>
+            {wishlistCount > 0 && <span className="header-count" aria-hidden="true">{wishlistCount > 99 ? '99+' : wishlistCount}</span>}
+          </button>
           <Link to="/gio-hang" aria-label={'Giỏ hàng, ' + cartCount + ' sản phẩm'}>
             <Icon icon={faBagShopping} />
             {cartCount > 0 && (

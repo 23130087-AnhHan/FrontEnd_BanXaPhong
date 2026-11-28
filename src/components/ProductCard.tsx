@@ -58,6 +58,14 @@ export default function ProductCard({ product }: { product: Product }) {
         }
     }
 
+    function toggleFavorite() {
+        if (!layNguoiDungHienTai()) {
+            navigate('/login', { state: { from: location.pathname + location.search } })
+            return
+        }
+        dispatch(toggleWishlist(product))
+    }
+
     return (
         <div className="card">
             <div className="card-img">
@@ -74,7 +82,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 {product.oldPrice != null && product.oldPrice > product.price && (
                     <span className="card-discount-badge">-{Math.round((1 - product.price / product.oldPrice) * 100)}%</span>
                 )}
-                <button className="btn-heart" type="button" onClick={() => dispatch(toggleWishlist(product))}>
+                <button className="btn-heart" type="button" aria-label={isHobby ? 'Bỏ khỏi yêu thích' : 'Thêm vào yêu thích'} onClick={toggleFavorite}>
                     <FontAwesomeIcon icon={isHobby ? faHeartSolid : faHeartRegular} />
                 </button>
             </div>

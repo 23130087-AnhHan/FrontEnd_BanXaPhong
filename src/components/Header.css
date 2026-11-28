@@ -115,9 +115,18 @@
 
 .header-search button,
 .header-actions > a,
+.header-actions > button,
 .header-account {
   display: grid;
   place-items: center;
+}
+
+.header-actions > button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
 }
 
 .header-search button {
@@ -171,6 +180,7 @@
 }
 
 .header-actions > a,
+.header-actions > button,
 .header-account {
   position: relative;
   width: 32px;
@@ -178,6 +188,7 @@
 }
 
 .header-actions > a:hover,
+.header-actions > button:hover,
 .header-account:hover {
   opacity: 0.75;
 }
