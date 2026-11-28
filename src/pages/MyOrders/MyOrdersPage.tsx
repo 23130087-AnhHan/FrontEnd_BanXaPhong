@@ -15,6 +15,7 @@ const filters: { status: OrderFilter; label: string }[] = [
   { status: 'confirmed', label: 'Đã xác nhận' },
   { status: 'shipping', label: 'Đang giao' },
   { status: 'delivered', label: 'Đã giao' },
+  { status: 'returned', label: 'Đã trả hàng' },
   { status: 'cancelled', label: 'Đã hủy' },
 ]
 

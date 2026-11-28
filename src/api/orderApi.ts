@@ -13,7 +13,7 @@ export interface AccountOrder extends OrderRecord {
 }
 
 
-export const orderStatusLabels = { pending: 'Chờ xác nhận', confirmed: 'Đã xác nhận', shipping: 'Đang giao', delivered: 'Đã giao', cancelled: 'Đã hủy' }
+export const orderStatusLabels = { pending: 'Chờ xác nhận', confirmed: 'Đã xác nhận', shipping: 'Đang giao', delivered: 'Đã giao', returned: 'Đã trả hàng', cancelled: 'Đã hủy' }
 export const formatMoney = (amount: number) => amount.toLocaleString('vi-VN') + ' đ'
 export const paymentStatusLabels: Record<string, string> = { unpaid: 'Chưa thanh toán', pending: 'Chờ thanh toán', paid: 'Đã thanh toán', failed: 'Thanh toán chưa thành công' }
 
@@ -45,10 +45,12 @@ export async function cancelOrder(id: string, input: CancelOrderInput): Promise<
 
   const orderPath = '/orders/' + encodeURIComponent(id)
   const order = await accountRequest<OrderRecord>(orderPath)
-  if (order.userId !== userId || order.checkoutStatus === 'creating') throw new Error('Không tìm thấy đơn hàng đã hoàn tất của bạn.')
-  if (currentUserId() !== userId) throw new Error('Tài khoản đã thay đổi. Vui lòng tải lại đơn hàng.')
-  if (order.status === 'cancelled') return order
-  if (!canCancelOrder(order.status)) throw new Error('Chỉ có thể huỷ đơn đang chờ xác nhận hoặc đã xác nhận.')
+  if (order.userId !== userId || order.checkoutStatus === 'creating') 
+    throw new Error('Không tìm thấy đơn hàng')
+  if (currentUserId() !== userId) 
+    throw new Error('Tài khoản đã thay đổi')
+  if (order.status === 'cancelled') 
+    return order
 
   const cancelledAt = new Date().toISOString()
   const cancelledOrder = await accountRequest<OrderRecord>(orderPath, {
@@ -100,4 +102,26 @@ export async function getOrder(id: string): Promise<AccountOrder> {
   const [result] = await addOrderProducts([order])
   if (currentUserId() !== userId) throw new Error('Tài khoản đã thay đổi. Vui lòng tải lại đơn hàng.')
   return result
+}
+
+export async function markOrderReturned(id: string): Promise<OrderRecord> {
+  const userId = currentUserId()
+  const orderPath = '/orders/' + encodeURIComponent(id)
+  const order = await accountRequest<OrderRecord>(orderPath)
+  if (order.userId !== userId || order.checkoutStatus === 'creating') {
+    throw new Error('Không tìm thấy đơn hàng đã hoàn tất của bạn.')
+  }
+  if (currentUserId() !== userId) throw new Error('Tài khoản đã thay đổi. Vui lòng thử lại.')
+  if (order.status !== 'delivered' && order.status !== 'returned') {
+    throw new Error('Chỉ có thể gửi yêu cầu trả hàng cho đơn đã giao.')
+  }
+  if (order.status === 'returned') return order
+
+  const updatedOrder = await accountRequest<OrderRecord>(orderPath, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status: 'returned', updatedAt: new Date().toISOString() }),
+  })
+  if (currentUserId() !== userId) throw new Error('Tài khoản đã thay đổi. Vui lòng tải lại đơn hàng.')
+  return updatedOrder
 }

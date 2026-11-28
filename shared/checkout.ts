@@ -35,7 +35,7 @@ export interface PaymentAttempt {
 export interface OrderRecord {
   id: string
   userId: string
-  status: 'pending' | 'confirmed' | 'shipping' | 'delivered' | 'cancelled'
+  status: 'pending' | 'confirmed' | 'shipping' | 'delivered' | 'returned' | 'cancelled'
   shippingAddress: ShippingAddress
   addressId?: string | null
   paymentMethod: string

@@ -71,7 +71,8 @@
 }
 
 .order-status.confirmed,
-.order-status.delivered {
+.order-status.delivered,
+.order-status.returned {
   background: #d3e8d5;
 }
 

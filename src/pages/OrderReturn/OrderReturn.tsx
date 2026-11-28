@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import type { AccountOrder } from '../../api/orderApi'
+import { markOrderReturned } from '../../api/orderApi'
 import ReturnProducts from './components/ReturnProducts'
 import InforOrder from './components/InforOrder'
 import ExpectedMoney from './components/ExpectedMoney'
@@ -10,7 +13,46 @@ import { faArrowRight, faCheck } from '@fortawesome/free-solid-svg-icons'
 import './OrderReturn.css'
 
 export default function OrderReturn() {
-    const [isConfirmed, setIsConfirmed] = useState(true)
+    const [isConfirmed, setIsConfirmed] = useState(false)
+    const [selectedProductIds, setSelectedProductIds] = useState<string[]>([])
+    const [error, setError] = useState('')
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const location = useLocation()
+    const navigate = useNavigate()
+    const order = (location.state as { order?: AccountOrder } | null)?.order
+
+        async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        if (!order || isSubmitting) return
+
+        const formData = new FormData(event.currentTarget)
+        const requiredFields = ['reason', 'description', 'bank', 'accountNumber', 'accountHolder']
+        const hasAllFields = requiredFields.every((field) => String(formData.get(field) ?? '').trim().length > 0)
+        if (selectedProductIds.length === 0) {
+            setError('Vui lòng chọn ít nhất một sản phẩm muốn trả.')
+            return
+        }
+        if (!hasAllFields) {
+            setError('Vui lòng điền đầy đủ thông tin trả hàng và hoàn tiền.')
+            return
+        }
+        if (!isConfirmed) {
+            setError('Vui lòng xác nhận thông tin trước khi gửi yêu cầu.')
+            return
+        }
+
+        setError('')
+        setIsSubmitting(true)
+        try {
+            await markOrderReturned(order.id)
+            navigate('/tai-khoan/don-hang', { replace: true, state: { returnRequestSubmitted: true } })
+        } catch (submitError) {
+            setError(submitError instanceof Error ? submitError.message : 'Không gửi được yêu cầu. Vui lòng thử lại.')
+            setIsSubmitting(false)
+        }
+    }
+
+
 
     return (
         <div className="order-return-page">
@@ -19,9 +61,9 @@ export default function OrderReturn() {
                 <p>Chọn sản phẩm đã nhận và cung cấp thông tin để Saponi hỗ trợ yêu cầu của bạn.</p>
             </div>
 
-            <div className="order-return-layout">
+            <form className="order-return-layout" onSubmit={handleSubmit}>
                 <div className="order-return-main">
-                    <ReturnProducts />
+                    <ReturnProducts key={order.id} order={order} onSelectedProductIdsChange={setSelectedProductIds} />
                     <ReasonReturn />
                     <MethodReturn />
 
@@ -35,19 +77,20 @@ export default function OrderReturn() {
                     </label>
 
                     <div className="btn-group">
-                        <button type="button" className="btn-back"> Quay lại đơn hàng </button>
-                        <button type="button" className="btn-submit">
-                            Gửi yêu cầu <FontAwesomeIcon icon={faArrowRight} />
+                        <Link to="/tai-khoan/don-hang" className="btn-back">Quay lại đơn hàng</Link>
+                        <button type="submit" className="btn-submit" disabled={isSubmitting}>
+                            {isSubmitting ? 'Đang gửi...' : 'Gửi yêu cầu'} {!isSubmitting && <FontAwesomeIcon icon={faArrowRight} />}
                         </button>
                     </div>
+                    {error && <p className="return-request-error" role="alert">{error}</p>}
                 </div>
 
                 <div className="order-return-sidebar">
-                    <InforOrder />
+                    <InforOrder order={order} />
                     <ExpectedMoney />
                     <NoticeReturn />
                 </div>
-            </div>
+            </form>
         </div>
     )
 }

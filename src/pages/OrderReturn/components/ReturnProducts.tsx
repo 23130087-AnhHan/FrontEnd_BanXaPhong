@@ -1,39 +1,30 @@
 import { useState } from 'react'
+import type { AccountOrder } from '../../../api/orderApi'
 import ReturnItem from './ReturnItem'
 import './ReturnProducts.css'
 
-const initialProducts = [
-    {
-        id: 1,
-        name: 'Xà phòng Oải hương hữu cơ',
-        desc: '100g - Đã mua: 2 · 180.000 đ / sản phẩm',
-        price: '180.000 đ',
-        image: 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg',
-        selected: true,
-        quantity: 1,
-    },
-    {
-        id: 2,
-        name: 'Xà phòng Trà xanh nguyên chất',
-        desc: '200g - Đã mua: 1 · 150.000 đ / sản phẩm',
-        price: '150.000 đ',
-        image: 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg',
-        selected: false,
-        quantity: 1,
-    },
-    {
-        id: 3,
-        name: 'Xà phòng Đất sét hoa hồng',
-        desc: '100g - Đã mua: 1 · 195.000 đ / sản phẩm',
-        price: '195.000 đ',
-        image: 'https://img5.thuthuatphanmem.vn/uploads/2021/12/29/anh-trai-sau-rieng_042725668.jpg',
-        selected: true,
-        quantity: 1,
-    },
-]
+type ReturnProduct = AccountOrder['products'][number] & { selected: boolean; returnQuantity: number }
 
-export default function ReturnProducts() {
-    const [items, setItems] = useState(initialProducts)
+export default function ReturnProducts({ order, onSelectedProductIdsChange }: { order: AccountOrder; onSelectedProductIdsChange: (ids: string[]) => void }) {
+    const [items, setItems] = useState<ReturnProduct[]>(() => order.products.map((product) => ({
+        ...product,
+        selected: false,
+        returnQuantity: 1,
+    })))
+    const selectedItems = items.filter((item) => item.selected)
+    const selectedQuantity = selectedItems.reduce((sum, item) => sum + item.returnQuantity, 0)
+
+    function toggleItem(id: string) {
+        const next = items.map((item) => item.id === id ? { ...item, selected: !item.selected } : item)
+        setItems(next)
+        onSelectedProductIdsChange(next.filter((item) => item.selected).map((item) => item.id))
+    }
+
+    function changeQuantity(id: string, delta: number) {
+        setItems((current) => current.map((item) => item.id === id
+            ? { ...item, returnQuantity: Math.max(1, Math.min(item.quantity, item.returnQuantity + delta)) }
+            : item))
+    }
 
     return (
         <div className="return-box">
@@ -42,11 +33,17 @@ export default function ReturnProducts() {
 
             <div className="return-list">
                 {items.map((item) => (
-                    <ReturnItem key={item.id} item={item} />
+                    <ReturnItem
+                        key={item.id}
+                        item={{ ...item, desc: `${item.weight || 'Sản phẩm'} · Đã mua: ${item.quantity} · ${item.price} / sản phẩm`, price: item.price }}
+                        onToggle={() => toggleItem(item.id)}
+                        onQuantityChange={(delta) => changeQuantity(item.id, delta)}
+                    />
                 ))}
+                {items.length === 0 && <p>Đơn hàng này không có sản phẩm để trả.</p>}
             </div>
 
-            <p className="return-total">Đã chọn 2 sản phẩm - Tổng số lượng trả: 2</p>
+            <p className="return-total">Đã chọn {selectedItems.length} sản phẩm - Tổng số lượng trả: {selectedQuantity}</p>
         </div>
     )
 }
