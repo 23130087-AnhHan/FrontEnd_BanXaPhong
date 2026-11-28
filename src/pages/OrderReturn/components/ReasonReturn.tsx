@@ -12,7 +12,7 @@ export default function ReasonReturn() {
             <div className="field">
                 <label htmlFor="reason-select">Lý do yêu cầu *</label>
                 <div className="select-wrap">
-                    <select id="reason-select" defaultValue="damaged">
+                    <select id="reason-select" name="reason" defaultValue="damaged" required>
                         <option value="damaged">Sản phẩm bị hư hỏng khi nhận hàng</option>
                         <option value="wrong">Giao sai sản phẩm</option>
                         <option value="expired">Sản phẩm hết hạn / có dấu hiệu bất thường</option>
@@ -25,7 +25,7 @@ export default function ReasonReturn() {
 
             <div className="field">
                 <label htmlFor="reason-desc">Mô tả chi tiết *</label>
-                <textarea id="reason-desc" />
+                <textarea id="reason-desc" name="description" required maxLength={1000} />
             </div>
 
             <div className="field">

@@ -10,7 +10,7 @@ import './OrderCard.css'
 export interface Order {
   id: string
   date: string
-  status: 'pending' | 'confirmed' | 'shipping' | 'delivered' | 'cancelled'
+  status: 'pending' | 'confirmed' | 'shipping' | 'delivered' | 'returned' | 'cancelled'
   quantity: number
   total: string
   update: string
@@ -34,6 +34,7 @@ const statuses = {
   confirmed: { label: 'Đã xác nhận', icon: faCircleCheck },
   shipping: { label: 'Đang giao', icon: faTruck },
   delivered: { label: 'Đã giao', icon: faCircleCheck },
+  returned: { label: 'Đã trả hàng', icon: faCircleCheck },
   cancelled: { label: 'Đã hủy', icon: faCircleXmark },
 }
 

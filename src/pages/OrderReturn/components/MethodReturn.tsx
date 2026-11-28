@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faChevronDown, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import './MethodReturn.scss'
 
 export default function MethodReturn() {
@@ -18,7 +17,7 @@ export default function MethodReturn() {
                 <div className="field">
                     <label htmlFor="bank-select">Ngân hàng *</label>
                     <div className="select-wrap">
-                        <select id="bank-select" defaultValue="">
+                        <select id="bank-select" name="bank" defaultValue="" required>
                             <option value="" disabled>Chọn ngân hàng</option>
                             <option value="vcb">Vietcombank</option>
                             <option value="tcb">Techcombank</option>
@@ -30,12 +29,12 @@ export default function MethodReturn() {
                 <div className="grid-2">
                     <div className="field">
                         <label htmlFor="acc-number">Số tài khoản *</label>
-                        <input id="acc-number" type="text" placeholder="Nhập số tài khoản" />
+                        <input id="acc-number" name="accountNumber" type="text" placeholder="Nhập số tài khoản" required maxLength={34} />
                     </div>
 
                     <div className="field">
                         <label htmlFor="acc-name">Tên chủ tài khoản *</label>
-                        <input id="acc-name" type="text" placeholder="Họ tên không dấu" />
+                        <input id="acc-name" name="accountHolder" type="text" placeholder="Họ tên không dấu" required maxLength={100} />
                     </div>
                 </div>
 

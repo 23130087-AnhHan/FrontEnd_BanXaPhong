@@ -83,6 +83,8 @@
 }
 
 .order-return-main .btn-group .btn-back {
+  display: inline-flex;
+  align-items: center;
   padding: 10px 22px;
   background-color: #ffffff;
   border: 1px solid #d1d5db;
@@ -91,6 +93,7 @@
   font-weight: 500;
   color: #374151;
   cursor: pointer;
+  text-decoration: none;
 }
 
 
@@ -104,6 +107,12 @@
   font-weight: 500;
   color: #ffffff;
   cursor: pointer;
+}
+
+.return-request-error {
+  margin: 0;
+  color: #b42318;
+  font-size: 14px;
 }
 
 @media (max-width: 992px) {

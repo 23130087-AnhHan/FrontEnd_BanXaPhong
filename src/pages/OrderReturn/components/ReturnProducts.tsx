@@ -5,7 +5,7 @@ import './ReturnProducts.css'
 
 type ReturnProduct = AccountOrder['products'][number] & { selected: boolean; returnQuantity: number }
 
-export default function ReturnProducts({ order }: { order: AccountOrder }) {
+export default function ReturnProducts({ order, onSelectedProductIdsChange }: { order: AccountOrder; onSelectedProductIdsChange: (ids: string[]) => void }) {
     const [items, setItems] = useState<ReturnProduct[]>(() => order.products.map((product) => ({
         ...product,
         selected: false,
@@ -15,7 +15,9 @@ export default function ReturnProducts({ order }: { order: AccountOrder }) {
     const selectedQuantity = selectedItems.reduce((sum, item) => sum + item.returnQuantity, 0)
 
     function toggleItem(id: string) {
-        setItems((current) => current.map((item) => item.id === id ? { ...item, selected: !item.selected } : item))
+        const next = items.map((item) => item.id === id ? { ...item, selected: !item.selected } : item)
+        setItems(next)
+        onSelectedProductIdsChange(next.filter((item) => item.selected).map((item) => item.id))
     }
 
     function changeQuantity(id: string, delta: number) {
