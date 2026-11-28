@@ -1,7 +1,5 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import type { AppDispatch, RootState } from '../../store/store'
-import { loadProducts } from '../../components/ProductSlice'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../store/store'
 import SelectSort from "../ProductFilter/components/Select"
 import ProductList from "../../components/ProductList"
 import { selectSort } from "../OfferPro/OfferProducts"
@@ -9,12 +7,7 @@ import './HobbyProduct.css'
 import HobbyTitle from "./components/HobbyTitle"
 
 export default function HobbyProduct() {
-    const dispatch = useDispatch<AppDispatch>()
-    const products = useSelector((state: RootState) => state.products.items).slice(0,6)
-
-    useEffect(() => {
-        dispatch(loadProducts())
-    }, [dispatch])
+    const products = useSelector((state: RootState) => state.wishlist.items)
 
     return (
         <div className="hobby-container">
@@ -27,10 +20,11 @@ export default function HobbyProduct() {
                     <SelectSort content={selectSort} />
                 </div>
             </div>
-            <ProductList
-                products={products}
-                defaultHobby
-            />
+            {products.length > 0 ? (
+                <ProductList products={products} />
+            ) : (
+                <p className="empty-hobby">Bạn chưa có sản phẩm yêu thích nào.</p>
+            )}
             <div className="bot-hobby">
                 <span className="bot-content">Bạn đã xem {products.length} sản phẩm yêu thích</span>
                 <div>

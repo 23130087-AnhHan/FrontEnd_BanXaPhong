@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+﻿import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
@@ -14,6 +14,7 @@ import './Header.css'
 interface HeaderProps {
   activePage?: 'home' | 'products' | 'offers' | 'contact'
   cartCount?: number
+  wishlistCount?: number
 }
 
 const navigation = [
@@ -102,9 +103,9 @@ export default function Header({ activePage, cartCount = 0 }: HeaderProps) {
         </form>
 
         <div className="header-actions">
-          <a href="/hobby" aria-label="Sản phẩm yêu thích">
+          <Link to="/hobby" aria-label="Sản phẩm yêu thích">
             <Icon icon={faHeart} />
-          </a>
+          </Link>
           <Link to="/gio-hang" aria-label={'Giỏ hàng, ' + cartCount + ' sản phẩm'}>
             <Icon icon={faBagShopping} />
             {cartCount > 0 && (
@@ -130,3 +131,4 @@ export default function Header({ activePage, cartCount = 0 }: HeaderProps) {
     </header>
   )
 }
+

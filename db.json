@@ -49,7 +49,6 @@
   "addresses": [
     {
       "id": "addr-1-1",
-      "userId": "1",
       "receiverName": "User",
       "receiverPhone": "0900000001",
       "province": "TP. Hồ Chí Minh",
@@ -5369,68 +5368,8 @@
       "price": 125000,
       "unit": "bánh 100g",
       "image": "https://www.lemai.com.vn/assets/anh-thu/xa-bong-tia-to-perilla-thu-cong/xa-bong-tia-to-perilla-thu-cong-le-mai-01.webp",
-      "quantity": 2,
-      "id": "BatRtrQcIjU"
-    },
-    {
-      "userId": "u04",
-      "productId": "XP071",
-      "name": "Xà bông handmade Oải hương Mangala",
-      "price": 97200,
-      "unit": "bánh 100g",
-      "image": "https://tinhdaumangala.com/wp-content/uploads/2021/04/xa-bong-handmade-thien-nhien-tinh-dau-oai-huong-100gr-1--371x371.jpg",
       "quantity": 1,
-      "id": "d23tEb0OSas"
-    },
-    {
-      "userId": "u03",
-      "productId": "XP004",
-      "name": "Xà phòng handmade Cà phê",
-      "price": 30000,
-      "unit": "bánh 100g",
-      "image": "https://evagiahan.com/wp-content/uploads/2018/04/Xa-phong-ca-phe-xa-phong-hangmade-xa-phong-cafe-rich-coco-soap-natural-soap-xa-phong-dau-dua-xa-phong-thien-nhien-xa-bong-tam-duong-da-1-600x450.jpg",
-      "quantity": 2,
-      "id": "E_R7lbd86_U"
-    },
-    {
-      "userId": "u03",
-      "productId": "XP022",
-      "name": "Xà bông từ dầu thực vật và tinh dầu Hiltown 60g",
-      "price": 90000,
-      "unit": "bánh 100g",
-      "image": "https://images.unsplash.com/photo-1607006314644-8cbdf6a94f6c?auto=format&fit=crop&w=600&q=80",
-      "quantity": 2,
-      "id": "sqiMjQDKJG0"
-    },
-    {
-      "userId": "u03",
-      "productId": "XP055",
-      "name": "Xà bông thủ công Tía Tô",
-      "price": 125000,
-      "unit": "bánh 100g",
-      "image": "https://www.lemai.com.vn/assets/anh-thu/xa-bong-tia-to-perilla-thu-cong/xa-bong-tia-to-perilla-thu-cong-le-mai-01.webp",
-      "quantity": 1,
-      "id": "Eyy5X-DnQZo"
-    },
-    {
-      "userId": "u03",
-      "productId": "XP007",
-      "name": "Xà bông thủ công Sô-Cô-La Đen",
-      "price": 125000,
-      "unit": "bánh 100g",
-      "image": "https://www.lemai.com.vn/assets/anh-thu/xa-bong-so-co-la-dark-chocolate-thu-cong/xa-bong-so-co-la-dark-chocolate-thu-cong-le-mai-01.webp",
-      "quantity": 1,
-      "id": "wWi5skSEbW0"
-    },
-    {
-      "userId": "u03",
-      "productId": "XP009",
-      "name": "Xà phòng handmade Cà phê",
-      "price": 60000,
-      "unit": "bánh 100g",
-      "image": "https://handmade.sgf.org.vn/assets/shops/xa-phong/xa-bong-ca-phe-3.jpg",
-      "quantity": 1,
-      "id": "fHWfo817jH8"
+      "id": "0dbbwBJCKVQ"
     }
   ],
   "wishlists": [
