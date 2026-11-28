@@ -2,10 +2,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import './ReturnItem.css'
 
-export default function ReturnItem({ item }: any) {
+interface ReturnItemData {
+    id: string
+    name: string
+    image: string
+    desc: string
+    price: string
+    selected: boolean
+    quantity: number
+    returnQuantity: number
+}
+
+export default function ReturnItem({ item, onToggle, onQuantityChange }: { item: ReturnItemData; onToggle: () => void; onQuantityChange: (delta: number) => void }) {
     return (
         <div className={`return-card ${item.selected ? 'active' : ''}`}>
-            <div className="return-card-top">
+            <div className="return-card-top" role="checkbox" aria-checked={item.selected} tabIndex={0} onClick={onToggle} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onToggle() } }}>
                 <div className={`return-checkbox ${item.selected ? 'checked' : ''}`}>
                     {item.selected && <FontAwesomeIcon icon={faCheck} />}
                 </div>
@@ -23,11 +34,11 @@ export default function ReturnItem({ item }: any) {
                     <div className="return-qty">
                         <span>Số lượng trả</span>
                         <div className="qty-control">
-                            <button type="button" >
+                            <button type="button" aria-label="Giảm số lượng trả" disabled={item.returnQuantity <= 1} onClick={(event) => { event.stopPropagation(); onQuantityChange(-1) }}>
                                 <FontAwesomeIcon icon={faMinus} />
                             </button>
-                            <span>{item.quantity}</span>
-                            <button type="button" >
+                            <span>{item.returnQuantity}</span>
+                            <button type="button" aria-label="Tăng số lượng trả" disabled={item.returnQuantity >= item.quantity} onClick={(event) => { event.stopPropagation(); onQuantityChange(1) }}>
                                 <FontAwesomeIcon icon={faPlus} />
                             </button>
                         </div>

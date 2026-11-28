@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import type { AccountOrder } from '../../api/orderApi'
 import ReturnProducts from './components/ReturnProducts'
 import InforOrder from './components/InforOrder'
 import ExpectedMoney from './components/ExpectedMoney'
@@ -11,6 +13,9 @@ import './OrderReturn.css'
 
 export default function OrderReturn() {
     const [isConfirmed, setIsConfirmed] = useState(true)
+    const location = useLocation()
+    const order = (location.state as { order?: AccountOrder } | null)?.order
+
 
     return (
         <div className="order-return-page">
@@ -21,7 +26,7 @@ export default function OrderReturn() {
 
             <div className="order-return-layout">
                 <div className="order-return-main">
-                    <ReturnProducts />
+                    <ReturnProducts key={order.id} order={order} />
                     <ReasonReturn />
                     <MethodReturn />
 
@@ -35,7 +40,7 @@ export default function OrderReturn() {
                     </label>
 
                     <div className="btn-group">
-                        <button type="button" className="btn-back"> Quay lại đơn hàng </button>
+                        <Link to="/tai-khoan/don-hang" className="btn-back">Quay lại đơn hàng</Link>
                         <button type="button" className="btn-submit">
                             Gửi yêu cầu <FontAwesomeIcon icon={faArrowRight} />
                         </button>
@@ -43,7 +48,7 @@ export default function OrderReturn() {
                 </div>
 
                 <div className="order-return-sidebar">
-                    <InforOrder />
+                    <InforOrder order={order} />
                     <ExpectedMoney />
                     <NoticeReturn />
                 </div>
