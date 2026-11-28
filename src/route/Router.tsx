@@ -41,10 +41,10 @@ export const router = createBrowserRouter([
       { path: 'products', element: <ProFilter /> },
       { path: 'products/:productId', element: <ProductDetailPage /> },
       { path: 'offer', element: <OfferProducts /> },
-      { path: 'hobby', element: <HobbyProduct /> },
       { path: 'contact', element: <ContactPage /> },
       { path: 'gio-hang', element: <CartPage /> },
       { element: <AccountGuard />, children: [
+        { path: 'hobby', element: <HobbyProduct /> },
         { path: 'thanh-toan', element: <CheckoutPage /> },
         { path: 'thanh-toan/vnpay/ket-qua', element: <PaymentResultPage /> },
         { path: 'dat-hang-thanh-cong', element: <OrderSuccessPage /> },

@@ -14,7 +14,8 @@ export interface Product {
 
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from '../store/store'
-import { addToCart } from '../store/cartSlice'
+import { addToCart, clearFeedback } from '../store/cartSlice'
+import { toggleWishlist } from '../store/wishlistSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faBagShopping } from '@fortawesome/free-solid-svg-icons'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -22,18 +23,18 @@ import { layNguoiDungHienTai } from '../api/authApi'
 import './ProductCard.css'
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons'
-import { useState } from 'react'
 
 
 
-export default function ProductCard({ product, defaultHobby = false }: { product: Product; defaultHobby?: boolean }) {
+export default function ProductCard({ product }: { product: Product }) {
     const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
     const location = useLocation()
     const user = layNguoiDungHienTai()
     const { items, status, saving } = useSelector((state: RootState) => state.cart)
     const quantity = items.find((item) => String(item.productId) === String(product.id))?.quantity ?? 0
-    const [isHobby, setIsHobby] = useState(defaultHobby);
+    const wishlistItems = useSelector((state: RootState) => state.wishlist.items)
+    const isHobby = wishlistItems.some((p) => String(p.id) === String(product.id))
 
     function addProduct() {
         if (!layNguoiDungHienTai()) {
@@ -41,6 +42,28 @@ export default function ProductCard({ product, defaultHobby = false }: { product
             return
         }
         dispatch(addToCart(product))
+    }
+
+    async function buyNow() {
+        const currentUser = layNguoiDungHienTai()
+        if (!currentUser) {
+            navigate('/login', { state: { from: location.pathname + location.search } })
+            return
+        }
+
+        const result = await dispatch(addToCart(product))
+        if (addToCart.fulfilled.match(result)) {
+            dispatch(clearFeedback())
+            navigate('/thanh-toan', { state: { userId: currentUser.id, cartItemIds: [result.payload.id] } })
+        }
+    }
+
+    function toggleFavorite() {
+        if (!layNguoiDungHienTai()) {
+            navigate('/login', { state: { from: location.pathname + location.search } })
+            return
+        }
+        dispatch(toggleWishlist(product))
     }
 
     return (
@@ -59,8 +82,8 @@ export default function ProductCard({ product, defaultHobby = false }: { product
                 {product.oldPrice != null && product.oldPrice > product.price && (
                     <span className="card-discount-badge">-{Math.round((1 - product.price / product.oldPrice) * 100)}%</span>
                 )}
-                <button className="btn-heart" type="button" onClick={() => setIsHobby(!isHobby)}>
-                    <FontAwesomeIcon icon={isHobby ? faHeartSolid: faHeartRegular} />
+                <button className="btn-heart" type="button" aria-label={isHobby ? 'Bỏ khỏi yêu thích' : 'Thêm vào yêu thích'} onClick={toggleFavorite}>
+                    <FontAwesomeIcon icon={isHobby ? faHeartSolid : faHeartRegular} />
                 </button>
             </div>
             <div className="card-info">
@@ -92,7 +115,7 @@ export default function ProductCard({ product, defaultHobby = false }: { product
                         <FontAwesomeIcon icon={faBagShopping} />
                         {product.inStock === false ? 'Hết hàng' : 'Thêm giỏ'}
                     </button>
-                    <button className="btn-buy" type="button">
+                    <button className="btn-buy" type="button" onClick={buyNow}>
                         Mua ngay
                     </button>
                 </div>
