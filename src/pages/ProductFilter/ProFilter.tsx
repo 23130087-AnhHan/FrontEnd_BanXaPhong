@@ -66,6 +66,10 @@ export default function ProFilter() {
     const [categories, setCategories] = useState<FilterItem[]>(defaultCategories)
     const [selectedCategoryIds, setSelectedCategoryIds] = useState<(string | number)[]>([])
     const [selectedBrandIds, setSelectedBrandIds] = useState<(string | number)[]>([])
+    const [selectedPriceIds, setSelectedPriceIds] = useState<(string | number)[]>([])
+    const [selectedRatingIds, setSelectedRatingIds] = useState<(string | number)[]>([])
+    const [minPrice, setMinPrice] = useState('')
+    const [maxPrice, setMaxPrice] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
 
     const handleToggleCategory = (id: string | number) => {
@@ -82,9 +86,27 @@ export default function ProFilter() {
         setCurrentPage(1)
     }
 
+    const handleTogglePrice = (id: string | number) => {
+        setSelectedPriceIds((prev) =>
+            prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+        )
+        setCurrentPage(1)
+    }
+
+    const handleToggleRating = (id: string | number) => {
+        setSelectedRatingIds((prev) =>
+            prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+        )
+        setCurrentPage(1)
+    }
+
     const handleReset = () => {
         setSelectedCategoryIds([])
         setSelectedBrandIds([])
+        setSelectedPriceIds([])
+        setSelectedRatingIds([])
+        setMinPrice('')
+        setMaxPrice('')
         setCurrentPage(1)
     }
     const filteredProducts = products.filter((product) => {
@@ -92,7 +114,25 @@ export default function ProFilter() {
             || (product.category != null && selectedCategoryIds.some((id) => String(id) === String(product.category)))
         const matchesBrand = selectedBrandIds.length === 0
             || (product.brandId != null && selectedBrandIds.some((id) => String(id) === String(product.brandId)))
-        return matchesCategory && matchesBrand
+        const matchesPricePreset = selectedPriceIds.length === 0 || selectedPriceIds.some((id) => {
+            if (id === 10) return product.price < 150_000
+            if (id === 11) return product.price >= 150_000 && product.price <= 180_000
+            if (id === 12) return product.price > 180_000 && product.price <= 200_000
+            if (id === 13) return product.price > 200_000
+            return false
+        })
+        const matchesMinPrice = minPrice === '' || product.price >= Number(minPrice)
+        const matchesMaxPrice = maxPrice === '' || product.price <= Number(maxPrice)
+        const matchesRating = selectedRatingIds.length === 0 || selectedRatingIds.some((id) => {
+            const rating = product.rating ?? 0
+            if (id === 14) return rating === 5
+            if (id === 15) return rating >= 4
+            if (id === 16) return rating >= 3
+            if (id === 17) return rating >= 2
+            if (id === 18) return rating >= 1
+            return false
+        })
+        return matchesCategory && matchesBrand && matchesPricePreset && matchesMinPrice && matchesMaxPrice && matchesRating
     })
 
     const totalPages = Math.max(1, Math.ceil(filteredProducts.length / ITEMS_PER_PAGE))
@@ -162,16 +202,16 @@ export default function ProFilter() {
                 <div className="filter-section">
                     <Title title={title3} />
                     <div className="price-inputs">
-                        <input type="number" placeholder="120000" defaultValue="120000" />
+                        <input type="number" min="0" placeholder="Giá thấp nhất" value={minPrice} onChange={(event) => { setMinPrice(event.target.value); setCurrentPage(1) }} />
                         <span>-</span>
-                        <input type="number" placeholder="250000" defaultValue="250000" />
+                        <input type="number" min="0" placeholder="Giá cao nhất" value={maxPrice} onChange={(event) => { setMaxPrice(event.target.value); setCurrentPage(1) }} />
                     </div>
-                    <CheckboxFilter items={priceItems} />
+                    <CheckboxFilter items={priceItems} selectedIds={selectedPriceIds} onToggle={handleTogglePrice} />
                 </div>
 
                 <div className="filter-section">
                     <Title title={title4} />
-                    <CheckboxFilter items={ratingItems} />
+                    <CheckboxFilter items={ratingItems} selectedIds={selectedRatingIds} onToggle={handleToggleRating} />
                 </div>
 
                 <div className="filter-actions">
