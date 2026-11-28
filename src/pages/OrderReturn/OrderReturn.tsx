@@ -21,7 +21,7 @@ export default function OrderReturn() {
     const navigate = useNavigate()
     const order = (location.state as { order?: AccountOrder } | null)?.order
 
-    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         if (!order || isSubmitting) return
 
@@ -51,6 +51,7 @@ export default function OrderReturn() {
             setIsSubmitting(false)
         }
     }
+
 
 
     return (
