@@ -14,6 +14,9 @@ const wishlistSlice = createSlice({
   name: 'wishlist',
   initialState,
   reducers: {
+    replaceWishlist(state, action: PayloadAction<Product[]>) {
+      state.items = action.payload
+    },
     toggleWishlist(state, action: PayloadAction<Product>) {
       const index = state.items.findIndex((p) => String(p.id) === String(action.payload.id))
       if (index >= 0) {
@@ -25,6 +28,6 @@ const wishlistSlice = createSlice({
   },
 })
 
-export const { toggleWishlist } = wishlistSlice.actions
+export const { replaceWishlist, toggleWishlist } = wishlistSlice.actions
 export default wishlistSlice.reducer
 
