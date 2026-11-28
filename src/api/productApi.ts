@@ -133,6 +133,7 @@ export async function fetchProductsWithImages(): Promise<Product[]> {
     image: imageMap.get(p.id) || defaultImg,
     inStock: true,
     category: p.categoryId,
+    brandId: p.brandId,
   }))
 }
 

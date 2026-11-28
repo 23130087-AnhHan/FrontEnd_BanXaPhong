@@ -65,6 +65,7 @@ export default function ProFilter() {
     const [brandItems, setBrandItems] = useState<FilterItem[]>(defaultBrandItems) 
     const [categories, setCategories] = useState<FilterItem[]>(defaultCategories)
     const [selectedCategoryIds, setSelectedCategoryIds] = useState<(string | number)[]>([])
+    const [selectedBrandIds, setSelectedBrandIds] = useState<(string | number)[]>([])
     const [currentPage, setCurrentPage] = useState(1)
 
     const handleToggleCategory = (id: string | number) => {
@@ -74,13 +75,25 @@ export default function ProFilter() {
         setCurrentPage(1)
     }
 
-    const handleReset = () => {
-        setSelectedCategoryIds([])
+    const handleToggleBrand = (id: string | number) => {
+        setSelectedBrandIds((prev) =>
+            prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+        )
         setCurrentPage(1)
     }
-    const filteredProducts = selectedCategoryIds.length === 0
-        ? products
-        : products.filter((p) => p.category && selectedCategoryIds.includes(p.category))
+
+    const handleReset = () => {
+        setSelectedCategoryIds([])
+        setSelectedBrandIds([])
+        setCurrentPage(1)
+    }
+    const filteredProducts = products.filter((product) => {
+        const matchesCategory = selectedCategoryIds.length === 0
+            || (product.category != null && selectedCategoryIds.some((id) => String(id) === String(product.category)))
+        const matchesBrand = selectedBrandIds.length === 0
+            || (product.brandId != null && selectedBrandIds.some((id) => String(id) === String(product.brandId)))
+        return matchesCategory && matchesBrand
+    })
 
     const totalPages = Math.max(1, Math.ceil(filteredProducts.length / ITEMS_PER_PAGE))
     const safePage = Math.min(currentPage, totalPages)
@@ -97,7 +110,7 @@ export default function ProFilter() {
             .then((data) => {
                 if (Array.isArray(data)) {
                     setBrandItems(
-                        data.slice(0, 4).map((b: { id: string; name: string }) => ({
+                        data.map((b: { id: string; name: string }) => ({
                             id: b.id,
                             content: b.name,
                         }))
@@ -139,7 +152,11 @@ export default function ProFilter() {
 
                 <div className="filter-section">
                     <Title title={title2} />
-                    <CheckboxFilter items={brandItems} />
+                    <CheckboxFilter
+                        items={brandItems}
+                        selectedIds={selectedBrandIds}
+                        onToggle={handleToggleBrand}
+                    />
                 </div>
 
                 <div className="filter-section">
@@ -159,7 +176,7 @@ export default function ProFilter() {
 
                 <div className="filter-actions">
                     <button type="button" className="btn-filter-reset" onClick={handleReset}>Đặt lại</button>
-                    <button type="button" className="btn-filter-apply">Áp dụng</button>
+                    {/* <button type="button" className="btn-filter-apply">Áp dụng</button> */}
                 </div>
             </div>
 
